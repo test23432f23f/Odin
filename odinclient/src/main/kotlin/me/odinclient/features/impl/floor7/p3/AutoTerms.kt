@@ -19,7 +19,7 @@ object AutoTerms : Module(
     category = Category.FLOOR7,
     tag = TagType.RISKY
 ) {
-    private val autoDelay: Long by NumberSetting("Delay", 170L, 100, 300, unit = "ms", description = "Delay between clicks.")
+    private val autoDelay: Long by NumberSetting("Delay", 170L, 90, 300, unit = "ms", description = "Delay between clicks.")
     private val firstClickDelay: Long by NumberSetting("First Click Delay", 350L, 300, 500, unit = "ms", description = "Delay before first click.")
     private val middleClick: Boolean by DualSetting("Click Type", "Left", "Middle", default = true, description = "What Click type to use.")
     private val breakThreshold: Long by NumberSetting("Break Threshold", 500L, 350L, 1000L, 10L, unit = "ms", description = "Time before breaking the click.")
