@@ -41,16 +41,16 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event)
     {
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.crrentRoomName()) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName) == null)
         {
             return;
         }
 
         RoutesManager.Route lastRoute;
-        for(int id : RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()).keySet())
+        for(int id : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName).keySet())
         {
             lastRoute = null;
-            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName()).get(id))
+            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName).get(id))
             {
                 if(lastRoute != null)
                     RenderUtils.drawLine(
@@ -89,7 +89,7 @@ public class AutoRouteUtils
         {
             return;
         }
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName()) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName) == null)
         {
             return;
         }
