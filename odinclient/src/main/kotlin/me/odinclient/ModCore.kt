@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import me.odinclient.commands.impl.RouteCommand
 import me.odinclient.utils.skyblock.AutoRouteUtils
+import net.minecraftforge.common.MinecraftForge
 
 @Suppress("UNUSED_PARAMETER")
 @Mod(
@@ -61,8 +62,9 @@ class ModCore {
             HoverTerms, LightsDevice, SimonSays, ArrowsDevice, FuckDiorite, RelicAura,
             Trajectories, Ghosts, NoDebuff, ChocolateFactory, AutoExperiments, AutoHarp,
             FarmingHitboxes, NoBlock, AutoClicker, Triggerbot, GhostBlocks, FreezeGame, EtherWarpHelper, ChestEsp,
-            EscrowFix, TerminalAura, AutoTerms, Camera, DungeonAbilities, QueueTerms, HidePlayers, AutoRouteUtils
+            EscrowFix, TerminalAura, AutoTerms, Camera, DungeonAbilities, QueueTerms, HidePlayers
         )
+        MinecraftForge.EVENT_BUS.register(AutoRouteUtils)
         OdinMain.loadComplete()
     }
 
