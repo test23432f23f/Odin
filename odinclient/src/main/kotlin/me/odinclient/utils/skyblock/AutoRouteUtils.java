@@ -7,8 +7,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import me.odinmain.events.impl.PacketReceivedEvent;
-import me.odinmain.events.impl.PacketSentEvent;
+import me.odinevents.impl.PacketReceivedEvent;
+import me.odinevents.impl.PacketSentEvent;
 import me.odinclient.utils.skyblock.RoutesManager;
 import me.odinclient.utils.skyblock.Timer;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ import java.awt.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import me.odinmain.utils.skyblock.dungeon.DungeonUtils;
+import me.odinutils.skyblock.dungeon.DungeonUtils;
 
 public class AutoRouteUtils
 {
@@ -35,16 +35,16 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event)
     {
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName()) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName) == null)
         {
             return;
         }
 
         RoutesManager.Route lastRoute;
-        for(int id : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName()).keySet())
+        for(int id : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName).keySet())
         {
             lastRoute = null;
-            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName()).get(id))
+            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName).get(id))
             {
                 if(lastRoute != null)
                     RenderUtils.drawLine(
@@ -83,7 +83,7 @@ public class AutoRouteUtils
         {
             return;
         }
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName()) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName) == null)
         {
             return;
         }
@@ -99,14 +99,14 @@ public class AutoRouteUtils
 
                     RoutesManager.Route route = routes.get(i);
 
-                    if(new Vec3(Main.mc.thePlayer.posX, Main.mc.thePlayer.posY, Main.mc.thePlayer.posZ).distanceTo(route.pos)
+                    if(new Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ).distanceTo(route.pos)
                             <= tolerance && i < routes.size() && i + 1 < routes.size() && (getSkyBlockID(mc.thePlayer.getHeldItem())
                             .equals("ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.getHeldItem()).toLowerCase().contains("aspect of the void")) && mc.thePlayer.isSneaking())
                     {
                         RoutesManager.Route nextRoute = routes.get(i + 1);
 
-                        float yaw = BlockUtils.getAngles(nextRoute.pos)[0];
-                        float pitch = BlockUtils.getAngles(nextRoute.pos.add(new Vec3(0, -1.6, 0)))[1];
+                        float yaw;
+                        float pitch;
 
                         yaw = route.yaw;
                         pitch = route.pitch;
@@ -120,7 +120,7 @@ public class AutoRouteUtils
 
                         if(etherTimer.hasPassed(etherDelay))
                         {
-                            NetworkUtils.sendPacket(new C08PacketPlayerBlockPlacement(Main.mc.thePlayer.getHeldItem()));
+                            mc.thePlayer.sendQueue.sendPacket(new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
                             etherTimer.reset();
                         }
                     }
