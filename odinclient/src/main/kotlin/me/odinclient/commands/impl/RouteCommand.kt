@@ -10,7 +10,7 @@ import net.minecraft.util.MathHelper
 import net.minecraft.util.Vec3
 
 val RouteCommand = commodore("route") {
-    literal("add").runs { subId: Int, type: RoutesManager.Route.RouteType ->
+    literal("add").runs { subId: Int, type: String ->
                 val route = RoutesManager.Route(
                     RoutesManager.Route.RouteType.valueOf(type),
                     AutoRouteUtils.currentRoom,
