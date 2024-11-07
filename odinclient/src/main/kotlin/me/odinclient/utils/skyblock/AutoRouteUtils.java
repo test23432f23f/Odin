@@ -7,8 +7,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import me.odin.events.impl.PacketReceivedEvent;
-import me.odin.events.impl.PacketSentEvent;
+import me.odinmain.events.impl.PacketReceivedEvent;
+import me.odinmain.events.impl.PacketSentEvent;
 import me.odinclient.utils.skyblock.RoutesManager;
 import me.odinclient.utils.skyblock.Timer;
 import net.minecraft.item.ItemStack;
@@ -22,7 +22,7 @@ import java.awt.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import me.odin.utils.skyblock.dungeon.DungeonUtils;
+import me.odinmain.utils.skyblock.dungeon.DungeonUtils;
 
 public class AutoRouteUtils extends Module
 {
