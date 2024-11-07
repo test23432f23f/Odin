@@ -34,7 +34,7 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onRoom(RoomEnterEvent event)
     {
-        String name = event.getRoom().getData() != null ? event.getRoom().getData().getName() : "";
+        String name = event.getRoom().getData() != null ? event.getRoom().getData().getName() : "Unknown";
         currentRoom = name;
     }
     
