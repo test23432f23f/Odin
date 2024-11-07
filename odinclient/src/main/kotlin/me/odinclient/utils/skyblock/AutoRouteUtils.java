@@ -31,8 +31,10 @@ public class AutoRouteUtils
     public void onRender(RenderWorldLastEvent event)
     {
         if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getRoomId()) == null)
+        {
             return;
-
+        }
+        
         if(currentRoom != DungeonUtils.getRoomId())
             ChatLib.sendf("Loaded routes for roomId %s", DungeonUtils.getRoomId());
 
@@ -60,7 +62,9 @@ public class AutoRouteUtils
     public void onPacket(PacketSentEvent event)
     {
         if (!(event.packet instanceof C03PacketPlayer) || !cancelling)
+        {
             return;
+        }
         if (!event.isCanceled())
         {
             ChatLib.sendf("Cancelled C03");
@@ -74,13 +78,16 @@ public class AutoRouteUtils
     Timer etherTimer = new Timer();
 
     @SubscribeEvent
-    public void onUpdate(UpdateEvent event)
+    public void onUpdate(TickEvent.Client event)
     {
-        if(
-        
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getRoomId()) == null)
+        if(mc.thePlayer == null)
+        {
             return;
-
+        }
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getRoomId()) == null)
+        {
+            return;
+        }
         for(int roomId : RoutesManager.instance.loadedRoutes.keySet())
         {
             for(int id : RoutesManager.instance.loadedRoutes.get(roomId).keySet())
@@ -94,8 +101,8 @@ public class AutoRouteUtils
                     RoutesManager.Route route = routes.get(i);
 
                     if(new Vec3(Main.mc.thePlayer.posX, Main.mc.thePlayer.posY, Main.mc.thePlayer.posZ).distanceTo(route.pos)
-                            <= tolerance && i < routes.size() && i + 1 < routes.size() && (ItemUtils.getSkyBlockID(mc.thePlayer.getHeldItem())
-                            .equals("ASPECT_OF_THE_VOID") || ItemUtils.getDisplayName(mc.thePlayer.getHeldItem()).toLowerCase().contains("aspect of the void")) && mc.thePlayer.isSneaking())
+                            <= tolerance && i < routes.size() && i + 1 < routes.size() && (getSkyBlockID(mc.thePlayer.getHeldItem())
+                            .equals("ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.getHeldItem()).toLowerCase().contains("aspect of the void")) && mc.thePlayer.isSneaking())
                     {
                         RoutesManager.Route nextRoute = routes.get(i + 1);
 
@@ -108,14 +115,13 @@ public class AutoRouteUtils
                         if(rotationTimer.hasPassed(rotationDelay))
                         {
                             cancelRotate(yaw, pitch);
-                            ChatLib.sendf("%.2f, %.2f", yaw, pitch);
+                        
                             rotationTimer.reset();
                         }
 
                         if(etherTimer.hasPassed(etherDelay))
                         {
                             NetworkUtils.sendPacket(new C08PacketPlayerBlockPlacement(Main.mc.thePlayer.getHeldItem()));
-                            ChatLib.sendf("Etherwarp");
                             etherTimer.reset();
                         }
                     }
@@ -129,8 +135,10 @@ public class AutoRouteUtils
     public void cancelRotate(float yaw, float pitch)
     {
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-        if (player == null) 
+        if (player == null)
+        {
             return;
+        }
         double x = mc.thePlayer.posX - player.lastReportedPosX;
         double y = mc.thePlayer.posY - player.lastReportedPosY;
         double z = mc.thePlayer.posZ - player.lastReportedPosZ;
@@ -157,8 +165,26 @@ public class AutoRouteUtils
         }
         cancelling = true;
     }
+    
     public List<RoutesManager.Route> getSortedRoutes(int roomId, int routeId)
     {
         return RoutesManager.instance.loadedRoutes.get(roomId).get(routeId).stream().sorted(Comparator.comparingInt(r -> r.id)).collect(Collectors.toList());
+    }
+
+      public static String getDisplayName(ItemStack stack)
+    {
+        return stack != null ? stack.hasDisplayName() ? stack.getDisplayName() : "" : "";
+    }
+
+    public static String getSkyBlockID(ItemStack item)
+    {
+        if(item != null)
+        {
+            NBTTagCompound extraAttributes = item.getSubCompound("ExtraAttributes", false);
+            if(extraAttributes != null && extraAttributes.hasKey("id")) {
+                return extraAttributes.getString("id");
+            }
+        }
+        return "";
     }
 }
