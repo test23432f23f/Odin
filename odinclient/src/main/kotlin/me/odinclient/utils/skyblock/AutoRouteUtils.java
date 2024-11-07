@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
 import me.odinmain.features.Module;
 import net.minecraft.client.entity.EntityPlayerSP;
+import me.odinmain.features.Category;
 
 import java.awt.*;
 import java.util.Comparator;
@@ -44,7 +45,7 @@ public class AutoRouteUtils extends Module
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event)
     {
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(new DungeonUtils().getCurrentRoomName()) == null)
         {
             return;
         }
@@ -53,7 +54,7 @@ public class AutoRouteUtils extends Module
         for(int id : RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()).keySet())
         {
             lastRoute = null;
-            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()).get(id))
+            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(new DungeonUtils().getCurrentRoomName()).get(id))
             {
                 if(lastRoute != null)
                     RenderUtils.drawLine(
@@ -92,7 +93,7 @@ public class AutoRouteUtils extends Module
         {
             return;
         }
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(new DungeonUtils().getCurrentRoomName()) == null)
         {
             return;
         }
