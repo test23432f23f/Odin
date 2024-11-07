@@ -21,13 +21,13 @@ val RouteCommand = commodore("route") {
                     mc.thePlayer.rotationPitch
                 )
 
-                val updated: MutableMap<Int, MutableList<RoutesManager.Route>> = RoutesManager.instance.loadedRoutes.getOrDefault(route.roomId, HashMap())
+                val updated: MutableMap<Int, MutableList<RoutesManager.Route!>!>! = RoutesManager.instance.loadedRoutes.getOrDefault(route.roomId, HashMap())
                 val updatedList: MutableList<RoutesManager.Route> = updated.getOrDefault(route.id, ArrayList())
                 updatedList.add(route)
 
                 updated[route.id] = updatedList
                 RoutesManager.instance.loadedRoutes[AutoRouteUtils.currentRoom] = updated
-                RoutesManager.instance.saveConfig(Main.ROUTES)
+                RoutesManager.instance.saveConfig("./config/routes.abc")
         
     }
 }
