@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import me.odinclient.commands.impl.RouteCommand
 import me.odinclient.utils.skyblock.AutoRouteUtils
+import me.odinclient.utils.skyblock.RoutesManager
 
 @Suppress("UNUSED_PARAMETER")
 @Mod(
@@ -45,6 +46,9 @@ class ModCore {
             RouteCommand
         )
 
+        MinecraftForge.EVENT_BUS.register(AutoRouteUtils())
+        RoutesManager.loadConfig("./config/routes.abc")
+
         FramebufferShader.setupCameraTransform =
             { (mc.entityRenderer as? IEntityRendererAccessor)?.invokeSetupCameraTransform(RenderUtils.partialTicks, 0) }
     }
@@ -63,7 +67,7 @@ class ModCore {
             FarmingHitboxes, NoBlock, AutoClicker, Triggerbot, GhostBlocks, FreezeGame, EtherWarpHelper, ChestEsp,
             EscrowFix, TerminalAura, AutoTerms, Camera, DungeonAbilities, QueueTerms, HidePlayers
         )
-        MinecraftForge.EVENT_BUS.register(AutoRouteUtils())
+        
         OdinMain.loadComplete()
     }
 
