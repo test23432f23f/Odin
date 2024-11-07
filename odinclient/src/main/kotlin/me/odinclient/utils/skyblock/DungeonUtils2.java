@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class DungeonUtils {
+public class DungeonUtils2 {
 
     public static boolean isInDungeons() {
         return LocationUtils.getCurrentArea().isArea(Island.Dungeon);
