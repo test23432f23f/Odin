@@ -117,7 +117,7 @@ public class RoutesManager
                         roomList.put(Integer.parseInt(idKey), routesList);
 
                     }
-                    loadedRoutes.put(Integer.parseInt(roomKey), roomList);
+                    loadedRoutes.put(roomKey, roomList);
                 }
             }
 
