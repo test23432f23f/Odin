@@ -7,7 +7,7 @@ import me.odinclient.utils.skyblock.AutoRouteUtils;
 import me.odinclient.utils.skyblock.RoutesManager;
 import me.odinclient.utils.skyblock.RoutesManager.Route;
 
-public class OdinClientCommand {
+public class RouteCommand {
     public static void register() {
         Commodore commodore = new Commodore("route");
         commodore.literal("add").runs((subId, type) -> {
