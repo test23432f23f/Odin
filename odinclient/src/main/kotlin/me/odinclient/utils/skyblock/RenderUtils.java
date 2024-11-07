@@ -1,4 +1,4 @@
-package me.odinclient.utils.skyblock
+package me.odinclient.utils.skyblock;
 
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.util.AxisAlignedBB;
