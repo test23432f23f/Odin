@@ -6,6 +6,8 @@ import me.odinmain.utils.skyblock.modMessage
 import me.odinmain.utils.smoothRotateTo
 import me.odinclient.utils.skyblock.AutoRouteUtils
 import me.odinclient.utils.skyblock.RouteManager
+import net.minecraft.util.MathHelper
+import net.minecraft.util.Vec3
 
 val RouteCommand = commodore("route") {
     literal("add").runs { subId, type ->
@@ -13,7 +15,7 @@ val RouteCommand = commodore("route") {
                     RoutesManager.Route.RouteType.valueOf(type),
                     AutoRouteUtils.currentRoom,
                     subId.toInt(),
-                    RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoom, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
+                    RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoom, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size(),
                     Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
                     mc.thePlayer.rotationPitch
