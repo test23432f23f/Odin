@@ -61,10 +61,10 @@ public class AutoRouteUtils
             {
                 if(lastRoute != null)
                     RenderUtils.drawLine(
-                            lastRoute.pos, route.pos,
+                            currentRoom.getRealCoords(lastRoute.pos), currentRoom.getRealCoords(route.pos),
                             color.brighter());
 
-                    RenderUtils.blockBox(new BlockPos(route.pos), route.subId == 0 ? color.darker().darker() : color);
+                    RenderUtils.blockBox(new BlockPos(currentRoom.getRealCoords(route.pos)), route.subId == 0 ? color.darker().darker() : color);
 
                 lastRoute = route;
             }
@@ -112,7 +112,7 @@ public class AutoRouteUtils
 
                     RoutesManager.Route route = routes.get(i);
 
-                    if(new Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ).distanceTo(route.pos)
+                    if(new Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ).distanceTo(currentRoom.getRealCoords(route.pos))
                             <= tolerance && i < routes.size() && i + 1 < routes.size() && (getSkyBlockID(mc.thePlayer.getHeldItem())
                             .equals("ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.getHeldItem()).toLowerCase().contains("aspect of the void")) && mc.thePlayer.isSneaking())
                     {
