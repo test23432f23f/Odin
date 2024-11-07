@@ -1,4 +1,4 @@
-package org.cata.mixin.entity;
+package me.odinclient.mixin.accessors;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 import org.spongepowered.asm.mixin.Mixin;
