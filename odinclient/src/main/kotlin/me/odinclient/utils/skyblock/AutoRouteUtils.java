@@ -12,7 +12,7 @@ import me.odinclient.utils.skyblock.RoutesManager;
 import me.odinclient.utils.skyblock.Timer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Client;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraft.client.Minecraft;
 
 import java.awt.*;
@@ -75,7 +75,7 @@ public class AutoRouteUtils
     Timer etherTimer = new Timer();
 
     @SubscribeEvent
-    public void onUpdate(TickEvent.Client event)
+    public void onUpdate(TickEvent.ClientTickEvent event)
     {
         if(mc.thePlayer == null)
         {
