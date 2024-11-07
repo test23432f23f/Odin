@@ -27,14 +27,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils;
 
-public class AutoRouteUtils extends Module
+public class AutoRouteUtils
 {
-    public AutoRouteUtils()
-    {
-        super("Auto Routes",
-       "idk",
-        Category.DUNGEON);
-    }
+    
     
     protected final Minecraft mc = Minecraft.getMinecraft();
     public Color color = new Color(0xFF10FD);
@@ -145,7 +140,6 @@ public class AutoRouteUtils extends Module
     public void cancelRotate(float yaw, float pitch)
     {
         IEntityPlayerSPAccessor player = (IEntityPlayerSPAccessor) mc.thePlayer;
-        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         if (player == null)
         {
             return;
