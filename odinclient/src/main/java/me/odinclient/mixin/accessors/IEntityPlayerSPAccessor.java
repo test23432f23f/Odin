@@ -1,12 +1,12 @@
-package me.odinclient.mixin.accessors;
+package org.cata.mixin.entity;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(EntityPlayerSP.class)
-public interface IEntityPlayerSPAccessor {
-
+public interface IEntityPlayerSPAccessor
+{
     @Accessor("lastReportedPosX")
     double getLastReportedPosX();
 
@@ -21,4 +21,7 @@ public interface IEntityPlayerSPAccessor {
 
     @Accessor("lastReportedPitch")
     float getLastReportedPitch();
+
+    @Accessor("positionUpdateTicks")
+    int getPositionUpdateTicks();
 }
