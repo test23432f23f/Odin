@@ -1,16 +1,16 @@
-package org.cata.util.minecraft;
+package me.odinclient.utils.skyblock
 
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
-import org.cata.Main;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
 public class RenderUtils
 {
+    protected static Minecraft mc = Minecraft.getMinecraft();
     public static void drawLine(Vec3 pos1, Vec3 pos2, Color color)
     {
             GL11.glPushMatrix();
