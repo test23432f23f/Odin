@@ -15,18 +15,18 @@ val RouteCommand = commodore("route") {
                     RoutesManager.Route.RouteType.valueOf(type),
                     AutoRouteUtils.currentRoom,
                     subId.toInt(),
-                    RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoom, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size(),
+                    RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoom, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
                     Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
                     mc.thePlayer.rotationPitch
                 )
 
-                val updated: MutableMap<Int, MutableList<RoutesManager.Route!>!>! = RoutesManager.instance.loadedRoutes.getOrDefault(route.roomId, HashMap())
+                val updated = RoutesManager.instance.loadedRoutes.getOrDefault(route.roomId, HashMap())
                 val updatedList: MutableList<RoutesManager.Route> = updated.getOrDefault(route.id, ArrayList())
                 updatedList.add(route)
 
-                updated[route.id] = updatedList
-                RoutesManager.instance.loadedRoutes[AutoRouteUtils.currentRoom] = updated
+                updated.put(route.id, updatedList) 
+                RoutesManager.instance.loadedRoutes.put(AutoRouteUtils.currentRoom, updated)
                 RoutesManager.instance.saveConfig("./config/routes.abc")
         
     }
