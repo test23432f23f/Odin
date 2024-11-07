@@ -20,6 +20,7 @@ import me.odinmain.features.Module;
 import net.minecraft.client.entity.EntityPlayerSP;
 import me.odinmain.features.Category;
 import me.odinclient.mixin.accessors.IEntityPlayerSPAccessor;
+import me.odinmain.events.impl.RoomEnterEvents;
 
 import java.awt.*;
 import java.util.Comparator;
@@ -29,7 +30,12 @@ import me.odinmain.utils.skyblock.dungeon.DungeonUtils;
 
 public class AutoRouteUtils
 {
-    
+    public static String currentRoom = "Unknown";
+    @SubscribeEvent
+    public void onRoom(RoomEnterEvent event)
+    {
+        currentRoom = event.room.data?.name;
+    }
     
     protected final Minecraft mc = Minecraft.getMinecraft();
     public Color color = new Color(0xFF10FD);
@@ -41,16 +47,16 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event)
     {
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoom) == null)
         {
             return;
         }
 
         RoutesManager.Route lastRoute;
-        for(int id : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName).keySet())
+        for(int id : RoutesManager.instance.loadedRoutes.get(currentRoom).keySet())
         {
             lastRoute = null;
-            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName).get(id))
+            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(currentRoom).get(id))
             {
                 if(lastRoute != null)
                     RenderUtils.drawLine(
@@ -89,7 +95,7 @@ public class AutoRouteUtils
         {
             return;
         }
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoom) == null)
         {
             return;
         }
