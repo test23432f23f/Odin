@@ -20,6 +20,8 @@ import net.minecraftforge.fml.common.Mod.EventHandler
 import net.minecraftforge.fml.common.event.*
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
+import me.odinclient.commands.impl.RouteCommand
+import me.odinclient.utils.skyblock.AutoRouteUtils
 
 @Suppress("UNUSED_PARAMETER")
 @Mod(
