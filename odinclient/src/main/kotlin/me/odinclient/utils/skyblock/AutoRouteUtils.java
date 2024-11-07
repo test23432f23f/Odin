@@ -19,6 +19,7 @@ import net.minecraft.client.Minecraft;
 import me.odinmain.features.Module;
 import net.minecraft.client.entity.EntityPlayerSP;
 import me.odinmain.features.Category;
+import me.odin.mixin.accessors.IEntityPlayerSPAccessor;
 
 import java.awt.*;
 import java.util.Comparator;
@@ -143,6 +144,7 @@ public class AutoRouteUtils extends Module
 
     public void cancelRotate(float yaw, float pitch)
     {
+        IEntityPlayerSPAccessor player = (IEntityPlayerSPAccessor) mc.thePlayer;
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         if (player == null)
         {
