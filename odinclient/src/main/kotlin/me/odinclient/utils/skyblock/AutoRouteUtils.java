@@ -1,4 +1,4 @@
-package me.odinclient.utils.skyblock
+package me.odinclient.utils.skyblock;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
@@ -30,7 +30,8 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event)
     {
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getRoomId()) == null) return;
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getRoomId()) == null)
+            return;
 
         if(currentRoom != DungeonUtils.getRoomId())
             ChatLib.sendf("Loaded routes for roomId %s", DungeonUtils.getRoomId());
@@ -58,7 +59,8 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onPacket(PacketSentEvent event)
     {
-        if (!(event.packet instanceof C03PacketPlayer) || !cancelling) return;
+        if (!(event.packet instanceof C03PacketPlayer) || !cancelling)
+            return;
         if (!event.isCanceled())
         {
             ChatLib.sendf("Cancelled C03");
@@ -76,7 +78,8 @@ public class AutoRouteUtils
     {
         if(
         
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getRoomId()) == null) return;
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getRoomId()) == null)
+            return;
 
         for(int roomId : RoutesManager.instance.loadedRoutes.keySet())
         {
@@ -126,7 +129,8 @@ public class AutoRouteUtils
     public void cancelRotate(float yaw, float pitch)
     {
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-        if (player == null) return;
+        if (player == null) 
+            return;
         double x = mc.thePlayer.posX - player.lastReportedPosX;
         double y = mc.thePlayer.posY - player.lastReportedPosY;
         double z = mc.thePlayer.posZ - player.lastReportedPosZ;
