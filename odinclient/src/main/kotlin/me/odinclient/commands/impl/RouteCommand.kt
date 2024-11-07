@@ -5,7 +5,7 @@ import me.odinmain.commands.commodore
 import me.odinmain.utils.skyblock.modMessage
 import me.odinmain.utils.smoothRotateTo
 import me.odinclient.utils.skyblock.AutoRouteUtils
-import me.odinclient.utils.skyblock.RouteManager
+import me.odinclient.utils.skyblock.RoutesManager
 import net.minecraft.util.MathHelper
 import net.minecraft.util.Vec3
 
