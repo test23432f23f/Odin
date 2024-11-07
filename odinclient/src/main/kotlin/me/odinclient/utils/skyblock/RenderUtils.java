@@ -23,9 +23,9 @@ public class RenderUtils
              GL11.glDepthMask(false);
 
         setColor(color);
-             GL11.glTranslated(-(Main.mc.getRenderManager()).viewerPosX,
-                     -(Main.mc.getRenderManager()).viewerPosY,
-                     -(Main.mc.getRenderManager()).viewerPosZ);
+             GL11.glTranslated(-(mc.getRenderManager()).viewerPosX,
+                     -(mc.getRenderManager()).viewerPosY,
+                     -(mc.getRenderManager()).viewerPosZ);
              GL11.glBegin(1);
 
            GL11.glVertex3d(pos1.xCoord, pos1.yCoord, pos1.zCoord);
@@ -51,22 +51,22 @@ public class RenderUtils
 
                 .getX() -
 
-                      (Main.mc.getRenderManager()).viewerPosX, block
+                      (mc.getRenderManager()).viewerPosX, block
                          .getY() -
 
-                         (Main.mc.getRenderManager()).viewerPosY, block
+                         (mc.getRenderManager()).viewerPosY, block
                          .getZ() -
 
-                          (Main.mc.getRenderManager()).viewerPosZ, (block
+                          (mc.getRenderManager()).viewerPosZ, (block
                           .getX() + 1) -
 
-                        (Main.mc.getRenderManager()).viewerPosX, (block
+                        (mc.getRenderManager()).viewerPosX, (block
                           .getY() + 1) -
 
-                         (Main.mc.getRenderManager()).viewerPosY, (block
+                         (mc.getRenderManager()).viewerPosY, (block
                 /* 560 */           .getZ() + 1) -
                 /*     */
-                /* 562 */           (Main.mc.getRenderManager()).viewerPosZ));
+                /* 562 */           (mc.getRenderManager()).viewerPosZ));
         /* 563 */     GL11.glEnable(3553);
         /* 564 */     GL11.glEnable(2929);
         /* 565 */     GL11.glDepthMask(true);
