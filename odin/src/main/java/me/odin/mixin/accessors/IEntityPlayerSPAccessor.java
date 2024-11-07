@@ -22,4 +22,7 @@ public interface IEntityPlayerSPAccessor {
     @Accessor("lastReportedPitch")
     float getLastReportedPitch();
 
+    @Accessor("getPositionUpdateTicks")
+    int getPositionUpdateTicks();
+
 }
