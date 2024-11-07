@@ -26,6 +26,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils;
+import me.odinclient.utils.skyblock.DungeonUtils2;
 
 public class AutoRouteUtils
 {
@@ -41,7 +42,7 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event)
     {
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(getCurrentRoomName()) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils2.getCurrentRoomName()) == null)
         {
             return;
         }
@@ -50,7 +51,7 @@ public class AutoRouteUtils
         for(int id : RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()).keySet())
         {
             lastRoute = null;
-            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()).get(id))
+            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils2.getCurrentRoomName()).get(id))
             {
                 if(lastRoute != null)
                     RenderUtils.drawLine(
@@ -89,7 +90,7 @@ public class AutoRouteUtils
         {
             return;
         }
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils2.getCurrentRoomName()) == null)
         {
             return;
         }
