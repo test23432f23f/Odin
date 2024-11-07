@@ -1,4 +1,4 @@
-package org.cata.util.minecraft;
+package me.odinclient.utils.skyblock
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
@@ -7,12 +7,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.cata.Main;
-import org.cata.event.PacketEvent;
-import org.cata.event.UpdateEvent;
-import org.cata.manager.RoutesManager;
-import org.cata.mixin.entity.IEntityPlayerSPAccessor;
-import org.cata.util.Timer;
+import me.odinmain.events.impl.PacketEvents;
+import me.odinclient.utils.skyblock.RoutesManager;
+import me.odinclient.utils.skyblock.Timer;
 
 import java.awt.*;
 import java.util.Comparator;
@@ -21,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class AutoRouteUtils
 {
-    protected final Minecraft mc = Main.mc;
+    protected final Minecraft mc = Minecraft.getMinecraft();
     public static int currentRoom = 0;
     public Color color = new Color(0xFF10FD);
     public double tolerance = 0.7;
@@ -59,7 +56,7 @@ public class AutoRouteUtils
     }
 
     @SubscribeEvent
-    public void onPacket(PacketEvent.Sent event)
+    public void onPacket(PacketSentEvent event)
     {
         if (!(event.packet instanceof C03PacketPlayer) || !cancelling) return;
         if (!event.isCanceled())
@@ -77,6 +74,8 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onUpdate(UpdateEvent event)
     {
+        if(
+        
         if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getRoomId()) == null) return;
 
         for(int roomId : RoutesManager.instance.loadedRoutes.keySet())
@@ -126,12 +125,12 @@ public class AutoRouteUtils
 
     public void cancelRotate(float yaw, float pitch)
     {
-        IEntityPlayerSPAccessor player = (IEntityPlayerSPAccessor) mc.thePlayer;
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         if (player == null) return;
-        double x = mc.thePlayer.posX - player.getLastReportedPosX();
-        double y = mc.thePlayer.posY - player.getLastReportedPosX();
-        double z = mc.thePlayer.posZ - player.getLastReportedPosZ();
-        boolean moving = x * x + y * y + z * z > 9.0E-4 || player.getPositionUpdateTicks() >= 20;
+        double x = mc.thePlayer.posX - player.lastReportedPosX;
+        double y = mc.thePlayer.posY - player.lastReportedPosY;
+        double z = mc.thePlayer.posZ - player.lastReportedPosZ;
+        boolean moving = x * x + y * y + z * z > 9.0E-4 || player.positionUpdateTicks >= 20;
         if (moving) {
             //ChatLib.sendf("C06");
             mc.getNetHandler().getNetworkManager().sendPacket(
