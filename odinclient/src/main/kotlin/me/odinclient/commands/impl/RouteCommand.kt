@@ -8,6 +8,7 @@ import me.odinclient.utils.skyblock.AutoRouteUtils
 import me.odinclient.utils.skyblock.RoutesManager
 import net.minecraft.util.MathHelper
 import net.minecraft.util.Vec3
+import net.minecraft.util.ChatComponentText
 
 val RouteCommand = commodore("route") {
     literal("add").runs { subId: Int, type: String ->
@@ -31,8 +32,8 @@ val RouteCommand = commodore("route") {
                 mc.thePlayer.addChatMessage(ChatComponentText("Added " + route.roomId + ", " + route.id + ", " + route.subId))
         
     }
-    literal("remove").runs { id: Int, subId Int ->
-        RoutesManager.instnace.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoom, HashMap()).getOrDefault(id).remove(subId)
+    literal("remove").runs { id: Int, subId: Int ->
+        RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoom, HashMap()).getOrDefault(id).remove(subId)
         mc.thePlayer.addChatMessage(ChatComponentText("Removed " + id + " " + subId))
     }
 }
