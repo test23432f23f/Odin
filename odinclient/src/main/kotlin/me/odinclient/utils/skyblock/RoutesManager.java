@@ -16,7 +16,7 @@ public class RoutesManager
 {
     public static RoutesManager instance;
 
-    public HashMap<Integer, HashMap<Integer, List<Route>>> loadedRoutes = new HashMap<>();
+    public HashMap<String, HashMap<Integer, List<Route>>> loadedRoutes = new HashMap<>();
 
     public void saveConfig(String config)
     {
@@ -147,13 +147,13 @@ public class RoutesManager
     public static class Route
     {
         public RouteType type;
-        public int roomId;
+        public String roomId;
         public int id;
         public int subId;
         public Vec3 pos;
         public float yaw, pitch;
 
-        public Route(RouteType type, int roomId, int id, int subId, Vec3 pos, float yaw, float pitch)
+        public Route(RouteType type, String roomId, int id, int subId, Vec3 pos, float yaw, float pitch)
         {
             this.type = type;
             this.id = id;
