@@ -1,4 +1,4 @@
-package org.cata.util;
+package me.odinclient.utils.skyblock
 
 import java.util.TimerTask;
 
