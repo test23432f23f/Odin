@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
 import me.odinmain.features.Module;
+import net.minecraft.client.entity.EntityPlayerSP;
 
 import java.awt.*;
 import java.util.Comparator;
@@ -43,16 +44,16 @@ public class AutoRouteUtils extends Module
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event)
     {
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()) == null)
         {
             return;
         }
 
         RoutesManager.Route lastRoute;
-        for(int id : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName).keySet())
+        for(int id : RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()).keySet())
         {
             lastRoute = null;
-            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName).get(id))
+            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()).get(id))
             {
                 if(lastRoute != null)
                     RenderUtils.drawLine(
@@ -91,7 +92,7 @@ public class AutoRouteUtils extends Module
         {
             return;
         }
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getCurrentRoomName()) == null)
         {
             return;
         }
@@ -128,7 +129,7 @@ public class AutoRouteUtils extends Module
 
                         if(etherTimer.hasPassed(etherDelay))
                         {
-                            mc.thePlayer.sendQueue.sendPacket(new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
+                            mc.thePlayer.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
                             etherTimer.reset();
                         }
                     }
