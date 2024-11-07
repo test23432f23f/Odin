@@ -5,6 +5,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import org.lwjgl.opengl.GL11;
+import net.minecraft.client.Minecraft;
 
 import java.awt.*;
 
