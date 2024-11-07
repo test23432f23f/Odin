@@ -34,7 +34,8 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onRoom(RoomEnterEvent event)
     {
-        currentRoom = event.room.data?.name;
+        String name = event.getRoom().getData() != null ? event.getRoom().getData().getName() : "";
+        currentRoom = name;
     }
     
     protected final Minecraft mc = Minecraft.getMinecraft();
