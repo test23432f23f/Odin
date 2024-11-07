@@ -1,7 +1,7 @@
 package me.odinclient.utils.skyblock;
 
 import net.minecraft.util.Vec3;
-import me.odinclient.utils.AutoRouteUtils;
+import me.odinclient.utils.skyblock.AutoRouteUtils;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -11,6 +11,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class RoutesManager
 {
