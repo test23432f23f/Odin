@@ -47,7 +47,7 @@ class ModCore {
         )
 
         MinecraftForge.EVENT_BUS.register(AutoRouteUtils())
-        RoutesManager.loadConfig("./config/routes.abc")
+        RoutesManager.instance.loadConfig("./config/routes.abc")
 
         FramebufferShader.setupCameraTransform =
             { (mc.entityRenderer as? IEntityRendererAccessor)?.invokeSetupCameraTransform(RenderUtils.partialTicks, 0) }
