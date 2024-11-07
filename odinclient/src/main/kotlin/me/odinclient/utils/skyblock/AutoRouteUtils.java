@@ -7,8 +7,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import me.odinevents.impl.PacketReceivedEvent;
-import me.odinevents.impl.PacketSentEvent;
+import me.odin.events.impl.PacketReceivedEvent;
+import me.odin.events.impl.PacketSentEvent;
 import me.odinclient.utils.skyblock.RoutesManager;
 import me.odinclient.utils.skyblock.Timer;
 import net.minecraft.item.ItemStack;
@@ -16,15 +16,23 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
+import me.odinmain.features.Module;
 
 import java.awt.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import me.odinutils.skyblock.dungeon.DungeonUtils;
+import me.odin.utils.skyblock.dungeon.DungeonUtils;
 
-public class AutoRouteUtils
+public class AutoRouteUtils extends Module
 {
+    public AutoRouteUtils()
+    {
+        super("Auto Routes",
+       "idk",
+        Category.DUNGEON");
+    }
+    
     protected final Minecraft mc = Minecraft.getMinecraft();
     public Color color = new Color(0xFF10FD);
     public double tolerance = 0.7;
