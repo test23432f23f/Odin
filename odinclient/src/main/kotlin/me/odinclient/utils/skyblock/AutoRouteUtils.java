@@ -148,10 +148,10 @@ public class AutoRouteUtils extends Module
         {
             return;
         }
-        double x = mc.thePlayer.posX - player.lastReportedPosX;
-        double y = mc.thePlayer.posY - player.lastReportedPosY;
-        double z = mc.thePlayer.posZ - player.lastReportedPosZ;
-        boolean moving = x * x + y * y + z * z > 9.0E-4 || player.positionUpdateTicks >= 20;
+        double x = mc.thePlayer.posX - player.getLastReportedPosX();
+        double y = mc.thePlayer.posY - player.getLastReportedPosX();
+        double z = mc.thePlayer.posZ - player.getLastReportedPosZ();
+        boolean moving = x * x + y * y + z * z > 9.0E-4 || player.getPositionUpdateTicks() >= 20;
         if (moving) {
             //ChatLib.sendf("C06");
             mc.getNetHandler().getNetworkManager().sendPacket(
