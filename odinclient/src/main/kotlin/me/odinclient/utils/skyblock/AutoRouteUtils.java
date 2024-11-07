@@ -30,7 +30,7 @@ public class AutoRouteUtils extends Module
     {
         super("Auto Routes",
        "idk",
-        Category.DUNGEON");
+        Category.DUNGEON);
     }
     
     protected final Minecraft mc = Minecraft.getMinecraft();
