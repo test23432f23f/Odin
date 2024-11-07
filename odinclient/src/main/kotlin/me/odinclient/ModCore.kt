@@ -35,6 +35,8 @@ class ModCore {
 
     @EventHandler
     fun init(event: FMLInitializationEvent) {
+        RoutesManager.instance = RoutesManager()
+        
         OdinMain.init()
         listOf(
             this
