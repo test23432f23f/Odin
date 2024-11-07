@@ -1,4 +1,4 @@
-package me.odinclient.utils.skyblock
+package me.odinclient.utils.skyblock;
 
 import net.minecraft.util.Vec3;
 import me.odinclient.utils.AutoRouteUtils;
