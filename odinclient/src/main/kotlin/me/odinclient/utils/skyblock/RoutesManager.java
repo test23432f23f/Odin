@@ -1,7 +1,7 @@
-package org.cata.manager;
+package me.odinclient.utils.skyblock
 
 import net.minecraft.util.Vec3;
-import org.cata.util.minecraft.AutoRouteUtils;
+import me.odinclient.utils.AutoRouteUtils;
 import org.json.JSONObject;
 
 import java.io.File;
