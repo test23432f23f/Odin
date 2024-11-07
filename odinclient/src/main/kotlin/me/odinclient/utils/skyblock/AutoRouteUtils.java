@@ -15,14 +15,13 @@ import java.awt.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import me.odinmain.utils.skyblock.dungeon.DungeonUtils;
 
 public class AutoRouteUtils
 {
     protected final Minecraft mc = Minecraft.getMinecraft();
-    public static int currentRoom = 0;
     public Color color = new Color(0xFF10FD);
     public double tolerance = 0.7;
-
 
     public static int rotationDelay = 125, etherDelay = 150;
     public boolean rotationQueued, etherQueued;
@@ -30,21 +29,16 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onRender(RenderWorldLastEvent event)
     {
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getRoomId()) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName()) == null)
         {
             return;
         }
-        
-        if(currentRoom != DungeonUtils.getRoomId())
-            ChatLib.sendf("Loaded routes for roomId %s", DungeonUtils.getRoomId());
-
-        currentRoom = DungeonUtils.getRoomId();
 
         RoutesManager.Route lastRoute;
-        for(int id : RoutesManager.instance.loadedRoutes.get(currentRoom).keySet())
+        for(int id : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName()).keySet())
         {
             lastRoute = null;
-            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(currentRoom).get(id))
+            for(RoutesManager.Route route : RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName()).get(id))
             {
                 if(lastRoute != null)
                     RenderUtils.drawLine(
@@ -67,7 +61,6 @@ public class AutoRouteUtils
         }
         if (!event.isCanceled())
         {
-            ChatLib.sendf("Cancelled C03");
             event.setCanceled(true);
         }
         cancelling = false;
@@ -84,11 +77,11 @@ public class AutoRouteUtils
         {
             return;
         }
-        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.getRoomId()) == null)
+        if(RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(DungeonUtils.currentRoomName()) == null)
         {
             return;
         }
-        for(int roomId : RoutesManager.instance.loadedRoutes.keySet())
+        for(String roomId : RoutesManager.instance.loadedRoutes.keySet())
         {
             for(int id : RoutesManager.instance.loadedRoutes.get(roomId).keySet())
             {
@@ -166,7 +159,7 @@ public class AutoRouteUtils
         cancelling = true;
     }
     
-    public List<RoutesManager.Route> getSortedRoutes(int roomId, int routeId)
+    public List<RoutesManager.Route> getSortedRoutes(String roomId, int routeId)
     {
         return RoutesManager.instance.loadedRoutes.get(roomId).get(routeId).stream().sorted(Comparator.comparingInt(r -> r.id)).collect(Collectors.toList());
     }
