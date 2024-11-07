@@ -61,7 +61,7 @@ public class AutoRouteUtils
     @SubscribeEvent
     public void onPacket(PacketSentEvent event)
     {
-        if (!(event.packet instanceof C03PacketPlayer) || !cancelling)
+        if (!(event.getPacket() instanceof C03PacketPlayer) || !cancelling)
         {
             return;
         }
