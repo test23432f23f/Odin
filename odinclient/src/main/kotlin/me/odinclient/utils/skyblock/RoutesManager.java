@@ -34,7 +34,7 @@ public class RoutesManager
             JSONObject routesObject = new JSONObject();
             JSONObject roomObject = new JSONObject();
 
-            for(int roomId : loadedRoutes.keySet())
+            for(String roomId : loadedRoutes.keySet())
             {
                 JSONObject subRoutes = new JSONObject();
                 for(int id : loadedRoutes.get(roomId).keySet())
@@ -103,7 +103,7 @@ public class RoutesManager
                         {
                             JSONObject r = routes.getJSONObject(subIdKey);
                             routesList.add(new Route(Route.RouteType.valueOf((String) r.get("type")),
-                                    Integer.parseInt(roomKey),
+                                    roomKey,
                                     Integer.parseInt(idKey),
                                     Integer.parseInt(subIdKey),
                                     new Vec3(r.getDouble("x"), r.getDouble("y"), r.getDouble("z")),
