@@ -20,7 +20,7 @@ import me.odinmain.features.Module;
 import net.minecraft.client.entity.EntityPlayerSP;
 import me.odinmain.features.Category;
 import me.odinclient.mixin.accessors.IEntityPlayerSPAccessor;
-import me.odinmain.events.impl.RoomEnterEvents;
+import me.odinmain.events.impl.RoomEnterEvent;
 
 import java.awt.*;
 import java.util.Comparator;
