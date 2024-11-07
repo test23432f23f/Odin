@@ -63,7 +63,7 @@ class ModCore {
             FarmingHitboxes, NoBlock, AutoClicker, Triggerbot, GhostBlocks, FreezeGame, EtherWarpHelper, ChestEsp,
             EscrowFix, TerminalAura, AutoTerms, Camera, DungeonAbilities, QueueTerms, HidePlayers
         )
-        MinecraftForge.EVENT_BUS.register(new AutoRouteUtils())
+        MinecraftForge.EVENT_BUS.register(new AutoRouteUtils)
         OdinMain.loadComplete()
     }
 
