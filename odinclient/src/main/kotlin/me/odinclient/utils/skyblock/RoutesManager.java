@@ -2,7 +2,7 @@ package me.odinclient.utils.skyblock;
 
 import net.minecraft.util.Vec3;
 import me.odinclient.utils.skyblock.AutoRouteUtils;
-import me.odinclient.utils.skyblock.json.*;
+import org.json.*;
 import net.minecraft.client.Minecraft;
 import org.json.JSONObject;
 
