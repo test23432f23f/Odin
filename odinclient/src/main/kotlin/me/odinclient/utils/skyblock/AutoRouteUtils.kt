@@ -106,6 +106,7 @@ class AutoRouteUtils {
 
 
     var ppsTimer: Timer = Timer()
+    @SubscribeEvent
     fun onUpdate2(event: ClientTickEvent?)
     {
         if(mc.thePlayer == null)
