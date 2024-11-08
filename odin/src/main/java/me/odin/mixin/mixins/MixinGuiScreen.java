@@ -21,8 +21,8 @@ public class MixinGuiScreen {
     @Inject(method = "handleMouseInput", at = @At(value = "INVOKE", target = "net/minecraft/client/gui/GuiScreen.mouseClicked(III)V"), cancellable = true)
     private void onMouseInput(CallbackInfo ci){
         if (Mouse.getEventButtonState()) {
-            //if (postAndCatch(new GuiEvent.GuiMouseClickEvent(odin$gui, Mouse.getEventButton(), Mouse.getEventX(), Mouse.getEventY())))
-              //  ci.cancel();
+            if (postAndCatch(new GuiEvent.GuiMouseClickEvent(odin$gui, Mouse.getEventButton(), Mouse.getEventX(), Mouse.getEventY())))
+              ci.cancel();
         }
     }
 
