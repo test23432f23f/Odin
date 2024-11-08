@@ -15,18 +15,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraft.client.Minecraft;
 import me.odinmain.features.Module;
 import net.minecraft.client.entity.EntityPlayerSP;
 import me.odinmain.features.Category;
 import me.odinclient.mixin.accessors.IEntityPlayerSPAccessor;
 import me.odinmain.events.impl.DungeonEvents.RoomEnterEvent;
 import me.odinmain.utils.skyblock.dungeon.tiles.Room;
+import me.odinmain.utils.skyblock.dungeon.DungeonUtils;
+import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRealCoords;
+import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords;
 
 class AutoRouteUtils {
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
-        currentRoom = event.getRoom()
+        currentRoom = event.room
         val name = if (event.room?.data?.name? != null) event.room.data?.name? else "Unknown"
         currentRoomName = name
     }
@@ -60,10 +62,10 @@ class AutoRouteUtils {
 
     @SubscribeEvent
     fun onPacket(event: PacketSentEvent) {
-        if (event.getPacket() !is C03PacketPlayer || !cancelling) {
+        if (event.packet !is C03PacketPlayer || !cancelling) {
             return
         }
-        if (!event.isCanceled()) {
+        if (!event.canceled) {
             event.setCanceled(true)
         }
         cancelling = false
@@ -93,7 +95,7 @@ class AutoRouteUtils {
                             mc.thePlayer.posZ
                         ).distanceTo(currentRoom.getRealCoords(route.pos))
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
-                                == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase(Locale.getDefault())
+                                == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void")) && mc.thePlayer.isSneaking
                     ) {
                         val nextRoute = routes[i + 1]
