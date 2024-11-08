@@ -101,7 +101,7 @@ class AutoRouteUtils : Module(
             mc.thePlayer.addChatMessage(ChatComponentText("Cancelled C03"))
             count++
         }
-        if(count >= 2)
+        if(count >= 4)
         {
             cancelling = false
             count = 0
