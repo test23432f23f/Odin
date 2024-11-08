@@ -29,6 +29,8 @@ import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRealCoords
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords
 import java.awt.Color
 import java.util.stream.Collectors
+import net.minecraft.util.ChatComponentText
+
 
 
 class AutoRouteUtils {
@@ -81,6 +83,7 @@ class AutoRouteUtils {
         }
     }
 
+    int count = 0;
     @SubscribeEvent
     fun onPacket(event: PacketSentEvent) {
         if (event.packet !is C03PacketPlayer || !cancelling) {
@@ -88,8 +91,27 @@ class AutoRouteUtils {
         }
         if (!event.isCanceled) {
             event.setCanceled(true)
+            mc.thePlayer.addChatMessage(ChatComponentText("Cancelled C03")
         }
         cancelling = false
+    }
+
+
+    var ppsTimer: Timer = Timer()
+    fun onUpdate2(event: ClientTickEvent?)
+    {
+        if(mc.thePlayer == null)
+        {
+            ppsTimer.reset()
+            return
+        }
+
+        if(ppsTimer.hasPassed(1000L)
+        {
+             mc.thePlayer.addChatMessage(ChatComponentText(count))
+             count = 0
+            ppsTimer.reset()
+        }
     }
 
     var rotationTimer: Timer = Timer()
