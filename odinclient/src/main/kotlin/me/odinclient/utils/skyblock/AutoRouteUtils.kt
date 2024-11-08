@@ -35,7 +35,7 @@ class AutoRouteUtils {
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
         currentRoom = event.room
-        val name = if (event.room.data?.name? != null) event.room.data?.name? else "Unknown"
+        val name = event.room?.data?.name
         currentRoomName = name
     }
 
@@ -99,20 +99,20 @@ class AutoRouteUtils {
                             mc.thePlayer.posX,
                             mc.thePlayer.posY,
                             mc.thePlayer.posZ
-                        ).distanceTo(currentRoom.getRealCoords(route.pos))
+                        ).distanceTo(currentRoom!!.getRealCoords(route.pos))
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void")) && mc.thePlayer.isSneaking
                     ) {
                         val nextRoute = routes[i + 1]
                         var yaw: Float = route.yaw
-                        var pitch: Float = route,pitch
+                        var pitch: Float = route.pitch
                        
-                        if (rotationTimer.hasPassed(rotationDelay)) {
+                        if (rotationTimer.hasPassed(rotationDelay.toLong())) {
                             cancelRotate(yaw, pitch)
                             rotationTimer.reset()
                         }
-                        if (etherTimer.hasPassed(etherDelay)) {
+                        if (etherTimer.hasPassed(etherDelay.toLong())) {
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                             etherTimer.reset()
                         }
