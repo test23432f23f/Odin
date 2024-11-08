@@ -129,12 +129,13 @@ class AutoRouteUtils {
                        
                         if (rotationTimer.hasPassed(rotationDelay.toLong())) {
                             cancelRotate(yaw, pitch)
+                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                             rotationTimer.reset()
                         }
-                        if (etherTimer.hasPassed(etherDelay.toLong())) {
+                        /*if (etherTimer.hasPassed(etherDelay.toLong())) {
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                             etherTimer.reset()
-                        }
+                        }*/
                     }
                 }
             }
@@ -181,7 +182,7 @@ class AutoRouteUtils {
     companion object {
         var currentRoom: Room? = null
         var currentRoomName = "Unknown"
-        var rotationDelay = 125
+        var rotationDelay = 250
         var etherDelay = 150
         fun getDisplayName(stack: ItemStack?): String {
             return if (stack != null) if (stack.hasDisplayName()) stack.displayName else "" else ""
