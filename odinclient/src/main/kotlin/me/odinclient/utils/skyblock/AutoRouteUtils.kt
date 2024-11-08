@@ -27,6 +27,9 @@ import me.odinmain.utils.skyblock.dungeon.tiles.Room
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRealCoords
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords
+import java.awt.Color
+import java.util.stream.Collectors
+
 
 class AutoRouteUtils {
     @SubscribeEvent
@@ -68,7 +71,7 @@ class AutoRouteUtils {
         if (event.packet !is C03PacketPlayer || !cancelling) {
             return
         }
-        if (!event.canceled) {
+        if (!event.isCanceled) {
             event.setCanceled(true)
         }
         cancelling = false
@@ -102,10 +105,9 @@ class AutoRouteUtils {
                             .contains("aspect of the void")) && mc.thePlayer.isSneaking
                     ) {
                         val nextRoute = routes[i + 1]
-                        var yaw: Float
-                        var pitch: Float
-                        yaw = route.yaw
-                        pitch = route.pitch
+                        var yaw: Float = route.yaw
+                        var pitch: Float = route,pitch
+                       
                         if (rotationTimer.hasPassed(rotationDelay)) {
                             cancelRotate(yaw, pitch)
                             rotationTimer.reset()
