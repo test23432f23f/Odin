@@ -64,8 +64,8 @@ public class RoutesManager
             mainObject.put("routes", routesObject);
 
             //settings
-            settingsObject.put("rotationDelay", AutoRouteUtils.companion.rotationDelay);
-            settingsObject.put("etherDelay", AutoRouteUtils.companion.etherDelay);
+            settingsObject.put("rotationDelay", AutoRouteUtils.getCompanion().rotationDelay);
+            settingsObject.put("etherDelay", AutoRouteUtils.getCompanion().etherDelay);
 
             mainObject.put("settings", settingsObject);
 
@@ -124,8 +124,8 @@ public class RoutesManager
             JSONObject settings = getKey(new JSONObject(this.listToString(Files.readAllLines(file.toPath()))), "settings");
             if(settings != null)
             {
-              AutoRouteUtils.companion.rotationDelay = settings.getInt("rotationDelay");
-                AutoRouteUtils.companion.etherDelay = settings.getInt("etherDelay");
+              AutoRouteUtils.getCompanion().rotationDelay = settings.getInt("rotationDelay");
+                AutoRouteUtils.getCompanion().etherDelay = settings.getInt("etherDelay");
             }
         }
         catch(IOException exception)
