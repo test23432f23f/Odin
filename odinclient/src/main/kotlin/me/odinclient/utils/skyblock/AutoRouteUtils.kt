@@ -83,7 +83,7 @@ class AutoRouteUtils {
         }
     }
 
-    int count = 0;
+    var count = 0;
     @SubscribeEvent
     fun onPacket(event: PacketSentEvent) {
         if (event.packet !is C03PacketPlayer) {
