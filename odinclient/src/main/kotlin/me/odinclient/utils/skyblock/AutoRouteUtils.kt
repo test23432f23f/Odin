@@ -99,7 +99,7 @@ class AutoRouteUtils {
         
         if (!event.isCanceled) {
             event.setCanceled(true)
-            mc.thePlayer.addChatMessage(ChatComponentText("Cancelled C03")
+            mc.thePlayer.addChatMessage(ChatComponentText("Cancelled C03"))
         }
         cancelling = false
     }
@@ -114,9 +114,9 @@ class AutoRouteUtils {
             return
         }
 
-        if(ppsTimer.hasPassed(1000L)
+        if(ppsTimer.hasPassed(1000L))
         {
-             mc.thePlayer.addChatMessage(ChatComponentText(count))
+             mc.thePlayer.addChatMessage(ChatComponentText("" + count))
              count = 0
             ppsTimer.reset()
         }
