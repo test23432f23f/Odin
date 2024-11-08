@@ -111,7 +111,7 @@ class AutoRouteUtils : Module(
             return
         }
         
-        if (!event.isCanceled) {
+        if (!event.isCanceled && cancelling) {
             event.setCanceled(true)
             mc.thePlayer.addChatMessage(ChatComponentText("Cancelled S08"))
         }
