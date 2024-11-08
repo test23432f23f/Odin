@@ -86,9 +86,17 @@ class AutoRouteUtils {
     int count = 0;
     @SubscribeEvent
     fun onPacket(event: PacketSentEvent) {
-        if (event.packet !is C03PacketPlayer || !cancelling) {
+        if (event.packet !is C03PacketPlayer) {
             return
         }
+
+        count++;
+
+        if(!cancelling)
+        {
+            return
+        }
+        
         if (!event.isCanceled) {
             event.setCanceled(true)
             mc.thePlayer.addChatMessage(ChatComponentText("Cancelled C03")
