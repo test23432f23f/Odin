@@ -89,6 +89,7 @@ class AutoRouteUtils : Module(
         }
     }
 
+    private var count = 0;
     @SubscribeEvent
     fun onPacket(event: PacketSentEvent) {
         if (event.packet !is C03PacketPlayer || !cancelling) {
@@ -98,8 +99,13 @@ class AutoRouteUtils : Module(
         if (!event.isCanceled) {
             event.setCanceled(true)
             mc.thePlayer.addChatMessage(ChatComponentText("Cancelled C03"))
+            count++
         }
-        cancelling = false
+        if(count >= 2)
+        {
+            cancelling = false
+            count = 0
+        }
     }
 
     var rotationTimer: Timer = Timer()
@@ -135,7 +141,7 @@ class AutoRouteUtils : Module(
                        
                         if (rotationTimer.hasPassed(delay)) 
                         {
-                            if(mode)
+                            if(!mode)
                             {
                                 cancelRotate(yaw, pitch)
                             }
