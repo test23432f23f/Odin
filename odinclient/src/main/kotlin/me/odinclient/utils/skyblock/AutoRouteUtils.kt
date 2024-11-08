@@ -30,6 +30,7 @@ import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords
 import java.awt.Color
 import java.util.stream.Collectors
 import net.minecraft.util.ChatComponentText
+import me.odinmain.features.settings.impl.*
 
 
 
@@ -47,8 +48,6 @@ class AutoRouteUtils : Module(
         val name = event.room?.data?.name
         currentRoomName = name!!
     }
-
-    protected val mc = Minecraft.getMinecraft()
     var color = Color(0xFF10FD)
     var tolerance = 0.7
     var rotationQueued = false
