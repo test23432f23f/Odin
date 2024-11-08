@@ -14,9 +14,9 @@ val RouteCommand = commodore("route") {
     literal("add").runs { subId: Int, type: String ->
                 val route = RoutesManager.Route(
                     RoutesManager.Route.RouteType.valueOf(type),
-                    AutoRouteUtils.currentRoom,
+                    AutoRouteUtils.currentRoomName,
                     subId.toInt(),
-                    RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoom, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
+                    RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
                     Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
                     mc.thePlayer.rotationPitch
@@ -27,13 +27,13 @@ val RouteCommand = commodore("route") {
                 updatedList.add(route)
 
                 updated.put(route.id, updatedList) 
-                RoutesManager.instance.loadedRoutes.put(AutoRouteUtils.currentRoom, updated)
+                RoutesManager.instance.loadedRoutes.put(AutoRouteUtils.currentRoomName, updated)
                 RoutesManager.instance.saveConfig("./config/routes.abc")
                 mc.thePlayer.addChatMessage(ChatComponentText("Added " + route.roomId + ", " + route.id + ", " + route.subId))
         
     }
     literal("remove").runs { id: Int, subId: Int ->
-        RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoom, HashMap()).getOrDefault(id, ArrayList()).removeAt(subId)
+        RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(id, ArrayList()).removeAt(subId)
         mc.thePlayer.addChatMessage(ChatComponentText("Removed " + id + " " + subId))
     }
 }
