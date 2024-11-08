@@ -43,6 +43,8 @@ class AutoRouteUtils : Module(
 ) {
     private val mode by DualSetting("Rotation Type", "Packet", "Setter", description = "")
     private val delay by NumberSetting("Delay", 250L, 50, 500, unit = "ms", description = "Delay between clicks.")
+    private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
+    private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
@@ -65,25 +67,32 @@ class AutoRouteUtils : Module(
             for (route in RoutesManager.instance.loadedRoutes.get(currentRoomName)!![id]!!) {
                 if(currentRoom == null)
                 {
-                    if (lastRoute != null) RenderUtils.drawLine(
+                    if (lastRoute != null && lines) RenderUtils.drawLine(
                     lastRoute.pos, route.pos,
                     color.brighter()
                 )
-                RenderUtils.blockBox(
-                    BlockPos(route.pos),
-                    if (route.subId == 0) color.darker().darker() else color
-                )
+                if(boxes)
+                {
+                    RenderUtils.blockBox(
+                        BlockPos(route.pos),
+                        if (route.subId == 0) color.darker().darker() else color
+                    )
+                }
+                
                 }
                 else
                 {
-                    if (lastRoute != null) RenderUtils.drawLine(
+                    if (lastRoute != null && lines) RenderUtils.drawLine(
                     currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos),
                     color.brighter()
                 )
-                RenderUtils.blockBox(
-                    BlockPos(currentRoom!!.getRealCoords(route.pos)),
-                    if (route.subId == 0) color.darker().darker() else color
-                )
+                if(boxes)
+                {
+                    RenderUtils.blockBox(
+                        BlockPos(currentRoom!!.getRealCoords(route.pos)),
+                        if (route.subId == 0) color.darker().darker() else color
+                    )
+                }
                 }
                 
                 lastRoute = route
