@@ -1,34 +1,33 @@
 package me.odinclient.utils.skyblock
 
-import me.odinmain.events.impl.DungeonEvents.RoomEnterEvent
-import me.odinmain.events.impl.PacketSentEvent
-import net.minecraft.client.Minecraft
-import net.minecraft.item.ItemStack
-import net.minecraft.network.play.client.C03PacketPlayer
-import net.minecraft.network.play.client.C03PacketPlayer.C05PacketPlayerLook
-import net.minecraft.network.play.client.C03PacketPlayer.C06PacketPlayerPosLook
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
-import net.minecraft.util.BlockPos
-import net.minecraft.util.Vec3
-import me.odinmain.utils.skyblock.dungeon.DungeonUtils
-import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRealCoords
-import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords
-import net.minecraftforge.client.event.RenderWorldLastEvent
-import me.odinmain.utils.skyblock.dungeon.tiles.Room
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent
-import org.cata.manager.RoutesManager
-import org.cata.mixin.entity.IEntityPlayerSPAccessor
-import org.cata.util.minecraft.RenderUtils
-import java.awt.Color
-import java.util.*
-import java.util.stream.Collectors
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Vec3;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import me.odinmain.events.impl.PacketReceivedEvent;
+import me.odinmain.events.impl.PacketSentEvent;
+import me.odinclient.utils.skyblock.RoutesManager;
+import me.odinclient.utils.skyblock.Timer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraft.client.Minecraft;
+import me.odinmain.features.Module;
+import net.minecraft.client.entity.EntityPlayerSP;
+import me.odinmain.features.Category;
+import me.odinclient.mixin.accessors.IEntityPlayerSPAccessor;
+import me.odinmain.events.impl.DungeonEvents.RoomEnterEvent;
+import me.odinmain.utils.skyblock.dungeon.tiles.Room;
 
 class AutoRouteUtils {
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
         currentRoom = event.getRoom()
-        val name = if (event.getRoom().getData() != null) event.getRoom().getData().getName() else "Unknown"
+        val name = if (event.room?.data?.name? != null) event.room.data?.name? else "Unknown"
         currentRoomName = name
     }
 
