@@ -46,13 +46,13 @@ class AutoRouteUtils {
     var etherQueued = false
     @SubscribeEvent
     fun onRender(event: RenderWorldLastEvent?) {
-        if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoom) == null) {
+        if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName) == null) {
             return
         }
         var lastRoute: RoutesManager.Route?
-        for (id in RoutesManager.instance.loadedRoutes.get(currentRoom)!!.keys) {
+        for (id in RoutesManager.instance.loadedRoutes.get(currentRoomName)!!.keys) {
             lastRoute = null
-            for (route in RoutesManager.instance.loadedRoutes.get(currentRoom)!![id]!!) {
+            for (route in RoutesManager.instance.loadedRoutes.get(currentRoomName)!![id]!!) {
                 if (lastRoute != null) RenderUtils.drawLine(
                     currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos),
                     color.brighter()
@@ -84,7 +84,7 @@ class AutoRouteUtils {
         if (mc.thePlayer == null) {
             return
         }
-        if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoom!!) == null) {
+        if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
             return
         }
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
