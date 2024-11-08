@@ -53,7 +53,20 @@ class AutoRouteUtils {
         for (id in RoutesManager.instance.loadedRoutes.get(currentRoomName)!!.keys) {
             lastRoute = null
             for (route in RoutesManager.instance.loadedRoutes.get(currentRoomName)!![id]!!) {
-                if (lastRoute != null) RenderUtils.drawLine(
+                if(currentRoom == null)
+                {
+                    if (lastRoute != null) RenderUtils.drawLine(
+                    lastRoute.pos, route.pos,
+                    color.brighter()
+                )
+                RenderUtils.blockBox(
+                    BlockPos(route.pos),
+                    if (route.subId == 0) color.darker().darker() else color
+                )
+                }
+                else
+                {
+                    if (lastRoute != null) RenderUtils.drawLine(
                     currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos),
                     color.brighter()
                 )
@@ -61,6 +74,8 @@ class AutoRouteUtils {
                     BlockPos(currentRoom!!.getRealCoords(route.pos)),
                     if (route.subId == 0) color.darker().darker() else color
                 )
+                }
+                
                 lastRoute = route
             }
         }
@@ -99,7 +114,7 @@ class AutoRouteUtils {
                             mc.thePlayer.posX,
                             mc.thePlayer.posY,
                             mc.thePlayer.posZ
-                        ).distanceTo(currentRoom!!.getRealCoords(route.pos))
+                        ).distanceTo(currentRoom == null ? route.pos : currentRoom!!.getRealCoords(route.pos))
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void")) && mc.thePlayer.isSneaking
