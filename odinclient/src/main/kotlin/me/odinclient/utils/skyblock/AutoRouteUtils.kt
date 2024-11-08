@@ -178,5 +178,4 @@ class AutoRouteUtils {
             return ""
         }
     }
-    public val companion = Companion
 }
