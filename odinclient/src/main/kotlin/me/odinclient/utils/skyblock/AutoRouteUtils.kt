@@ -96,10 +96,12 @@ class AutoRouteUtils : Module(
         if (event.packet !is S08PacketPlayerPosLook) {
             return
         }
+
+        var packet: S08PacketPlayerPosLook = event.packet
         
         if (cancelling) {
-            event.packet.yaw = mc.thePlayer.rotationYaw
-            event.packet.pitch = mc.thePlayer.rotationPitch
+            packet.yaw = mc.thePlayer.rotationYaw
+            packet.pitch = mc.thePlayer.rotationPitch
             mc.thePlayer.addChatMessage(ChatComponentText("Cancelled S08"))
         }
     }
