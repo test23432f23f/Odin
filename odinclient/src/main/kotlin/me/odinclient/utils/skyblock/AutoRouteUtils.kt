@@ -191,7 +191,7 @@ class AutoRouteUtils : Module(
             .sorted(Comparator.comparingInt { r: RoutesManager.Route -> r.id }).collect(Collectors.toList())
     }
 
-    companion object {
+   
         var currentRoom: Room? = null
         var currentRoomName = "Unknown"
         fun getDisplayName(stack: ItemStack?): String {
@@ -206,6 +206,6 @@ class AutoRouteUtils : Module(
                 }
             }
             return ""
-        }
+        
     }
 }
