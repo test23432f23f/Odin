@@ -83,17 +83,9 @@ class AutoRouteUtils {
         }
     }
 
-    var count = 0;
     @SubscribeEvent
     fun onPacket(event: PacketSentEvent) {
-        if (event.packet !is C03PacketPlayer) {
-            return
-        }
-
-        count++;
-
-        if(!cancelling)
-        {
+        if (event.packet !is C03PacketPlayer || !cancelling) {
             return
         }
         
@@ -102,25 +94,6 @@ class AutoRouteUtils {
             mc.thePlayer.addChatMessage(ChatComponentText("Cancelled C03"))
         }
         cancelling = false
-    }
-
-
-    var ppsTimer: Timer = Timer()
-    @SubscribeEvent
-    fun onUpdate2(event: ClientTickEvent?)
-    {
-        if(mc.thePlayer == null)
-        {
-            ppsTimer.reset()
-            return
-        }
-
-        if(ppsTimer.hasPassed(1000L) && count > 0)
-        {
-             mc.thePlayer.addChatMessage(ChatComponentText("" + count))
-             count = 0
-            ppsTimer.reset()
-        }
     }
 
     var rotationTimer: Timer = Timer()
