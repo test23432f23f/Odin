@@ -21,6 +21,9 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import me.odinmain.features.Category;
 import me.odinclient.mixin.accessors.IEntityPlayerSPAccessor;
 import me.odinmain.events.impl.DungeonEvents.RoomEnterEvent;
+import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRealCoords;
+import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords;
+import me.odinmain.utils.skyblock.dungeon.tiles.Room;
 
 import java.awt.*;
 import java.util.Comparator;
