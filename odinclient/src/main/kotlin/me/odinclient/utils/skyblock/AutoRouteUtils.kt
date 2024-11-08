@@ -1,35 +1,38 @@
 package me.odinclient.utils.skyblock
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import me.odinmain.events.impl.PacketReceivedEvent;
-import me.odinmain.events.impl.PacketSentEvent;
-import me.odinclient.utils.skyblock.RoutesManager;
-import me.odinclient.utils.skyblock.Timer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import me.odinmain.features.Module;
-import net.minecraft.client.entity.EntityPlayerSP;
-import me.odinmain.features.Category;
-import me.odinclient.mixin.accessors.IEntityPlayerSPAccessor;
-import me.odinmain.events.impl.DungeonEvents.RoomEnterEvent;
-import me.odinmain.utils.skyblock.dungeon.tiles.Room;
-import me.odinmain.utils.skyblock.dungeon.DungeonUtils;
-import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRealCoords;
-import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords;
+import net.minecraft.client.Minecraft
+import net.minecraft.network.play.client.C03PacketPlayer
+import net.minecraft.network.play.client.C03PacketPlayer.C05PacketPlayerLook
+import net.minecraft.network.play.client.C03PacketPlayer.C06PacketPlayerPosLook
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
+import net.minecraft.util.BlockPos
+import net.minecraft.util.Vec3
+import net.minecraftforge.client.event.RenderWorldLastEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import me.odinmain.events.impl.PacketReceivedEvent
+import me.odinmain.events.impl.PacketSentEvent
+import me.odinclient.utils.skyblock.RoutesManager
+import me.odinclient.utils.skyblock.RoutesManager.Route
+import me.odinclient.utils.skyblock.Timer
+import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent
+import me.odinmain.features.Module
+import net.minecraft.client.entity.EntityPlayerSP
+import me.odinmain.features.Category
+import me.odinclient.mixin.accessors.IEntityPlayerSPAccessor
+import me.odinmain.events.impl.DungeonEvents.RoomEnterEvent
+import me.odinmain.utils.skyblock.dungeon.tiles.Room
+import me.odinmain.utils.skyblock.dungeon.DungeonUtils
+import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRealCoords
+import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords
 
 class AutoRouteUtils {
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
         currentRoom = event.room
-        val name = if (event.room?.data?.name? != null) event.room.data?.name? else "Unknown"
+        val name = if (event.room.data?.name? != null) event.room.data?.name? else "Unknown"
         currentRoomName = name
     }
 
@@ -125,7 +128,7 @@ class AutoRouteUtils {
         val z = mc.thePlayer.posZ - player.lastReportedPosZ
         val moving = x * x + y * y + z * z > 9.0E-4 || player.positionUpdateTicks >= 20
         if (moving) {
-            //ChatLib.sendf("C06");
+            //ChatLib.sendf("C06")
             mc.netHandler.networkManager.sendPacket(
                 C06PacketPlayerPosLook(
                     mc.thePlayer.posX,
@@ -137,7 +140,7 @@ class AutoRouteUtils {
                 )
             )
         } else {
-            //ChatLib.sendf("C05");
+            //ChatLib.sendf("C05")
             mc.netHandler.networkManager.sendPacket(
                 C05PacketPlayerLook(
                     yaw,
