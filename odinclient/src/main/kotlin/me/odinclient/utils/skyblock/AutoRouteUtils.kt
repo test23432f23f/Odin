@@ -178,5 +178,6 @@ class AutoRouteUtils {
             return ""
         }
     }
-    public var companion = Companion
+    public val companion
+        get() = Companion
 }
