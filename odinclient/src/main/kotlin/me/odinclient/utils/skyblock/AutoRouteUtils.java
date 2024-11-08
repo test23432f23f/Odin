@@ -30,12 +30,14 @@ import me.odinmain.utils.skyblock.dungeon.DungeonUtils;
 
 public class AutoRouteUtils
 {
-    public static String currentRoom = "Unknown";
+    public static Room currentRoom = null;
+    public static String currentRoomName = "Unknown";
     @SubscribeEvent
     public void onRoom(RoomEnterEvent event)
     {
+        currentRoom = event.getRoom();
         String name = event.getRoom().getData() != null ? event.getRoom().getData().getName() : "Unknown";
-        currentRoom = name;
+        currentRoomName = name;
     }
     
     protected final Minecraft mc = Minecraft.getMinecraft();
