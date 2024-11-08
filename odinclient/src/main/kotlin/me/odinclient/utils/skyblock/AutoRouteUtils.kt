@@ -91,6 +91,19 @@ class AutoRouteUtils : Module(
         }
     }
 
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    fun onPacket(event: PacketReceivedEvent) {
+        if (event.packet !is S08PacketPlayerPosLook) {
+            return
+        }
+        
+        if (cancelling) {
+            event.packet.yaw = mc.thePlayer.rotationYaw
+            event.packet.pitch = mc.thePlayer.rotationPitch
+            mc.thePlayer.addChatMessage(ChatComponentText("Cancelled S08"))
+        }
+    }
+
     @SubscribeEvent
     fun onPacket(event: PacketSentEvent) {
         if (event.packet !is C03PacketPlayer || !cancelling) {
@@ -105,20 +118,7 @@ class AutoRouteUtils : Module(
         cancelling = false
     }
 
-    @SubscribeEvent
-    fun onPacket(event: PacketReceivedEvent) {
-        if (event.packet !is S08PacketPlayerPosLook) {
-            return
-        }
-        
-        if (!event.isCanceled && cancelling) {
-            event.setCanceled(true)
-            mc.thePlayer.addChatMessage(ChatComponentText("Cancelled S08"))
-        }
-    }
-
-    var rotationTimer: Timer = Timer()
-    var etherTimer: Timer = Timer()
+    
     @SubscribeEvent
     fun onUpdate(event: ClientTickEvent?) {
         if (mc.thePlayer == null) {
