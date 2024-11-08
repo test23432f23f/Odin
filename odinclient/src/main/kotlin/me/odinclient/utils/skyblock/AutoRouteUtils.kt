@@ -54,11 +54,11 @@ class AutoRouteUtils {
             lastRoute = null
             for (route in RoutesManager.instance.loadedRoutes.get(currentRoom)!![id]!!) {
                 if (lastRoute != null) RenderUtils.drawLine(
-                    currentRoom.getRealCoords(lastRoute.pos), currentRoom.getRealCoords(route.pos),
+                    currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos),
                     color.brighter()
                 )
                 RenderUtils.blockBox(
-                    BlockPos(currentRoom.getRealCoords(route.pos)),
+                    BlockPos(currentRoom!!.getRealCoords(route.pos)),
                     if (route.subId == 0) color.darker().darker() else color
                 )
                 lastRoute = route
@@ -84,13 +84,13 @@ class AutoRouteUtils {
         if (mc.thePlayer == null) {
             return
         }
-        if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoom) == null) {
+        if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoom!!) == null) {
             return
         }
         for (roomId in RoutesManager.instance.loadedRoutes.keys) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
                 val routes = RoutesManager.instance.loadedRoutes[roomId]!![id]
-                    .stream().sorted(Comparator.comparingInt { r: RoutesManager.Route -> r.subId })
+                    .stream().sorted(Comparator.comparingInt { r: RoutesManager.Route!! -> r.subId })
                     .collect(Collectors.toList())
                 for (i in routes.indices) {
                     if (routes.size < 2) continue
