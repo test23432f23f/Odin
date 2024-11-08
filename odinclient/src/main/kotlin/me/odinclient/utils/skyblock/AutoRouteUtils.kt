@@ -178,4 +178,5 @@ class AutoRouteUtils {
             return ""
         }
     }
+    var companion = Companion
 }
