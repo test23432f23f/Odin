@@ -33,7 +33,14 @@ import net.minecraft.util.ChatComponentText
 
 
 
-class AutoRouteUtils {
+class AutoRouteUtils : Module(
+    name = "Auto Routes",
+    category = Category.DUNGEON,
+    description = "idfk"
+) {
+    private val mode by DualSetting("Rotation Type", "Packet", "Setter", description = "")
+    private val delay by NumberSetting("Delay", 250L, 50, 500, unit = "ms", description = "Delay between clicks.")
+    
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
         currentRoom = event.room
@@ -127,15 +134,21 @@ class AutoRouteUtils {
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
                        
-                        if (rotationTimer.hasPassed(rotationDelay.toLong())) {
-                            cancelRotate(yaw, pitch)
+                        if (rotationTimer.hasPassed(delay)) 
+                        {
+                            if(mode)
+                            {
+                                cancelRotate(yaw, pitch)
+                            }
+                            else
+                            {
+                                mc.thePlayer.rotationYaw = yaw
+                                mc.thePlayer.rotationPitch = pitch
+                            }
+                            
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                             rotationTimer.reset()
                         }
-                        /*if (etherTimer.hasPassed(etherDelay.toLong())) {
-                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-                            etherTimer.reset()
-                        }*/
                     }
                 }
             }
@@ -182,8 +195,6 @@ class AutoRouteUtils {
     companion object {
         var currentRoom: Room? = null
         var currentRoomName = "Unknown"
-        var rotationDelay = 250
-        var etherDelay = 150
         fun getDisplayName(stack: ItemStack?): String {
             return if (stack != null) if (stack.hasDisplayName()) stack.displayName else "" else ""
         }
