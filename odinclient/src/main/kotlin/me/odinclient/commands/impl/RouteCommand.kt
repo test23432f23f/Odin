@@ -33,7 +33,7 @@ val RouteCommand = commodore("route") {
         
     }
     literal("remove").runs { id: Int, subId: Int ->
-        RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoom, HashMap()).getOrDefault(id).remove(subId)
+        RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoom, HashMap()).getOrDefault(id, ArrayList()).remove(subId)
         mc.thePlayer.addChatMessage(ChatComponentText("Removed " + id + " " + subId))
     }
 }
