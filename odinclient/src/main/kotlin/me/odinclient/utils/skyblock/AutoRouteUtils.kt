@@ -115,7 +115,7 @@ class AutoRouteUtils {
             return
         }
 
-        if(ppsTimer.hasPassed(1000L))
+        if(ppsTimer.hasPassed(1000L) && count > 0)
         {
              mc.thePlayer.addChatMessage(ChatComponentText("" + count))
              count = 0
