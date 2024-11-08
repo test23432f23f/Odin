@@ -186,12 +186,8 @@ class AutoRouteUtils : Module(
         cancelling = true
     }
 
-    fun getSortedRoutes(roomId: String?, routeId: Int): List<RoutesManager.Route> {
-        return RoutesManager.instance.loadedRoutes.get(roomId)!![routeId]!!.stream()
-            .sorted(Comparator.comparingInt { r: RoutesManager.Route -> r.id }).collect(Collectors.toList())
-    }
-
-   
+   companion object
+    {
         var currentRoom: Room? = null
         var currentRoomName = "Unknown"
         fun getDisplayName(stack: ItemStack?): String {
@@ -205,7 +201,7 @@ class AutoRouteUtils : Module(
                     return extraAttributes.getString("id")
                 }
             }
-            return ""
-        
+            return ""   
+        }
     }
 }
