@@ -89,7 +89,6 @@ class AutoRouteUtils : Module(
         }
     }
 
-    private var count = 0;
     @SubscribeEvent
     fun onPacket(event: PacketSentEvent) {
         if (event.packet !is C03PacketPlayer || !cancelling) {
@@ -99,12 +98,20 @@ class AutoRouteUtils : Module(
         if (!event.isCanceled) {
             event.setCanceled(true)
             mc.thePlayer.addChatMessage(ChatComponentText("Cancelled C03"))
-            count++
         }
-        if(count >= 4)
-        {
-            cancelling = false
-            count = 0
+      
+        cancelling = false
+    }
+
+    @SubscribeEvent
+    fun onPacket(event: PacketReceivedEvent) {
+        if (event.packet !is S08PacketPlayerPosLook) {
+            return
+        }
+        
+        if (!event.isCanceled) {
+            event.setCanceled(true)
+            mc.thePlayer.addChatMessage(ChatComponentText("Cancelled S08"))
         }
     }
 
