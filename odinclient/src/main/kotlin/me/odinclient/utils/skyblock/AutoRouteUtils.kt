@@ -33,6 +33,7 @@ import net.minecraft.util.ChatComponentText
 import me.odinmain.features.settings.impl.*
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 import net.minecraft.network.play.server.S18PacketEntityTeleport
+import net.minecraft.util.EnumFacing;
 
 
 
@@ -106,10 +107,9 @@ class AutoRouteUtils : Module(
         if (!event.isCanceled) {
             event.setCanceled(true)
             mc.thePlayer.addChatMessage(ChatComponentText("Cancelled C03"))
-            cancelling = false
+           
         }
-      
-       
+        cancelling = false
     }
 
     val rotationTimer: Timer = Timer()
@@ -145,7 +145,7 @@ class AutoRouteUtils : Module(
                        
                         if (rotationTimer.hasPassed(rotationDelay)) 
                         {
-                            if(!mode)
+                            /*if(!mode)
                             {
                                 cancelRotate(yaw, pitch)
                             }
@@ -155,18 +155,32 @@ class AutoRouteUtils : Module(
                                 mc.thePlayer.rotationPitch = pitch
                             }
                             
-                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))*/
+                            clickBlock(BlockPos(route.x, route.y, route.z), route.yaw)
                             rotationTimer.reset()
-                        }
-
-                        
-                          
-                         
+                        }  
                     }
                 }
             }
         }
     }
+
+    private fun clickBlock(hitPos: BlockPos, yaw: Float) {
+    val hitVec = Vec3(0.0, 0.0, 0.0)
+    val f = (hitVec.xCoord - hitPos.x).toFloat()
+    val f1 = (hitVec.yCoord - hitPos.y).toFloat()
+    val f2 = (hitVec.zCoord - hitPos.z).toFloat()
+    mc.netHandler.networkManager.sendPacket(C08PacketPlayerBlockPlacement(
+        BlockPos(-1, -1, -1),
+        EnumFacing.fromAngle(yaw).index,
+        mc.thePlayer.heldItem,
+        f,
+        f1,
+        f2
+    ))
+    }
+
+
 
     var cancelling = false
     fun cancelRotate(yaw: Float, pitch: Float) {
