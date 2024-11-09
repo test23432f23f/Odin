@@ -162,7 +162,7 @@ class AutoRouteUtils : Module(
                           
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                         
-                          /rotationTimer.reset()
+                          rotationTimer.reset()
                         } 
                     }
                 }
