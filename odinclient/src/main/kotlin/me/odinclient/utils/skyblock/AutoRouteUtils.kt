@@ -35,6 +35,7 @@ import net.minecraft.network.play.server.S08PacketPlayerPosLook
 import net.minecraft.network.play.server.S18PacketEntityTeleport
 import net.minecraft.util.EnumFacing;
 import kotlin.concurrent.thread
+import java.lang.Thread
 
 
 
@@ -157,7 +158,7 @@ class AutoRouteUtils : Module(
                                 mc.thePlayer.rotationYaw = yaw
                                 mc.thePlayer.rotationPitch = pitch
                             }
-                            thread.sleep(100L)
+                            Thread.sleep(100L)
                             
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                         
