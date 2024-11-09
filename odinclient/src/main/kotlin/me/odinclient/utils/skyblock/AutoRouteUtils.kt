@@ -177,7 +177,18 @@ class AutoRouteUtils : Module(
         val y = mc.thePlayer.posY - player.lastReportedPosX
         val z = mc.thePlayer.posZ - player.lastReportedPosZ
         val moving = x * x + y * y + z * z > 9.0E-4 || player.positionUpdateTicks >= 20
-        if (moving) {
+
+          mc.netHandler.networkManager.sendPacket(
+                C06PacketPlayerPosLook(
+                    mc.thePlayer.posX,
+                    mc.thePlayer.posY,
+                    mc.thePlayer.posZ,
+                    yaw,
+                    pitch,
+                    mc.thePlayer.onGround
+                )
+            )
+        /*if (moving) {
             //ChatLib.sendf("C06")
             mc.netHandler.networkManager.sendPacket(
                 C06PacketPlayerPosLook(
@@ -198,7 +209,7 @@ class AutoRouteUtils : Module(
                     mc.thePlayer.onGround
                 )
             )
-        }
+        }*/
         cancelling = true
     }
 
