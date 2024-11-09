@@ -160,10 +160,15 @@ class AutoRouteUtils : Module(
                                 mc.thePlayer.rotationPitch = pitch
                             }
                           
-                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                           
                         
                           rotationTimer.reset()
                         } 
+
+                        if(mc.thePlayer.rotationYaw == yaw && mc.thePlayer.rotationPitch == pitch)
+                        {
+                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                        }
                     }
                 }
             }
