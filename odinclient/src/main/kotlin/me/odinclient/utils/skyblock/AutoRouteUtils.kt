@@ -147,9 +147,9 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
                        
-                       /* if (rotationTimer.hasPassed(rotationDelay)) 
-                        {*/
-                             Thread.sleep(100L)
+                       if (rotationTimer.hasPassed(rotationDelay)) 
+                        {
+                             
                             if(!mode)
                             {
                                 cancelRotate(yaw, pitch)
@@ -159,12 +159,11 @@ class AutoRouteUtils : Module(
                                 mc.thePlayer.rotationYaw = yaw
                                 mc.thePlayer.rotationPitch = pitch
                             }
-                            Thread.sleep(100L)
-                            
+                          
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                         
-                          /*  rotationTimer.reset()
-                        }  */
+                          /rotationTimer.reset()
+                        } 
                     }
                 }
             }
