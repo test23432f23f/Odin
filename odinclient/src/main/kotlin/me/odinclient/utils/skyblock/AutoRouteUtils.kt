@@ -159,7 +159,7 @@ class AutoRouteUtils : Module(
                             rotationTimer.reset()
                         }
 
-                        if(clickTimer.hasPassed(clickDelay)
+                        if(clickTimer.hasPassed(clickDelay))
                         {
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                             clickTimer.reset()
