@@ -1,5 +1,6 @@
 package me.odinclient.utils.skyblock;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
