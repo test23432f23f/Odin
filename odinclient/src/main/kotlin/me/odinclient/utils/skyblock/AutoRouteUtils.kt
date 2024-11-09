@@ -42,7 +42,8 @@ class AutoRouteUtils : Module(
     description = "idfk"
 ) {
     private val mode by DualSetting("Rotation Type", "Packet", "Setter", description = "")
-    private val delay by NumberSetting("Delay", 250L, 50, 500, unit = "ms", description = "Delay between clicks.")
+    private val rotationDelay by NumberSetting("Rotation Delay", 250L, 50, 500, unit = "ms", description = "Delay between rotations.")
+     private val clickDelay by NumberSetting("Click Delay", 250L, 50, 500, unit = "ms", description = "Delay between clicks.")
     private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     
@@ -112,6 +113,7 @@ class AutoRouteUtils : Module(
     }
 
     val rotationTimer: Timer = Timer()
+    val clickTimer: Timer = Timer()
     @SubscribeEvent
     fun onUpdate(event: ClientTickEvent?) {
         if (mc.thePlayer == null) {
@@ -141,7 +143,7 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
                        
-                        if (rotationTimer.hasPassed(delay)) 
+                        if (rotationTimer.hasPassed(rotationDelay)) 
                         {
                             if(!mode)
                             {
@@ -153,8 +155,14 @@ class AutoRouteUtils : Module(
                                 mc.thePlayer.rotationPitch = pitch
                             }
                             
-                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                           
                             rotationTimer.reset()
+                        }
+
+                        if(clickTimer.hasPassed(clickDelay)
+                        {
+                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                            clickTimer.reset()
                         }
                     }
                 }
