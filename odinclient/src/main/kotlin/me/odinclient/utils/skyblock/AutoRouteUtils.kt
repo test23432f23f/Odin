@@ -165,9 +165,10 @@ class AutoRouteUtils : Module(
                           rotationTimer.reset()
                         } 
 
-                        if(mc.thePlayer.rotationYaw == yaw && mc.thePlayer.rotationPitch == pitch)
+                        if(clickTimer.hasPassed(rotationDelay + 75L))
                         {
-                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                            clickTimer.reset()
                         }
                     }
                 }
