@@ -156,7 +156,7 @@ class AutoRouteUtils : Module(
                             }
                             
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))*/
-                            clickBlock(BlockPos(route.x, route.y, route.z), route.yaw)
+                            clickBlock(BlockPos(route.pos.x, route.pos.y, route.pos.z), route.yaw)
                             rotationTimer.reset()
                         }  
                     }
@@ -172,7 +172,7 @@ class AutoRouteUtils : Module(
     val f2 = (hitVec.zCoord - hitPos.z).toFloat()
     mc.netHandler.networkManager.sendPacket(C08PacketPlayerBlockPlacement(
         BlockPos(-1, -1, -1),
-        EnumFacing.fromAngle(yaw).index,
+        EnumFacing.fromAngle(yaw.toDouble()).index,
         mc.thePlayer.heldItem,
         f,
         f1,
