@@ -175,11 +175,8 @@ class AutoRouteUtils : Module(
         val z = mc.thePlayer.posZ - player.lastReportedPosZ
         val moving = x * x + y * y + z * z > 9.0E-4 || player.positionUpdateTicks >= 20
 
-          mc.netHandler.networkManager.sendPacket(
-                C06PacketPlayerPosLook(
-                    mc.thePlayer.posX,
-                    mc.thePlayer.posY,
-                    mc.thePlayer.posZ,
+        mc.netHandler.networkManager.sendPacket(
+                C05PacketPlayerLook(
                     yaw,
                     pitch,
                     mc.thePlayer.onGround
