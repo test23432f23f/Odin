@@ -39,7 +39,7 @@ public class RenderUtils
             GL11.glPopMatrix();
            }
 
-    public static void blockBox(BlockPos block, Color color) {
+    public static void blockBox(BlockPos block) {
         /* 536 */     GL11.glBlendFunc(770, 771);
         /* 537 */     GL11.glEnable(3042);
         /* 538 */     GL11.glLineWidth(2.0F);
