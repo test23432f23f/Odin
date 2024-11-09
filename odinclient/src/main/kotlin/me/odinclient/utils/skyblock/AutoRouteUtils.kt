@@ -106,9 +106,10 @@ class AutoRouteUtils : Module(
         if (!event.isCanceled) {
             event.setCanceled(true)
             mc.thePlayer.addChatMessage(ChatComponentText("Cancelled C03"))
+            cancelling = false
         }
       
-        cancelling = false
+       
     }
 
     val rotationTimer: Timer = Timer()
@@ -173,16 +174,9 @@ class AutoRouteUtils : Module(
         val x = mc.thePlayer.posX - player.lastReportedPosX
         val y = mc.thePlayer.posY - player.lastReportedPosX
         val z = mc.thePlayer.posZ - player.lastReportedPosZ
-        val moving = x * x + y * y + z * z > 9.0E-4 || player.positionUpdateTicks >= 20
-
-        mc.netHandler.networkManager.sendPacket(
-                C05PacketPlayerLook(
-                    yaw,
-                    pitch,
-                    mc.thePlayer.onGround
-                )
-            )
-        /*if (moving) {
+        val moving = x * x + y * y + z * z > 9.0E-40 || player.positionUpdateTicks >= 20
+        
+        if (moving) {
             //ChatLib.sendf("C06")
             mc.netHandler.networkManager.sendPacket(
                 C06PacketPlayerPosLook(
@@ -203,7 +197,7 @@ class AutoRouteUtils : Module(
                     mc.thePlayer.onGround
                 )
             )
-        }*/
+        }
         cancelling = true
     }
 
