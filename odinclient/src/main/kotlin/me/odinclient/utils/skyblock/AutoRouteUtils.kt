@@ -68,12 +68,12 @@ class AutoRouteUtils : Module(
                 if(currentRoom == null)
                 {
                     if (lastRoute != null && lines) RenderUtils.drawLine(
-                    lastRoute.pos, route.pos
+                    lastRoute.pos, route.pos, color
                 )
                 if(boxes)
                 {
                     RenderUtils.blockBox(
-                        BlockPos(route.pos)
+                        BlockPos(route.pos), color
                     )
                 }
                 
@@ -81,13 +81,13 @@ class AutoRouteUtils : Module(
                 else
                 {
                     if (lastRoute != null && lines) RenderUtils.drawLine(
-                    currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos)
+                    currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos), color
                     
                 )
                 if(boxes)
                 {
                     RenderUtils.blockBox(
-                        BlockPos(currentRoom!!.getRealCoords(route.pos))
+                        BlockPos(currentRoom!!.getRealCoords(route.pos)), color
                     )
                 }
                 }
