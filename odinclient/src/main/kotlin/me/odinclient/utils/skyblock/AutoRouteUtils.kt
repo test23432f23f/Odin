@@ -43,7 +43,6 @@ class AutoRouteUtils : Module(
 ) {
     private val mode by DualSetting("Rotation Type", "Packet", "Setter", description = "")
     private val rotationDelay by NumberSetting("Rotation Delay", 250L, 50, 500, unit = "ms", description = "Delay between rotations.")
-     private val clickDelay by NumberSetting("Click Delay", 250L, 50, 500, unit = "ms", description = "Delay between clicks.")
     private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     
@@ -155,15 +154,13 @@ class AutoRouteUtils : Module(
                                 mc.thePlayer.rotationPitch = pitch
                             }
                             
-                           
+                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                             rotationTimer.reset()
                         }
 
-                        if(clickTimer.hasPassed(clickDelay))
-                        {
-                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-                            clickTimer.reset()
-                        }
+                        
+                          
+                         
                     }
                 }
             }
