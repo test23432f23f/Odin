@@ -37,4 +37,10 @@ val RouteCommand = commodore("route") {
         RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(id, ArrayList()).removeAt(subId)
         mc.thePlayer.addChatMessage(ChatComponentText("Removed " + id + " " + subId))
     }
+
+    literal("reset").runs {
+        AutoRouteUtils.currentRoom = null
+        AutoRouteUtils.currentRoomName = "Unknown"
+        mc.thePlayer.addChatMessage(ChatComponentText("Reset current room"))
+    }
 }
