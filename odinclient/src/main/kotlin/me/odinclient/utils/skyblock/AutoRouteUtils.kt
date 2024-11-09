@@ -35,7 +35,6 @@ import net.minecraft.network.play.server.S08PacketPlayerPosLook
 import net.minecraft.network.play.server.S18PacketEntityTeleport
 import net.minecraft.util.EnumFacing;
 import kotlin.concurrent.thread
-import kotlin.concurrent.sleep
 
 
 
@@ -118,13 +117,14 @@ class AutoRouteUtils : Module(
     val clickTimer: Timer = Timer()
     @SubscribeEvent
     fun onUpdate(event: ClientTickEvent?) {
-        thread {
-        if (mc.thePlayer == null) {
+         if (mc.thePlayer == null) {
             return
         }
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
             return
         }
+        thread {
+       
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
                 val routes = RoutesManager.instance.loadedRoutes[roomId]!![id]!!
@@ -157,7 +157,7 @@ class AutoRouteUtils : Module(
                                 mc.thePlayer.rotationYaw = yaw
                                 mc.thePlayer.rotationPitch = pitch
                             }
-                            sleep(100L)
+                            thread.sleep(100L)
                             
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                         
