@@ -12,7 +12,7 @@ import java.awt.*;
 public class RenderUtils
 {
     protected static Minecraft mc = Minecraft.getMinecraft();
-    public static void drawLine(Vec3 pos1, Vec3 pos2, Color color)
+    public static void drawLine(Vec3 pos1, Vec3 pos2)
     {
             GL11.glPushMatrix();
           GL11.glBlendFunc(770, 771);
@@ -22,7 +22,7 @@ public class RenderUtils
          GL11.glDisable(2929);
              GL11.glDepthMask(false);
 
-        setColor(color);
+            
              GL11.glTranslated(-(mc.getRenderManager()).viewerPosX,
                      -(mc.getRenderManager()).viewerPosY,
                      -(mc.getRenderManager()).viewerPosZ);
@@ -46,7 +46,7 @@ public class RenderUtils
         /* 539 */     GL11.glDisable(3553);
         /* 540 */     GL11.glDisable(2929);
         /* 541 */     GL11.glDepthMask(false);
-        /* 542 */     setColor(color);
+        /* 542 */     
         /* 543 */     RenderGlobal.drawSelectionBoundingBox(new AxisAlignedBB(block
 
                 .getX() -
@@ -73,8 +73,4 @@ public class RenderUtils
         /* 566 */     GL11.glDisable(3042);
         /*     */   }
 
-    public static void setColor(Color c) {
-        /* 473 */     GL11.glColor4f(c.getRed() / 255.0F, c.getGreen() / 255.0F, c.getBlue() / 255.0F, c
-                /* 474 */         .getAlpha() / 255.0F);
-        /*     */   }
 }
