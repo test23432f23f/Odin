@@ -156,7 +156,7 @@ class AutoRouteUtils : Module(
                             }
                             
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))*/
-                            clickBlock(BlockPos(route.pos.x, route.pos.y, route.pos.z), route.yaw)
+                            clickBlock(BlockPos(route.pos.xCoord.toInt(), route.pos.yCoord.toInt(), route.pos.zCoord.toInt()), route.yaw)
                             rotationTimer.reset()
                         }  
                     }
