@@ -172,7 +172,7 @@ class AutoRouteUtils : Module(
                        if(clickTimer.hasPassed(clickDelay))
                         {
                             val player = mc.thePlayer as IEntityPlayerSPAccessor
-                            if(!sneaking)
+                            if(!sneaking && route.type == Route.RouteType.ETHERWARP)
                             {
                                 mc.thePlayer.sendQueue.addToSendQueue(C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SNEAKING))
                                 sneaking = true
