@@ -52,9 +52,8 @@ class AutoRouteUtils : Module(
     private val clickDelay by NumberSetting("Click after delay", 5L, 0, 300, unit = "ms", description = "Delay between clicks.")
     private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
-    private val setPosition by BooleanSetting("Set Position", false, description = "SET POS")
-    private val click by BooleanSetting("Click", false, description = "CASD")
-    
+    private val silentRotations by BooleanSetting("Silent Rotations", false, description = "Rotate silently.")
+   
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
         currentRoom = event.room
@@ -158,8 +157,17 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
-                        event.yaw = yaw
-                        event.pitch = pitch
+                        if(silentRotations)
+                        {
+                            event.yaw = yaw
+                            event.pitch = pitch
+                        }
+                        else
+                        {
+                            mc.thePlayer.rotationYaw = yaw
+                            mc.thePlayer.rotationPitch = pitch
+                        }
+                        
                        
                        if(clickTimer.hasPassed(clickDelay))
                         {
