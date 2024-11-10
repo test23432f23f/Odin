@@ -130,7 +130,7 @@ public abstract class MixinEntityPlayerSP {
             }
             else
             {
-                this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.motionX, -999.0D, this.motionZ, preMotionUpdateEvent.getYaw(),
+                this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(mc.thePlayer.motionX, -999.0D,mc.thePlayer.motionZ, preMotionUpdateEvent.getYaw(),
                         preMotionUpdateEvent.getPitch(), preMotionUpdateEvent.getOnGround()));
                 flag2 = false;
             }
