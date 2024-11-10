@@ -118,6 +118,8 @@ class AutoRouteUtils : Module(
 
     val rotationTimer: Timer = Timer()
     val clickTimer: Timer = Timer()
+
+    var done = true
     @SubscribeEvent
     fun onUpdate(event: ClientTickEvent?) {
          if (mc.thePlayer == null) {
@@ -150,7 +152,28 @@ class AutoRouteUtils : Module(
                         var pitch: Float = route.pitch
 
 
-                       if (rotationTimer.hasPassed(rotationDelay)) 
+                       if(done && rotationTimer.hasPassed(rotationDelay))
+                        {
+                            done = false;
+                            Timer.schedule({
+                                if(!mode)
+                                  {
+                                   cancelRotate(yaw, pitch)
+                                  }
+                              else
+                              {
+                                  mc.thePlayer.rotationYaw = yaw
+                                  mc.thePlayer.rotationPitch = pitch
+                              }
+                                Timer.schedule({
+                                    mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                                    done = true;
+                                    rotationTimer.reset()
+                                }, clickDelay.toLong())
+                            }, 0L)
+                        }
+
+                       /*if (rotationTimer.hasPassed(rotationDelay)) 
                         {
                           if(setPosition)
                           {
@@ -171,7 +194,7 @@ class AutoRouteUtils : Module(
                           
     
                           rotationTimer.reset()
-                        }
+                        }*/
                     }
                 }
             }
