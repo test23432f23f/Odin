@@ -63,8 +63,7 @@ public abstract class MixinEntityPlayerSP {
         MotionUpdateEvent preMotionUpdateEvent = new MotionUpdateEvent(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ,
                 mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, mc.thePlayer.onGround);
         
-         if(MinecraftForge.EVENT_BUS.post(preMotionUpdateEvent))
-             return;
+        MinecraftForge.EVENT_BUS.post(preMotionUpdateEvent)
         
         if (flag != this.serverSprintState)
         {
