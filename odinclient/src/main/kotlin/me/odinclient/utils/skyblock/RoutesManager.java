@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraft.util.ChatComponentText;
 
 public class RoutesManager
 {
@@ -115,7 +116,7 @@ public class RoutesManager
                                     r.getFloat("yaw"), r.getFloat("pitch")));
 
                             if(Minecraft.getMinecraft().thePlayer != null)
-                                 mc.thePlayer.addChatMessage(ChatComponentText(roomKey + " : " + idKey + " : " + subIdKey));
+                                 Minecraft.getMinecraft().thePlayer.addChatMessage(ChatComponentText(roomKey + " : " + idKey + " : " + subIdKey));
                                 
                         }
                         roomList.put(Integer.parseInt(idKey), routesList);
