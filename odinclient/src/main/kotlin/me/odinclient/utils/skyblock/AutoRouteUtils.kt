@@ -47,12 +47,12 @@ class AutoRouteUtils : Module(
     category = Category.DUNGEON,
     description = "idfk"
 ) {
-    private val mode by DualSetting("Rotation Type", "Packet", "Setter", description = "")
-    private val rotationDelay by NumberSetting("Rotation Delay", 250L, 50, 750, unit = "ms", description = "Delay between rotations.")
-    private val clickDelay by NumberSetting("Click after delay", 5L, 0, 300, unit = "ms", description = "Delay between clicks.")
+    private val clickDelay by NumberSetting("Click delay", 250L, 0, 1000, unit = "ms", description = "Delay between clicks.")
+    private val waitDelay by NumberSetting("Wait delay", 750L, 0, 3000, unit = "ms", description = ")
+    private val silentRotations by BooleanSetting("Silent Rotations", false, description = "Rotate silently.")
     private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
-    private val silentRotations by BooleanSetting("Silent Rotations", false, description = "Rotate silently.")
+    
    
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
@@ -119,6 +119,7 @@ class AutoRouteUtils : Module(
     val waitTimer: Timer = Timer()
     val clickTimer: Timer = Timer()
     var doneWaiting = false
+
     
     @SubscribeEvent
     fun onMotion(event: MotionUpdateEvent) {
@@ -171,7 +172,7 @@ class AutoRouteUtils : Module(
                             event.sneaking = false
                         }
                         
-                       if(clickTimer.hasPassed(clickDelay + (if(route.type==Route.RouteType.WAIT) 500L else 0L)))
+                       if(clickTimer.hasPassed(clickDelay + (if(route.type==Route.RouteType.WAIT) waitDelay else 0L)))
                         {
                             val player = mc.thePlayer as IEntityPlayerSPAccessor
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
