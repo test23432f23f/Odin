@@ -166,12 +166,12 @@ class AutoRouteUtils : Module(
 
                         if(rotationTimer.hasPassed(rotationDelay))
                         {
-                            
+                            Timer.schedule({ mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))}, clickDelay.toLong())
                             cancelRotate(yaw, pitch)
                             
                             mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
 
-                            Timer.schedule({ mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))}, clickDelay.toLong())
+                            
                            
                             rotationTimer.reset()
                         }
