@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraft.util.ChatComponentText;
+import java.awt.*;
 
 public class RoutesManager
 {
@@ -176,7 +177,13 @@ public class RoutesManager
 
         public enum RouteType
         {
-            ETHERWARP, TELEPORT
+            ETHERWARP(Color.PURPLE), TELEPORT(Color.BLUE), WAIT(Color.GREEN);
+
+            public Color color;
+            RouteType(Color color)
+            {
+                this.color = color;
+            }
         }
     }
 }
