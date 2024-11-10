@@ -113,6 +113,10 @@ public class RoutesManager
                                     Integer.parseInt(subIdKey),
                                     new Vec3(r.getDouble("x"), r.getDouble("y"), r.getDouble("z")),
                                     r.getFloat("yaw"), r.getFloat("pitch")));
+
+                            if(Minecraft.getMinecraft().thePlayer != null)
+                                 mc.thePlayer.addChatMessage(ChatComponentText(roomKey + " : " + idKey + " : " + subIdKey))
+                                
                         }
                         roomList.put(Integer.parseInt(idKey), routesList);
 
