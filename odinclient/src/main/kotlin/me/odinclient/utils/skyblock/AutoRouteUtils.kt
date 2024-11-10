@@ -118,8 +118,7 @@ class AutoRouteUtils : Module(
 
     val rotationTimer: Timer = Timer()
     val clickTimer: Timer = Timer()
-
-    var done = true
+    
     @SubscribeEvent
     fun onUpdate(event: ClientTickEvent?) {
          if (mc.thePlayer == null) {
@@ -180,7 +179,7 @@ class AutoRouteUtils : Module(
         }
     }
 
-    var done = true;
+    var done: Boolean = true;
     fun doEther(yaw: Float, pitch: Float)
     {
         if(!done)
