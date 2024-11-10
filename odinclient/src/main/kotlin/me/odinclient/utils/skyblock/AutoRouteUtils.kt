@@ -150,7 +150,7 @@ class AutoRouteUtils : Module(
 
                        if (rotationTimer.hasPassed(rotationDelay)) 
                         {
-                          Timer.schedule({mc.thePlayer.setPosition(nextRoute.pos.xCoord.toInt() + 0.5, nextRoute.pos.yCoord + 1.05, nextRoute.pos.zCoord.toInt() + 0.5)}, 0L)
+                          //Timer.schedule({mc.thePlayer.setPosition(nextRoute.pos.xCoord.toInt() + 0.5, nextRoute.pos.yCoord + 1.05, nextRoute.pos.zCoord.toInt() + 0.5)}, 0L)
                           cancelRotate(yaw, pitch)
                           Timer.schedule({ mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))}, 5L)
                           
