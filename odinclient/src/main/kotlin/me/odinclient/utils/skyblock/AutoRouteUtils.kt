@@ -48,7 +48,7 @@ class AutoRouteUtils : Module(
     description = "idfk"
 ) {
     private val clickDelay by NumberSetting("Click delay", 250L, 0, 1000, unit = "ms", description = "Delay between clicks.")
-    private val waitDelay by NumberSetting("Wait delay", 750L, 0, 3000, unit = "ms", description = ")
+    private val waitDelay by NumberSetting("Wait delay", 750L, 0, 3000, unit = "ms", description = "")
     private val silentRotations by BooleanSetting("Silent Rotations", false, description = "Rotate silently.")
     private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
