@@ -67,6 +67,9 @@ public abstract class MixinEntityPlayerSP {
         {
              return;
         }
+
+         mc.thePlayer.renderYawOffset = preMotionUpdateEvent.getYaw();
+         mc.thePlayer.rotationYawHead = preMotionUpdateEvent.getYaw();
         
         if (flag != this.serverSprintState)
         {
