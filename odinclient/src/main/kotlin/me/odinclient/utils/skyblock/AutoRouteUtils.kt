@@ -168,7 +168,7 @@ class AutoRouteUtils : Module(
                         {
                             mc.thePlayer.rotationYaw = yaw
                             mc.thePlayer.rotationPitch = pitch
-                            cancelRotate(yaw, pitch)
+                            //cancelRotate(yaw, pitch)
                             
                             mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
 
