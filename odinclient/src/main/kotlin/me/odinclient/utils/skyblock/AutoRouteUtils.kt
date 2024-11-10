@@ -156,7 +156,7 @@ class AutoRouteUtils : Module(
                         {
                              mc.thePlayer.rotationYaw = yaw
                              mc.thePlayer.rotationPitch = pitch
-                             player.setPositionUpdateTicks(20)
+                             player.positionUpdateTicks = 20
                             mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
                             if(!click)
                             {
@@ -231,7 +231,7 @@ class AutoRouteUtils : Module(
     }
 
     var cancelling = false
-     val player = mc.thePlayer as IEntityPlayerSPAccessor ?: return
+    val player = mc.thePlayer as IEntityPlayerSPAccessor
     fun cancelRotate(yaw: Float, pitch: Float) {
        
         val x = mc.thePlayer.posX - player.lastReportedPosX
