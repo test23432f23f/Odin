@@ -154,7 +154,8 @@ class AutoRouteUtils : Module(
 
                         if(rotationTimer.hasPassed(rotationDelay))
                         {
-                            cancelRotate(yaw, pitch)
+                             mc.thePlayer.rotationYaw = yaw
+                             mc.thePlayer.rotationPitch = pitch
                             mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
                             if(!click)
                             {
@@ -239,11 +240,11 @@ class AutoRouteUtils : Module(
         val moving = x * x + y * y + z * z > 9.0E-40 || player.positionUpdateTicks >= 20
        // val rotating = yaw != 0.0f || pitch != 0.0f;
 
-        mc.thePlayer.rotationYaw = yaw
+       /* mc.thePlayer.rotationYaw = yaw
         mc.thePlayer.rotationPitch = pitch
         mc.netHandler.networkManager.sendPacket(C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, mc.thePlayer.onGround))
        
-         mc.thePlayer.addChatMessage(ChatComponentText("Sent C04"))
+         mc.thePlayer.addChatMessage(ChatComponentText("Sent C04"))*/
         
        /* if (moving) {
             //ChatLib.sendf("C06")
