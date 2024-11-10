@@ -61,7 +61,7 @@ public abstract class MixinEntityPlayerSP {
         boolean flag = mc.thePlayer.isSprinting();
 
         MotionUpdateEvent preMotionUpdateEvent = new MotionUpdateEvent(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ,
-                mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, mc.thePlayer.onGround);
+                mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, mc.thePlayer.onGround, mc.thePlayer.isSneaking());
         
         if (MinecraftForge.EVENT_BUS.post(preMotionUpdateEvent)) 
         {
@@ -85,7 +85,7 @@ public abstract class MixinEntityPlayerSP {
             this.serverSprintState = flag;
         }
 
-        boolean flag1 = this.isSneaking();
+        boolean flag1 = preMotionUpdateEvent.getSneaking();
 
         if (flag1 != this.serverSneakState)
         {
