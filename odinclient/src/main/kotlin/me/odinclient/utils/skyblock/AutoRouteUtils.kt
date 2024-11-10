@@ -76,12 +76,12 @@ class AutoRouteUtils : Module(
                 if(currentRoom == null)
                 {
                     if (lastRoute != null && lines) RenderUtils.drawLine(
-                    lastRoute.pos, route.pos, color
+                    lastRoute.pos, route.pos, Color.WHITE
                 )
                 if(boxes)
                 {
                     RenderUtils.blockBox(
-                        BlockPos(route.pos), color
+                        BlockPos(route.pos), if(route.subId == 0) route.color.darker() else route.color
                     )
                 }
                 
@@ -89,13 +89,13 @@ class AutoRouteUtils : Module(
                 else
                 {
                     if (lastRoute != null && lines) RenderUtils.drawLine(
-                    currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos), color
+                    currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos), Color.WHITE
                     
                 )
                 if(boxes)
                 {
                     RenderUtils.blockBox(
-                        BlockPos(currentRoom!!.getRealCoords(route.pos)), color
+                        BlockPos(currentRoom!!.getRealCoords(route.pos)), if(route.subId == 0) route.color.darker() else route.color
                     )
                 }
                 }
@@ -127,9 +127,7 @@ class AutoRouteUtils : Module(
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
             return
         }
-
         
-    
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
                 val routes = RoutesManager.instance.loadedRoutes[roomId]!![id]!!
@@ -164,7 +162,15 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.rotationPitch = pitch
                         }
 
-                        event.sneaking = true
+                        if(route.type == Route.RouteType.ETHERWARP)
+                        {
+                            event.sneaking = true
+                        }
+                        else if(route.type == Route.RouteType.TELEPORT)
+                        {
+                            event.sneaking = false
+                        }
+                        
                         
                        
                        if(clickTimer.hasPassed(clickDelay))
