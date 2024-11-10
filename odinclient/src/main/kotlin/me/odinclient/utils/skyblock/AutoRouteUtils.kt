@@ -124,7 +124,7 @@ class AutoRouteUtils : Module(
     {
         if(event.packet is C08PacketPlayerBlockPlacement)
         {
-            rotationTimer.reset()
+            clickTimer.reset()
         }
     }
 
@@ -165,9 +165,8 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
-                        event.yaw = yaw
-                        event.pitch = pitch
-
+                        mc.thePlayer.rotationYaw = yaw
+                        mc.thePlayer.rotationPitch = pitch
                         
 
                        
