@@ -131,7 +131,7 @@ class AutoRouteUtils : Module(
         }
     
 
-        val lastRoute: Route? = null
+        var lastRoute: Route? = null
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
                 val routes = RoutesManager.instance.loadedRoutes[roomId]!![id]!!
