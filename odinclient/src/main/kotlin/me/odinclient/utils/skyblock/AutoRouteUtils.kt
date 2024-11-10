@@ -118,6 +118,15 @@ class AutoRouteUtils : Module(
         cancelling = false
     }
 
+    @SubscribeEvent
+    fun onPacketC08(event: PacketSentEvent)
+    {
+        if(event.packet is C08PacketPlayerBlockPlacement)
+        {
+            rotationTimer.reset()
+        }
+    }
+
     val rotationTimer: Timer = Timer()
     val clickTimer: Timer = Timer()
     
