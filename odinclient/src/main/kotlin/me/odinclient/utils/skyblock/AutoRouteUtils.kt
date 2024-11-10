@@ -156,9 +156,12 @@ class AutoRouteUtils : Module(
                        
                        if(clickTimer.hasPassed(clickDelay))
                         {
-                            event.sneaking = true
+                            val player = mc.thePlayer as IEntityPlayerSPAccessor
+                            if(!player.serverSneakState)
+                                event.sneaking = true
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-                            event.sneaking = false
+                            if(player.serverSneakState)
+                                event.sneaking = false
                             clickTimer.reset()
                         }
                     }
