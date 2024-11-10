@@ -165,24 +165,15 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
-                        if(rotationTimer.hasPassed(rotationDelay))
+                        event.yaw = yaw
+                        event.pitch = pitch
+
+                       
+                       if(clickTimer.hasPassed(clickDelay))
                         {
-                            
-                            Timer.schedule({ mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))}, clickDelay.toLong())
-                            
-                            //cancelRotate(yaw, pitch)
-                            event.yaw = yaw
-                            event.pitch = pitch
-                            
-                            mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
-
-                            
-                           
-                            rotationTimer.reset()
+                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                            clickTimer.reset()
                         }
-
-                      
-
                        /*if (rotationTimer.hasPassed(rotationDelay)) 
                         {
                           if(setPosition)
