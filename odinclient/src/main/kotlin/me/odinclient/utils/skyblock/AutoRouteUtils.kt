@@ -166,7 +166,7 @@ class AutoRouteUtils : Module(
                         var pitch: Float = route.pitch
 
                         event.yaw = yaw
-                        even.pitch = pitch
+                        event.pitch = pitch
                         
 
                        
