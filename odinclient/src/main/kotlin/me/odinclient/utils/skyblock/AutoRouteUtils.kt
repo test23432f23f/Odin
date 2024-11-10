@@ -152,16 +152,6 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
-                        if(route.type == Route.RouteType.WAIT)
-                        {
-
-                             mc.thePlayer.addChatMessage(ChatComponentText("Waiting for route..."))
-                            Thread.sleep(500L)
-                           
-                        }
-
-                        
-                        
                         if(silentRotations)
                         {
                             event.yaw = yaw
@@ -182,7 +172,7 @@ class AutoRouteUtils : Module(
                             event.sneaking = false
                         }
                         
-                       if(clickTimer.hasPassed(clickDelay))
+                       if(clickTimer.hasPassed(clickDelay + if(route.type==Route.RouteType.WAIT) 500L else 0L)
                         {
                             val player = mc.thePlayer as IEntityPlayerSPAccessor
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
