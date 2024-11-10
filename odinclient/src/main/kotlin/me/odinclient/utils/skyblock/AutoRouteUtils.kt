@@ -153,7 +153,7 @@ class AutoRouteUtils : Module(
                         mc.thePlayer.rotationYaw = yaw
                         mc.thePlayer.rotationPitch = pitch
 
-                        if(!clicked && mc.thePlayer.rotationYaw = yaw && mc.thePlayer.rotationPitch == pitch)
+                        if(!clicked && mc.thePlayer.rotationYaw == yaw && mc.thePlayer.rotationPitch == pitch)
                         {
                             clicked = true
                              Timer.schedule(
