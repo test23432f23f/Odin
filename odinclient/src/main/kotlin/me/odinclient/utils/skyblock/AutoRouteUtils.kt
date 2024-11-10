@@ -166,7 +166,18 @@ class AutoRouteUtils : Module(
 
                         if(rotationTimer.hasPassed(rotationDelay))
                         {
+                             mc.netHandler.networkManager.sendPacket(
+                                C06PacketPlayerPosLook(
+                                mc.thePlayer.posX,
+                                mc.thePlayer.posY,
+                                mc.thePlayer.posZ,
+                            yaw,
+                            pitch,
+                            mc.thePlayer.onGround
+                            )
+                        )
                             Timer.schedule({ mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))}, clickDelay.toLong())
+                            
                             cancelRotate(yaw, pitch)
                             
                             mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
