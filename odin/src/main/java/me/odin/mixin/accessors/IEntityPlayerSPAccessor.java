@@ -26,6 +26,6 @@ public interface IEntityPlayerSPAccessor {
     int getPositionUpdateTicks();
 
     @Accessor("positionUpdateTicks")
-    int setPositionUpdateTicks(int updateTicks);
+    void setPositionUpdateTicks(int updateTicks);
 
 }
