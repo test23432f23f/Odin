@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import me.odinmain.OdinMain.mc;
 import me.odinmain.events.impl.MotionUpdateEvent;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -16,6 +15,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
+import net.minecraft.client.Minecraft;
 
 import static me.odinmain.utils.Utils.postAndCatch;
 
@@ -50,6 +50,11 @@ public abstract class MixinEntityPlayerSP {
             ci.cancel();
     }
 
+     protected Minecraft mc = Minecraft.getMinecraft();
+      /**
+     * @author
+     * @reason
+     */
     @Overwrite
     public void onUpdateWalkingPlayer()
     {
