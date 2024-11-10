@@ -131,7 +131,7 @@ class AutoRouteUtils : Module(
     val clickTimer: Timer = Timer()
     
     @SubscribeEvent
-    fun onUpdate(event: ClientTickEvent?) {
+    fun onUpdate(event: MotionUpdateEvent?) {
          if (mc.thePlayer == null) {
             return
         }
@@ -169,7 +169,9 @@ class AutoRouteUtils : Module(
                             
                             Timer.schedule({ mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))}, clickDelay.toLong())
                             
-                            cancelRotate(yaw, pitch)
+                            //cancelRotate(yaw, pitch)
+                            event.yaw = yaw
+                            event.pitch = pitch
                             
                             mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
 
