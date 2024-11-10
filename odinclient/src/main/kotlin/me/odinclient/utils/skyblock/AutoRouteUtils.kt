@@ -192,7 +192,7 @@ class AutoRouteUtils : Module(
                 }
             }
         }
-    }
+    }.start()
     }
 
     var sneaking = false
