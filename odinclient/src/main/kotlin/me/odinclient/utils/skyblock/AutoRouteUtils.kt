@@ -46,8 +46,10 @@ class AutoRouteUtils : Module(
 ) {
     private val mode by DualSetting("Rotation Type", "Packet", "Setter", description = "")
     private val rotationDelay by NumberSetting("Rotation Delay", 250L, 50, 500, unit = "ms", description = "Delay between rotations.")
+    private val clickDelay by NumberSetting("Click after delay", 5L, 0, 125, unit = "ms", description = "Delay between clicks.")
     private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
+    private val setPosition by BooleanSetting("Set Position", false, description = "SET POS")
     
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
@@ -150,9 +152,13 @@ class AutoRouteUtils : Module(
 
                        if (rotationTimer.hasPassed(rotationDelay)) 
                         {
-                          Timer.schedule({mc.thePlayer.setPosition(nextRoute.pos.xCoord.toInt() + 0.5, nextRoute.pos.yCoord + 1.05, nextRoute.pos.zCoord.toInt() + 0.5)}, 0L)
+                          if(setPosition)
+                          {
+                               Timer.schedule({mc.thePlayer.setPosition(nextRoute.pos.xCoord.toInt() + 0.5, nextRoute.pos.yCoord + 1.05, nextRoute.pos.zCoord.toInt() + 0.5)}, 0L)
+                          }
+                         
                           cancelRotate(yaw, pitch)
-                          Timer.schedule({ mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))}, 5L)
+                          Timer.schedule({ mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))}, clickDelay.toLong())
                           
     
                           rotationTimer.reset()
