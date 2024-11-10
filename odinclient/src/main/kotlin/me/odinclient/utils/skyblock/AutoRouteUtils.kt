@@ -131,7 +131,7 @@ class AutoRouteUtils : Module(
         }
     
 
-        val lastRoute = null
+        val lastRoute: Route? = null
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
                 val routes = RoutesManager.instance.loadedRoutes[roomId]!![id]!!
@@ -150,7 +150,7 @@ class AutoRouteUtils : Module(
                             .contains("aspect of the void")) && mc.thePlayer.isSneaking
                     ) {
 
-                        if(lastRoute != route)
+                        if(lastRoute !== route)
                         {
                             rotationTimer.reset()
                         }
