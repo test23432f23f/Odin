@@ -165,8 +165,8 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
-                        mc.thePlayer.rotationYaw = yaw
-                        mc.thePlayer.rotationPitch = pitch
+                        event.yaw = yaw
+                        even.pitch = pitch
                         
 
                        
