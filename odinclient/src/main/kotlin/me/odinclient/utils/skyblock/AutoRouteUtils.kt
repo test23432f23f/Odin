@@ -124,7 +124,7 @@ class AutoRouteUtils : Module(
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
             return
         }
-        thread {
+    
        
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
@@ -146,35 +146,20 @@ class AutoRouteUtils : Module(
                         val nextRoute = routes[i + 1]
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
-                       
+
+
                        if (rotationTimer.hasPassed(rotationDelay)) 
                         {
-                             
-                            if(!mode)
-                            {
-                                cancelRotate(yaw, pitch)
-                            }
-                            else
-                            {
-                                mc.thePlayer.rotationYaw = yaw
-                                mc.thePlayer.rotationPitch = pitch
-                            }
-                          
-                           
-                        
+                          mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                          mc.thePlayer.setPosition(nextRoute.pos.x + 0.5, nextRoute.pos.y + 1.05, nextRoute.pos.z + 0.5)
+                          Timer.schedule({cancelRotate(yaw, pitch)}, 5L)
+    
                           rotationTimer.reset()
-                        } 
-
-                        if(clickTimer.hasPassed(rotationDelay + 75L))
-                        {
-                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-                            clickTimer.reset()
                         }
                     }
                 }
             }
         }
-    }
     }
 
     var cancelling = false
@@ -183,7 +168,10 @@ class AutoRouteUtils : Module(
         val x = mc.thePlayer.posX - player.lastReportedPosX
         val y = mc.thePlayer.posY - player.lastReportedPosX
         val z = mc.thePlayer.posZ - player.lastReportedPosZ
+        val yaw = mc.thePlayer.rotationYaw - player.lastReportedYaw
+        val pitch = mc.thePlayer.rotationPitch - player.lastReportedPitch
         val moving = x * x + y * y + z * z > 9.0E-40 || player.positionUpdateTicks >= 20
+        val rotating = yaw != 0.0 || pitch != 0.0;
         
         if (moving) {
             //ChatLib.sendf("C06")
