@@ -150,8 +150,13 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
-                        mc.thePlayer.rotationYaw = yaw
-                        mc.thePlayer.rotationPitch = pitch
+                        if(rotationTimer.hasPassed(rotationDelay))
+                        {
+                            mc.thePlayer.rotationYaw = yaw
+                            mc.thePlayer.rotationPitch = pitch
+                            mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
+                        }
+                       
 
                         if(!clicked && mc.thePlayer.rotationYaw == yaw && mc.thePlayer.rotationPitch == pitch)
                         {
@@ -160,6 +165,8 @@ class AutoRouteUtils : Module(
                              {
                                 mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                                 clicked = false
+                                rotationTimer.reset()
+                                 mc.thePlayer.addChatMessage(ChatComponentText("Clicked"))
                             }, clickDelay.toLong())
                         }
                        
