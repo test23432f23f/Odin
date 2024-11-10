@@ -177,7 +177,7 @@ public class RoutesManager
 
         public enum RouteType
         {
-            ETHERWARP(Color.PURPLE), TELEPORT(Color.BLUE), WAIT(Color.GREEN);
+            ETHERWARP(Color.MAGENTA), TELEPORT(Color.BLUE), WAIT(Color.GREEN);
 
             public Color color;
             RouteType(Color color)
