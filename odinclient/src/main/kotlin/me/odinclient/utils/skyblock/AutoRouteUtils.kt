@@ -140,8 +140,6 @@ class AutoRouteUtils : Module(
             return
         }
     
-
-        
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
                 val routes = RoutesManager.instance.loadedRoutes[roomId]!![id]!!
@@ -157,7 +155,7 @@ class AutoRouteUtils : Module(
                         ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(route.pos))
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
-                            .contains("aspect of the void")) && mc.thePlayer.isSneaking
+                            .contains("aspect of the void"))
                     ) {
 
                        
@@ -167,101 +165,18 @@ class AutoRouteUtils : Module(
 
                         event.yaw = yaw
                         event.pitch = pitch
-                        
-
                        
                        if(clickTimer.hasPassed(clickDelay))
                         {
+                            event.sneaking = true
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                            event.sneaking = false
                             clickTimer.reset()
                         }
-                       /*if (rotationTimer.hasPassed(rotationDelay)) 
-                        {
-                          if(setPosition)
-                          {
-                               Timer.schedule({mc.thePlayer.setPosition(nextRoute.pos.xCoord.toInt() + 0.5, nextRoute.pos.yCoord + 1.05, nextRoute.pos.zCoord.toInt() + 0.5)}, 0L)
-                          }
-
-                          if(!mode)
-                          {
-                               cancelRotate(yaw, pitch)
-                          }
-                          else
-                          {
-                              mc.thePlayer.rotationYaw = yaw
-                              mc.thePlayer.rotationPitch = pitch
-                          }
-                         
-                          Timer.schedule({ mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))}, clickDelay.toLong())
-                          
-    
-                          rotationTimer.reset()
-                        }*/
                     }
                 }
             }
         }
-    }
-    var clicked: Boolean = false
-    var done: Boolean = true;
-    fun doEther(yaw: Float, pitch: Float)
-    {
-        if(!done)
-        {
-            return
-        }
-
-        Timer.schedule(
-            {
-                if(!mode)
-                {
-                    cancelRotate(yaw, pitch)
-                }
-                else
-                {
-                    mc.thePlayer.rotationYaw = yaw
-                    mc.thePlayer.rotationPitch = pitch
-                }
-                
-            }, rotationDelay.toLong())
-        done = false;
-    }
-
-    var cancelling = false
-    
-    fun cancelRotate(yaw: Float, pitch: Float) {
-       val player = mc.thePlayer as IEntityPlayerSPAccessor ?: return
-        val x = mc.thePlayer.posX - player.lastReportedPosX
-        val y = mc.thePlayer.posY - player.lastReportedPosX
-        val z = mc.thePlayer.posZ - player.lastReportedPosZ
-       // val yaw = mc.thePlayer.rotationYaw - player.lastReportedYaw
-       // val pitch = mc.thePlayer.rotationPitch - player.lastReportedPitch
-        val moving = x * x + y * y + z * z > 9.0E-40 || player.positionUpdateTicks >= 20
-       // val rotating = yaw != 0.0f || pitch != 0.0f;
-        
-       if (moving) {
-            //ChatLib.sendf("C06")
-            mc.netHandler.networkManager.sendPacket(
-                C06PacketPlayerPosLook(
-                    mc.thePlayer.posX,
-                    mc.thePlayer.posY,
-                    mc.thePlayer.posZ,
-                    yaw,
-                    pitch,
-                    mc.thePlayer.onGround
-                )
-            )
-        } else {
-            //ChatLib.sendf("C05")
-            mc.netHandler.networkManager.sendPacket(
-                C05PacketPlayerLook(
-                    yaw,
-                    pitch,
-                    mc.thePlayer.onGround
-                )
-            )
-        }
-        cancelling = true
     }
 
    companion object
