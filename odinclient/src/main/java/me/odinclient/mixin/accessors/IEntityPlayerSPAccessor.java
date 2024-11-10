@@ -25,5 +25,6 @@ public interface IEntityPlayerSPAccessor
     @Accessor("positionUpdateTicks")
     int getPositionUpdateTicks();
 
-     
+     @Accessor("serverSneakState")
+     boolean getServerSneakState();
 }
