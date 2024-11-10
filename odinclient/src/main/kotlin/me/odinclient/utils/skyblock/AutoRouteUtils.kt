@@ -168,6 +168,9 @@ class AutoRouteUtils : Module(
                         event.yaw = yaw
                         event.pitch = pitch
 
+                        mc.thePlayer.renderYawOffset = preMotionUpdateEvent.getYaw();
+                        mc.thePlayer.rotationYawHead = preMotionUpdateEvent.getYaw();
+
                        
                        if(clickTimer.hasPassed(clickDelay))
                         {
