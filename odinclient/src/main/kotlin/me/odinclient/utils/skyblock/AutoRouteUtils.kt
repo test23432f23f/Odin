@@ -218,9 +218,9 @@ class AutoRouteUtils : Module(
     }
 
     var cancelling = false
-    val player = mc.thePlayer as IEntityPlayerSPAccessor
+    
     fun cancelRotate(yaw: Float, pitch: Float) {
-       
+       val player = mc.thePlayer as IEntityPlayerSPAccessor ?: return
         val x = mc.thePlayer.posX - player.lastReportedPosX
         val y = mc.thePlayer.posY - player.lastReportedPosX
         val z = mc.thePlayer.posZ - player.lastReportedPosZ
