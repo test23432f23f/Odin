@@ -127,6 +127,12 @@ class AutoRouteUtils : Module(
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
             return
         }
+
+        if(sneaking)
+        {
+            event.sneaking = false
+            sneaking = false
+        }
     
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
@@ -157,11 +163,12 @@ class AutoRouteUtils : Module(
                        if(clickTimer.hasPassed(clickDelay))
                         {
                             val player = mc.thePlayer as IEntityPlayerSPAccessor
-                            if(!player.serverSneakState)
+                            if(!sneaking)
+                            {
                                 event.sneaking = true
+                                sneaking = true;
+                            }
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-                            if(player.serverSneakState)
-                                event.sneaking = false
                             clickTimer.reset()
                         }
                     }
@@ -169,6 +176,8 @@ class AutoRouteUtils : Module(
             }
         }
     }
+
+    var sneaking = false
 
    companion object
     {
