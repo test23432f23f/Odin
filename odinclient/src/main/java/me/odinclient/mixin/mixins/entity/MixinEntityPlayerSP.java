@@ -98,11 +98,11 @@ public abstract class MixinEntityPlayerSP {
 
         if (this.isCurrentViewEntity())
         {
-            double d0 = preMotionUpdateEvent.x - this.lastReportedPosX;
-            double d1 = preMotionUpdateEvent.y - this.lastReportedPosY;
-            double d2 = preMotionUpdateEvent.z - this.lastReportedPosZ;
-            double d3 = (double)(preMotionUpdateEvent.yaw - this.lastReportedYaw);
-            double d4 = (double)(preMotionUpdateEvent.pitch - this.lastReportedPitch);
+            double d0 = preMotionUpdateEvent.getX() - this.lastReportedPosX;
+            double d1 = preMotionUpdateEvent.getY() - this.lastReportedPosY;
+            double d2 = preMotionUpdateEvent.getZ() - this.lastReportedPosZ;
+            double d3 = (double)(preMotionUpdateEvent.getYaw() - this.lastReportedYaw);
+            double d4 = (double)(preMotionUpdateEvent.getPitch() - this.lastReportedPitch);
             boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || this.positionUpdateTicks >= 20;
             boolean flag3 = d3 != 0.0D || d4 != 0.0D;
 
@@ -110,28 +110,28 @@ public abstract class MixinEntityPlayerSP {
             {
                 if (flag2 && flag3)
                 {
-                    this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(preMotionUpdateEvent.x,
-                            preMotionUpdateEvent.y, preMotionUpdateEvent.z, preMotionUpdateEvent.yaw,
-                            preMotionUpdateEvent.pitch, preMotionUpdateEvent.onGround));
+                    this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(preMotionUpdateEvent.getX(),
+                            preMotionUpdateEvent.getY(), preMotionUpdateEvent.getZ(), preMotionUpdateEvent.getYaw(),
+                            preMotionUpdateEvent.getPitch(), preMotionUpdateEvent.getOnGround()));
                 }
                 else if (flag2)
                 {
                     this.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(
-                            preMotionUpdateEvent.x, preMotionUpdateEvent.y, preMotionUpdateEvent.z, preMotionUpdateEvent.onGround));
+                            preMotionUpdateEvent.getX(), preMotionUpdateEvent.getY(), preMotionUpdateEvent.getZ(), preMotionUpdateEvent.getOnGround()));
                 }
                 else if (flag3)
                 {
-                    this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(preMotionUpdateEvent.yaw, preMotionUpdateEvent.pitch, preMotionUpdateEvent.onGround));
+                    this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(preMotionUpdateEvent.getYaw(), preMotionUpdateEvent.getPitch(), preMotionUpdateEvent.getOnGround()));
                 }
                 else
                 {
-                    this.sendQueue.addToSendQueue(new C03PacketPlayer(preMotionUpdateEvent.onGround));
+                    this.sendQueue.addToSendQueue(new C03PacketPlayer(preMotionUpdateEvent.getOnGround()));
                 }
             }
             else
             {
-                this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.motionX, -999.0D, this.motionZ, preMotionUpdateEvent.yaw,
-                        preMotionUpdateEvent.pitch, preMotionUpdateEvent.onGround));
+                this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.motionX, -999.0D, this.motionZ, preMotionUpdateEvent.getYaw(),
+                        preMotionUpdateEvent.getPitch(), preMotionUpdateEvent.getOnGround()));
                 flag2 = false;
             }
 
@@ -139,16 +139,16 @@ public abstract class MixinEntityPlayerSP {
 
             if (flag2)
             {
-                this.lastReportedPosX = preMotionUpdateEvent.x;
-                this.lastReportedPosY = preMotionUpdateEvent.y;
-                this.lastReportedPosZ = preMotionUpdateEvent.z;
+                this.lastReportedPosX = preMotionUpdateEvent.getX();
+                this.lastReportedPosY = preMotionUpdateEvent.getY();
+                this.lastReportedPosZ = preMotionUpdateEvent.getZ();
                 this.positionUpdateTicks = 0;
             }
 
             if (flag3)
             {
-                this.lastReportedYaw = preMotionUpdateEvent.yaw;
-                this.lastReportedPitch = preMotionUpdateEvent.pitch;
+                this.lastReportedYaw = preMotionUpdateEvent.getYaw();
+                this.lastReportedPitch = preMotionUpdateEvent.getPitch();
             }
         }
     }
