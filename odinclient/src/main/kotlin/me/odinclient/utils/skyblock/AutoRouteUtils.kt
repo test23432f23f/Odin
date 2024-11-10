@@ -130,7 +130,8 @@ class AutoRouteUtils : Module(
             return
         }
     
-       
+
+        val lastRoute = null
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
                 val routes = RoutesManager.instance.loadedRoutes[roomId]!![id]!!
@@ -148,6 +149,11 @@ class AutoRouteUtils : Module(
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void")) && mc.thePlayer.isSneaking
                     ) {
+
+                        if(lastRoute != route)
+                        {
+                            rotationTimer.reset()
+                        }
                         val nextRoute = routes[i + 1]
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
@@ -164,6 +170,8 @@ class AutoRouteUtils : Module(
                            
                             rotationTimer.reset()
                         }
+
+                        lastRoute = route
 
                        /*if (rotationTimer.hasPassed(rotationDelay)) 
                         {
