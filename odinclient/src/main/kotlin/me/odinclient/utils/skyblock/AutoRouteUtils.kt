@@ -116,8 +116,9 @@ class AutoRouteUtils : Module(
         }
     }
 
-    val rotationTimer: Timer = Timer()
+    val waitTimer: Timer = Timer()
     val clickTimer: Timer = Timer()
+    var doneWaiting = false
     
     @SubscribeEvent
     fun onMotion(event: MotionUpdateEvent) {
@@ -145,12 +146,24 @@ class AutoRouteUtils : Module(
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void"))
                     ) {
-
-                       
                         val nextRoute = routes[i + 1]
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
+                        if(route.type == Route.RouteType.WAIT && !doneWaiting)
+                        {
+                           waitTimer.reset()
+                           doneWaiting = true
+                            mc.thePlayer.addChatMessage(ChatComponentText("Waiting for route..."))
+                        }
+
+                        if(!waitTimer.hasPassed(500L))
+                        {
+                            return
+                        }
+
+                        doneWaiting = false
+                        
                         if(silentRotations)
                         {
                             event.yaw = yaw
@@ -162,7 +175,7 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.rotationPitch = pitch
                         }
 
-                        if(route.type == Route.RouteType.ETHERWARP)
+                        if(route.type == Route.RouteType.ETHERWARP || route.type == Route.RouteType.WAIT)
                         {
                             event.sneaking = true
                         }
@@ -171,8 +184,6 @@ class AutoRouteUtils : Module(
                             event.sneaking = false
                         }
                         
-                        
-                       
                        if(clickTimer.hasPassed(clickDelay))
                         {
                             val player = mc.thePlayer as IEntityPlayerSPAccessor
