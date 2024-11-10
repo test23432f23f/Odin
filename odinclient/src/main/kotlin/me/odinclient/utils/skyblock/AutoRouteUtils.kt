@@ -150,7 +150,20 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
-                        doEther(yaw, pitch)
+                        mc.thePlayer.rotationYaw = yaw
+                        mc.thePlayer.rotationPitch = pitch
+
+                        if(!clicked && mc.thePlayer.rotationYaw = yaw && mc.thePlayer.rotationPitch == pitch)
+                        {
+                            clicked = true
+                             Timer.schedule(
+                             {
+                                mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                                clicked = false
+                            }, clickDelay.toLong())
+                        }
+                       
+                        
                        /*if (rotationTimer.hasPassed(rotationDelay)) 
                         {
                           if(setPosition)
@@ -178,7 +191,7 @@ class AutoRouteUtils : Module(
             }
         }
     }
-
+    var clicked: Boolean = false
     var done: Boolean = true;
     fun doEther(yaw: Float, pitch: Float)
     {
@@ -198,12 +211,7 @@ class AutoRouteUtils : Module(
                     mc.thePlayer.rotationYaw = yaw
                     mc.thePlayer.rotationPitch = pitch
                 }
-                Timer.schedule(
-                    {
-                        mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-                        done = true
-                    }, clickDelay.toLong()
-                )
+                
             }, rotationDelay.toLong())
         done = false;
     }
