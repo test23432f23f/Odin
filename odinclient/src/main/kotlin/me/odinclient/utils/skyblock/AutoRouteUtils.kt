@@ -129,8 +129,7 @@ class AutoRouteUtils : Module(
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
             return
         }
-        Thread()
-        {
+       
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
                 val routes = RoutesManager.instance.loadedRoutes[roomId]!![id]!!
@@ -182,7 +181,6 @@ class AutoRouteUtils : Module(
                 }
             }
         }
-    }.start()
     }
 
     var sneaking = false
