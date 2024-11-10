@@ -50,6 +50,7 @@ class AutoRouteUtils : Module(
     private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     private val setPosition by BooleanSetting("Set Position", false, description = "SET POS")
+    private val click by BooleanSetting("Click", false, description = "CASD")
     
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
@@ -155,10 +156,14 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.rotationYaw = yaw
                             mc.thePlayer.rotationPitch = pitch
                             mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
+                            if(!click)
+                            {
+                                rotationTimer.reset()
+                            }
                         }
                        
-
-                        if(!clicked && mc.thePlayer.rotationYaw == yaw && mc.thePlayer.rotationPitch == pitch)
+                        
+                        if(!clicked && mc.thePlayer.rotationYaw == yaw && mc.thePlayer.rotationPitch == pitch && click)
                         {
                             clicked = true
                              Timer.schedule(
