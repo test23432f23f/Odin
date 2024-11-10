@@ -154,30 +154,17 @@ class AutoRouteUtils : Module(
 
                         if(rotationTimer.hasPassed(rotationDelay))
                         {
-                             mc.thePlayer.rotationYaw = yaw
-                             mc.thePlayer.rotationPitch = pitch
-                             player.setPositionUpdateTicks(20)
+                            mc.thePlayer.rotationYaw = yaw
+                            mc.thePlayer.rotationPitch = pitch
+                            cancelRotate(yaw, pitch)
+                            
                             mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
-                            if(!click)
-                            {
-                                rotationTimer.reset()
-                            }
+
+                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                           
+                            rotationTimer.reset()
                         }
-                       
-                        
-                        if(!clicked && mc.thePlayer.rotationYaw == yaw && mc.thePlayer.rotationPitch == pitch && click)
-                        {
-                            clicked = true
-                             Timer.schedule(
-                             {
-                                mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-                                clicked = false
-                                rotationTimer.reset()
-                                 mc.thePlayer.addChatMessage(ChatComponentText("Clicked"))
-                            }, clickDelay.toLong())
-                        }
-                       
-                        
+
                        /*if (rotationTimer.hasPassed(rotationDelay)) 
                         {
                           if(setPosition)
@@ -241,14 +228,8 @@ class AutoRouteUtils : Module(
        // val pitch = mc.thePlayer.rotationPitch - player.lastReportedPitch
         val moving = x * x + y * y + z * z > 9.0E-40 || player.positionUpdateTicks >= 20
        // val rotating = yaw != 0.0f || pitch != 0.0f;
-
-       /* mc.thePlayer.rotationYaw = yaw
-        mc.thePlayer.rotationPitch = pitch
-        mc.netHandler.networkManager.sendPacket(C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, mc.thePlayer.onGround))
-       
-         mc.thePlayer.addChatMessage(ChatComponentText("Sent C04"))*/
         
-       /* if (moving) {
+       if (moving) {
             //ChatLib.sendf("C06")
             mc.netHandler.networkManager.sendPacket(
                 C06PacketPlayerPosLook(
@@ -269,7 +250,7 @@ class AutoRouteUtils : Module(
                     mc.thePlayer.onGround
                 )
             )
-        }*/
+        }
         cancelling = true
     }
 
