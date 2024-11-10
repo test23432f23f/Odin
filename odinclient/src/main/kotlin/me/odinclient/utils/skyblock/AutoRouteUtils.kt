@@ -151,28 +151,7 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
-
-                       if(done && rotationTimer.hasPassed(rotationDelay))
-                        {
-                            done = false;
-                            Timer.schedule({
-                                if(!mode)
-                                  {
-                                   cancelRotate(yaw, pitch)
-                                  }
-                              else
-                              {
-                                  mc.thePlayer.rotationYaw = yaw
-                                  mc.thePlayer.rotationPitch = pitch
-                              }
-                                Timer.schedule({
-                                    mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-                                    done = true;
-                                    rotationTimer.reset()
-                                }, clickDelay.toLong())
-                            }, 0L)
-                        }
-
+                        doEther(yaw, pitch)
                        /*if (rotationTimer.hasPassed(rotationDelay)) 
                         {
                           if(setPosition)
@@ -199,6 +178,35 @@ class AutoRouteUtils : Module(
                 }
             }
         }
+    }
+
+    var done = true;
+    fun doEther(yaw: Float, pitch: Float)
+    {
+        if(!done)
+        {
+            return
+        }
+
+        Timer.schedule(
+            {
+                if(!mode)
+                {
+                    cancelRotate(yaw, pitch)
+                }
+                else
+                {
+                    mc.thePlayer.rotationYaw = yaw
+                    mc.thePlayer.rotationPitch = pitch
+                }
+                Timer.schedule(
+                    {
+                        mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+                        done = true
+                    }, clickDelay.toLong()
+                )
+            }, rotationDelay.toLong())
+        done = false;
     }
 
     var cancelling = false
