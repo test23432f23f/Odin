@@ -44,4 +44,9 @@ val RouteCommand = commodore("route") {
         AutoRouteUtils.currentRoomName = "Unknown"
         mc.thePlayer.addChatMessage(ChatComponentText("Reset current room"))
     }
+
+    literal("rl").runs {
+        RoutesManager.instance.saveConfig("./config/routes.abc")
+        RoutesManager.instance.loadConfig("./config/routes.abc")
+    }
 }
