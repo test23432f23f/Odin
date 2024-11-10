@@ -156,7 +156,7 @@ class AutoRouteUtils : Module(
                         {
                              mc.thePlayer.rotationYaw = yaw
                              mc.thePlayer.rotationPitch = pitch
-                             player.positionUpdateTicks = 20
+                             player.setPositionUpdateTicks(20)
                             mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
                             if(!click)
                             {
