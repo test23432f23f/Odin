@@ -159,7 +159,8 @@ class AutoRouteUtils : Module(
 
                         if(!waitTimer.hasPassed(500L))
                         {
-                            return
+                            i--;
+                            continue
                         }
 
                         doneWaiting = false
