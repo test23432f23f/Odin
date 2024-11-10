@@ -151,7 +151,7 @@ class AutoRouteUtils : Module(
                        if (rotationTimer.hasPassed(rotationDelay)) 
                         {
                           mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-                          mc.thePlayer.setPosition(nextRoute.pos.x + 0.5, nextRoute.pos.y + 1.05, nextRoute.pos.z + 0.5)
+                          mc.thePlayer.setPosition(nextRoute.pos.xCoord + 0.5, nextRoute.pos.yCoord + 1.05, nextRoute.pos.zCoord + 0.5)
                           Timer.schedule({cancelRotate(yaw, pitch)}, 5L)
     
                           rotationTimer.reset()
@@ -171,7 +171,7 @@ class AutoRouteUtils : Module(
         val yaw = mc.thePlayer.rotationYaw - player.lastReportedYaw
         val pitch = mc.thePlayer.rotationPitch - player.lastReportedPitch
         val moving = x * x + y * y + z * z > 9.0E-40 || player.positionUpdateTicks >= 20
-        val rotating = yaw != 0.0 || pitch != 0.0;
+        val rotating = yaw != 0.0f || pitch != 0.0f;
         
         if (moving) {
             //ChatLib.sendf("C06")
