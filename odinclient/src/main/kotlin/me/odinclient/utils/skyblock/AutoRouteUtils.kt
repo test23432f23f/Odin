@@ -81,7 +81,7 @@ class AutoRouteUtils : Module(
                 if(boxes)
                 {
                     RenderUtils.blockBox(
-                        BlockPos(route.pos), if(route.subId == 0) route.color.darker() else route.color
+                        BlockPos(route.pos), if(route.subId == 0) route.type.color.darker() else route.type.color
                     )
                 }
                 
@@ -95,7 +95,7 @@ class AutoRouteUtils : Module(
                 if(boxes)
                 {
                     RenderUtils.blockBox(
-                        BlockPos(currentRoom!!.getRealCoords(route.pos)), if(route.subId == 0) route.color.darker() else route.color
+                        BlockPos(currentRoom!!.getRealCoords(route.pos)), if(route.subId == 0) route.type.color.darker() else route.type.color
                     )
                 }
                 }
