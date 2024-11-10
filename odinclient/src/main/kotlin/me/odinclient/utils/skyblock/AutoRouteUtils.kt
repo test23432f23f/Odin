@@ -172,7 +172,7 @@ class AutoRouteUtils : Module(
                             event.sneaking = false
                         }
                         
-                       if(clickTimer.hasPassed(clickDelay + if(route.type==Route.RouteType.WAIT) 500L else 0L)
+                       if(clickTimer.hasPassed(clickDelay + (if(route.type==Route.RouteType.WAIT) 500L else 0L)))
                         {
                             val player = mc.thePlayer as IEntityPlayerSPAccessor
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
