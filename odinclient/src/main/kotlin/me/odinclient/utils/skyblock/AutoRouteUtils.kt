@@ -122,13 +122,15 @@ class AutoRouteUtils : Module(
     
     @SubscribeEvent
     fun onMotion(event: MotionUpdateEvent) {
-         if (mc.thePlayer == null) {
+         
+        if (mc.thePlayer == null) {
             return
         }
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
             return
         }
-        
+        thread
+        {
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
                 val routes = RoutesManager.instance.loadedRoutes[roomId]!![id]!!
@@ -150,20 +152,15 @@ class AutoRouteUtils : Module(
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
-                        if(route.type == Route.RouteType.WAIT && !doneWaiting)
+                        if(route.type == Route.RouteType.WAIT)
                         {
-                           waitTimer.reset()
-                           doneWaiting = true
-                            mc.thePlayer.addChatMessage(ChatComponentText("Waiting for route..."))
+
+                             mc.thePlayer.addChatMessage(ChatComponentText("Waiting for route..."))
+                            Thread.sleep(500L)
+                           
                         }
 
-                        if(!waitTimer.hasPassed(500L))
-                        {
-                            i--;
-                            continue
-                        }
-
-                        doneWaiting = false
+                        
                         
                         if(silentRotations)
                         {
@@ -195,6 +192,7 @@ class AutoRouteUtils : Module(
                 }
             }
         }
+    }
     }
 
     var sneaking = false
