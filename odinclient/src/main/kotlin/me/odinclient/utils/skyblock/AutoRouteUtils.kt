@@ -129,7 +129,7 @@ class AutoRouteUtils : Module(
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
             return
         }
-        thread
+        Thread
         {
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
