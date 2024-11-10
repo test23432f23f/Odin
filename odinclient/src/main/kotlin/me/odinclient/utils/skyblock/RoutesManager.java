@@ -116,7 +116,7 @@ public class RoutesManager
                                     r.getFloat("yaw"), r.getFloat("pitch")));
 
                             if(Minecraft.getMinecraft().thePlayer != null)
-                                 Minecraft.getMinecraft().thePlayer.addChatMessage(ChatComponentText(roomKey + " : " + idKey + " : " + subIdKey));
+                                 Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(roomKey + " : " + idKey + " : " + subIdKey));
                                 
                         }
                         roomList.put(Integer.parseInt(idKey), routesList);
