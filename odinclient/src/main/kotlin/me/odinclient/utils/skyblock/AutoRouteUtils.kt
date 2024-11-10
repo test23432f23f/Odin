@@ -128,11 +128,7 @@ class AutoRouteUtils : Module(
             return
         }
 
-        if(sneaking)
-        {
-            mc.thePlayer.sendQueue.addToSendQueue(C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.STOP_SNEAKING))
-            sneaking = false
-        }
+        
     
         for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
             for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
@@ -149,7 +145,7 @@ class AutoRouteUtils : Module(
                         ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(route.pos))
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
-                            .contains("aspect of the void"))
+                            .contains("aspect of the void") && mc.thePlayer.isSneaking())
                     ) {
 
                        
@@ -167,16 +163,13 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.rotationYaw = yaw
                             mc.thePlayer.rotationPitch = pitch
                         }
+
+                        event.sneaking = true
                         
                        
                        if(clickTimer.hasPassed(clickDelay))
                         {
                             val player = mc.thePlayer as IEntityPlayerSPAccessor
-                            if(!sneaking && route.type == Route.RouteType.ETHERWARP)
-                            {
-                                mc.thePlayer.sendQueue.addToSendQueue(C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SNEAKING))
-                                sneaking = true
-                            }
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                             clickTimer.reset()
                         }
