@@ -130,7 +130,7 @@ class AutoRouteUtils : Module(
 
         if(sneaking)
         {
-            event.sneaking = false
+            mc.thePlayer.sendQueue.addToSendQueue(C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.STOP_SNEAKING))
             sneaking = false
         }
     
@@ -165,8 +165,8 @@ class AutoRouteUtils : Module(
                             val player = mc.thePlayer as IEntityPlayerSPAccessor
                             if(!sneaking)
                             {
-                                event.sneaking = true
-                                sneaking = true;
+                                mc.thePlayer.sendQueue.addToSendQueue(C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SNEAKING))
+                                sneaking = true
                             }
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
                             clickTimer.reset()
