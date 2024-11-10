@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.client.C03PacketPlayer.C05PacketPlayerLook
 import net.minecraft.network.play.client.C03PacketPlayer.C06PacketPlayerPosLook
+import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
 import net.minecraft.util.BlockPos
 import net.minecraft.util.Vec3
@@ -45,8 +46,8 @@ class AutoRouteUtils : Module(
     description = "idfk"
 ) {
     private val mode by DualSetting("Rotation Type", "Packet", "Setter", description = "")
-    private val rotationDelay by NumberSetting("Rotation Delay", 250L, 50, 500, unit = "ms", description = "Delay between rotations.")
-    private val clickDelay by NumberSetting("Click after delay", 5L, 0, 125, unit = "ms", description = "Delay between clicks.")
+    private val rotationDelay by NumberSetting("Rotation Delay", 250L, 50, 750, unit = "ms", description = "Delay between rotations.")
+    private val clickDelay by NumberSetting("Click after delay", 5L, 0, 300, unit = "ms", description = "Delay between clicks.")
     private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     private val setPosition by BooleanSetting("Set Position", false, description = "SET POS")
@@ -153,8 +154,7 @@ class AutoRouteUtils : Module(
 
                         if(rotationTimer.hasPassed(rotationDelay))
                         {
-                            mc.thePlayer.rotationYaw = yaw
-                            mc.thePlayer.rotationPitch = pitch
+                            cancelRotate(yaw, pitch)
                             mc.thePlayer.addChatMessage(ChatComponentText("Rotated"))
                             if(!click)
                             {
@@ -238,8 +238,14 @@ class AutoRouteUtils : Module(
        // val pitch = mc.thePlayer.rotationPitch - player.lastReportedPitch
         val moving = x * x + y * y + z * z > 9.0E-40 || player.positionUpdateTicks >= 20
        // val rotating = yaw != 0.0f || pitch != 0.0f;
+
+        mc.thePlayer.rotationYaw = yaw
+        mc.thePlayer.rotationPitch = pitch
+        mc.netHandler.networkManager.sendPacket(C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, mc.thePlayer.onGround))
+       
+         mc.thePlayer.addChatMessage(ChatComponentText("Sent C04"))
         
-        if (moving) {
+       /* if (moving) {
             //ChatLib.sendf("C06")
             mc.netHandler.networkManager.sendPacket(
                 C06PacketPlayerPosLook(
@@ -260,7 +266,7 @@ class AutoRouteUtils : Module(
                     mc.thePlayer.onGround
                 )
             )
-        }
+        }*/
         cancelling = true
     }
 
