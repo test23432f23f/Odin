@@ -8,6 +8,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import me.odinmain.OdinMain.mc;
 import me.odinmain.events.impl.MotionUpdateEvent;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Final;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.entity.Entity;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.C0BPacketEntityAction;
 
 import static me.odinmain.utils.Utils.postAndCatch;
 
