@@ -145,7 +145,7 @@ class AutoRouteUtils : Module(
                         ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(route.pos))
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
-                            .contains("aspect of the void") && mc.thePlayer.isSneaking())
+                            .contains("aspect of the void"))
                     ) {
 
                        
