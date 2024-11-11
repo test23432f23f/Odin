@@ -144,11 +144,11 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.posY,
                             mc.thePlayer.posZ
                         ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(route.pos))
-                                <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
+                                <= tolerance) && i < routes.size /*&& i + 1 < routes.size*/ && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void"))
                     ) {
-                        val nextRoute = routes[i + 1]
+                        //val nextRoute = routes[i + 1]
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
 
