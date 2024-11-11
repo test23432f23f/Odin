@@ -33,6 +33,28 @@ val RouteCommand = commodore("route") {
                 mc.thePlayer.addChatMessage(ChatComponentText("Added " + route.roomId + ", " + route.id + ", " + route.subId))
         
     }
+
+    lieteral("set").runs { id: Int, subId: Int ->
+        val route = RoutesManager.Route(
+                    RoutesManager.Route.RouteType.valueOf(type),
+                    AutoRouteUtils.currentRoomName,
+                    subId.toInt(),
+                    id.toInt(),
+                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ)) else Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ),
+                    MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
+                    mc.thePlayer.rotationPitch
+                )
+
+                val updated = RoutesManager.instance.loadedRoutes.getOrDefault(route.roomId, HashMap())
+                val updatedList: MutableList<RoutesManager.Route> = updated.getOrDefault(route.id, ArrayList())
+                updatedList.remove(subId.toInt())
+                updatedList.add(route)
+
+                updated.put(route.id, updatedList) 
+                RoutesManager.instance.loadedRoutes.put(AutoRouteUtils.currentRoomName, updated)
+                RoutesManager.instance.saveConfig("./config/routes.abc")
+                mc.thePlayer.addChatMessage(ChatComponentText("Set " + route.roomId + ", " + route.id + ", " + route.subId))
+    }
     literal("remove").runs { id: Int, subId: Int ->
         RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(id, ArrayList()).removeAt(subId)
         RoutesManager.instance.saveConfig("./config/routes.abc")
