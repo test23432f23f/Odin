@@ -83,8 +83,8 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawBlock(
-                        pos = route.pos,
-                        color = if(route.subId == 0) route.type.color.darker() else route.type.color,
+                        pos = BlockPos(route.pos),
+                        color = if(route.subId == 0) route.type.color.darker()!! else route.type.color!!,
                         fillAlpha = 0,
                         depth = renderDepthCheck)
                     }
@@ -98,8 +98,8 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                          Renderer.drawBlock(
-                         pos = route.pos,
-                         color = if(route.subId == 0) route.type.color.darker() else route.type.color,
+                         pos = BlockPos(route.pos),
+                         color = if(route.subId == 0) route.type.color.darker()!! else route.type.color!!,
                          fillAlpha = 0,
                          depth = renderDepthCheck)
                     }
