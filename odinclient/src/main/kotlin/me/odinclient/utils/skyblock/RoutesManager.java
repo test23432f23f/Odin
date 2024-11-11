@@ -18,7 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraft.util.ChatComponentText;
 import java.awt.*;
-import me.odinmain.utils.render.Color
+import me.odinmain.utils.render.Color;
 
 public class RoutesManager
 {
