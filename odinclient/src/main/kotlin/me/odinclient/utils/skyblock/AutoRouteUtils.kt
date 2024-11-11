@@ -39,7 +39,7 @@ import net.minecraft.util.EnumFacing;
 import kotlin.concurrent.thread
 import java.lang.Thread
 import me.odinmain.events.impl.MotionUpdateEvent
-import me.odinmain.features.impl.render.Renderer
+import me.odinmain.utils.render.Renderer
 
 
 
