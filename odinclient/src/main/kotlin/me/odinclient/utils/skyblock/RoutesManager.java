@@ -39,10 +39,11 @@ public class RoutesManager
             JSONObject settingsObject = new JSONObject();
 
             JSONObject routesObject = new JSONObject();
-            JSONObject roomObject = new JSONObject();
+            
 
             for(String roomId : loadedRoutes.keySet())
             {
+                JSONObject roomObject = new JSONObject();
                 for(int id : loadedRoutes.get(roomId).keySet())
                 {
                     JSONObject subRoutes = new JSONObject();
