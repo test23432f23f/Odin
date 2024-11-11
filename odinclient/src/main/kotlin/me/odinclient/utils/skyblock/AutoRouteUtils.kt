@@ -39,7 +39,6 @@ import kotlin.concurrent.thread
 import java.lang.Thread
 import me.odinmain.events.impl.MotionUpdateEvent
 import me.odinmain.utils.render.Renderer
-import java.awt.Color
 import me.odinmain.utils.render.Color
 
 
@@ -78,7 +77,7 @@ class AutoRouteUtils : Module(
                 {
                     if (lastRoute != null && lines)
                     {
-                        RenderUtils.drawLine(lastRoute.pos, route.pos, Color.WHITE)
+                        RenderUtils.drawLine(lastRoute.pos, route.pos, java.awt.Color.WHITE)
                     }
                     if(boxes)
                     {
@@ -93,7 +92,7 @@ class AutoRouteUtils : Module(
                 {
                     if (lastRoute != null && lines)
                     {
-                        RenderUtils.drawLine(currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos), Color.WHITE)
+                        RenderUtils.drawLine(currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos), java.awt.Color.WHITE)
                     }
                     if(boxes)
                     {
