@@ -86,7 +86,7 @@ class AutoRouteUtils : Module(
                     {
                         Renderer.drawBlock(
                         pos = BlockPos(route.pos),
-                        color = if(route.subId == 0) me.odinmain.utils.render.Color.PURPLE else route.type.color!!,
+                        color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                         fillAlpha = 0,
                         depth = renderDepthCheck)
                     }
@@ -104,7 +104,7 @@ class AutoRouteUtils : Module(
                     {
                          Renderer.drawBlock(
                          pos = BlockPos(currentRoom!!.getRealCoords(route.pos)),
-                         color = if(route.subId == 0) me.odinmain.utils.render.Color.PURPLE else route.type.color!!,
+                         color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                          fillAlpha = 0,
                          depth = renderDepthCheck)
                     }
@@ -158,6 +158,11 @@ class AutoRouteUtils : Module(
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void"))
                     ) {
+
+                        if(route.type == Route.RouteType.STOP)
+                        {
+                            return
+                        }
                         //val nextRoute = routes[i + 1]
                         var yaw: Float = route.yaw
                         var pitch: Float = route.pitch
