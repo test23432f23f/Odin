@@ -57,6 +57,9 @@ public class RoutesManager
                         routeObject.put("pitch", route.pitch);
                         subRoutes.put("" + route.subId, routeObject);
                         roomObject.put("" + route.id, subRoutes);
+
+                        if(Minecraft.getMinecraft().thePlayer != null)
+                                 Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(roomId + " : " + id + " : " + route.subId));
                     }
                 }
                 routesObject.put("" + roomId, roomObject);
