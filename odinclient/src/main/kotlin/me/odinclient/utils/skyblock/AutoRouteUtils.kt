@@ -39,6 +39,7 @@ import net.minecraft.util.EnumFacing;
 import kotlin.concurrent.thread
 import java.lang.Thread
 import me.odinmain.events.impl.MotionUpdateEvent
+import me.odinmain.features.impl.render.Renderer
 
 
 
@@ -52,7 +53,7 @@ class AutoRouteUtils : Module(
     private val silentRotations by BooleanSetting("Silent Rotations", false, description = "Rotate silently.")
     private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
-    
+    private val renderDepthCheck by BooleanSetting("Render Depth Check", false, description = "Depth check")
    
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
@@ -75,29 +76,33 @@ class AutoRouteUtils : Module(
             for (route in RoutesManager.instance.loadedRoutes.get(currentRoomName)!![id]!!) {
                 if(currentRoom == null)
                 {
-                    if (lastRoute != null && lines) RenderUtils.drawLine(
-                    lastRoute.pos, route.pos, Color.WHITE
-                )
-                if(boxes)
-                {
-                    RenderUtils.blockBox(
-                        BlockPos(route.pos), if(route.subId == 0) route.type.color.darker() else route.type.color
-                    )
-                }
-                
+                    if (lastRoute != null && lines)
+                    {
+                        RenderUtils.drawLine(lastRoute.pos, route.pos, Color.WHITE)
+                    }
+                    if(boxes)
+                    {
+                        Renderer.drawBlock(
+                        pos = route.pos,
+                        color = if(route.subId == 0) route.type.color.darker() else route.type.color,
+                        fillAlpha = 0,
+                        depth = renderDepthCheck)
+                    }
                 }
                 else
                 {
-                    if (lastRoute != null && lines) RenderUtils.drawLine(
-                    currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos), Color.WHITE
-                    
-                )
-                if(boxes)
-                {
-                    RenderUtils.blockBox(
-                        BlockPos(currentRoom!!.getRealCoords(route.pos)), if(route.subId == 0) route.type.color.darker() else route.type.color
-                    )
-                }
+                    if (lastRoute != null && lines)
+                    {
+                        RenderUtils.drawLine(currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos), Color.WHITE)
+                    }
+                    if(boxes)
+                    {
+                         Renderer.drawBlock(
+                         pos = route.pos,
+                         color = if(route.subId == 0) route.type.color.darker() else route.type.color,
+                         fillAlpha = 0,
+                         depth = renderDepthCheck)
+                    }
                 }
                 
                 lastRoute = route
