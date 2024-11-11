@@ -179,7 +179,7 @@ public class RoutesManager
 
         public enum RouteType
         {
-            ETHERWARP(me.odinmain.utils.render.Color.PINK), TELEPORT(me.odinmain.utils.render.Color.BLUE), WAIT(me.odinmain.utils.render.Color.GREEN), USE_WAIT(me.odinmain.utils.render.Color.YELLOW);
+            ETHERWARP(me.odinmain.utils.render.Color.PINK), TELEPORT(me.odinmain.utils.render.Color.BLUE), WAIT(me.odinmain.utils.render.Color.GREEN), USE_WAIT(me.odinmain.utils.render.Color.YELLOW), STOP(me.odinmain.utils.render.Color.RED);
 
             public me.odinmain.utils.render.Color color;
             RouteType(me.odinmain.utils.render.Color color)
