@@ -77,7 +77,10 @@ class AutoRouteUtils : Module(
                 {
                     if (lastRoute != null && lines)
                     {
-                        RenderUtils.drawLine(lastRoute.pos, route.pos, java.awt.Color.WHITE)
+                         Renderer.draw3DLine(points = listOf(lastRoute.pos, route.pos),
+                                   color = me.odinmain.utils.render.Color.WHITE,
+                                   lineWidth = 2f,
+                                   depth = renderDepthCheck)
                     }
                     if(boxes)
                     {
@@ -92,7 +95,10 @@ class AutoRouteUtils : Module(
                 {
                     if (lastRoute != null && lines)
                     {
-                        RenderUtils.drawLine(currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos), java.awt.Color.WHITE)
+                        Renderer.draw3DLine(points = listOf(currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos)),
+                                   color = me.odinmain.utils.render.Color.WHITE,
+                                   lineWidth = 2f,
+                                   depth = renderDepthCheck)
                     }
                     if(boxes)
                     {
