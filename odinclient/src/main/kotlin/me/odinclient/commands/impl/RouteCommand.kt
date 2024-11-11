@@ -39,7 +39,7 @@ val RouteCommand = commodore("route") {
         val updatedList: MutableList<RoutesManager.Route> = updated.getOrDefault(id.toInt(), ArrayList())
         
         val route = RoutesManager.Route(
-                    RoutesManager.Route.RouteType.valueOf(updatedList.get(subId.toInt()))),
+                    RoutesManager.Route.RouteType.valueOf(updatedList.get(subId.toInt())),
                     AutoRouteUtils.currentRoomName,
                     subId.toInt(),
                     id.toInt(),
