@@ -57,7 +57,7 @@ public class RoutesManager
                         routeObject.put("pitch", route.pitch);
                         subRoutes.put("" + route.subId, routeObject);
                     }
-                    roomObject.put(id, subRoutes);
+                    roomObject.put("" + id, subRoutes);
                 }
                 routesObject.put("" + roomId, roomObject);
             }
