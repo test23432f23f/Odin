@@ -18,6 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraft.util.ChatComponentText;
 import java.awt.*;
+import me.odinmain.utils.render.Color
 
 public class RoutesManager
 {
@@ -178,10 +179,10 @@ public class RoutesManager
 
         public enum RouteType
         {
-            ETHERWARP(Color.MAGENTA), TELEPORT(Color.BLUE), WAIT(Color.GREEN), USE_WAIT(Color.YELLOW);
+            ETHERWARP(me.odinmain.utils.render.Color.PINK), TELEPORT(me.odinmain.utils.render.Color.BLUE), WAIT(me.odinmain.utils.render.Color.GREEN), USE_WAIT(me.odinmain.utils.render.Color.YELLOW);
 
-            public Color color;
-            RouteType(Color color)
+            public me.odinmain.utils.render.Color color;
+            RouteType(me.odinmain.utils.render.Color color)
             {
                 this.color = color;
             }
