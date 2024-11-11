@@ -163,7 +163,7 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.rotationPitch = pitch
                         }
 
-                        if(route.type == Route.RouteType.ETHERWARP || route.type == Route.RouteType.WAIT)
+                        if(route.type == Route.RouteType.ETHERWARP || route.type == Route.RouteType.WAIT || route.type == Route.RouteType.USE_WAIT)
                         {
                             event.sneaking = true
                         }
@@ -172,7 +172,8 @@ class AutoRouteUtils : Module(
                             event.sneaking = false
                         }
                         
-                       if(clickTimer.hasPassed(clickDelay + (if(route.type==Route.RouteType.WAIT) waitDelay else 0L)))
+                       if(clickTimer.hasPassed(clickDelay + (if(route.type==Route.RouteType.WAIT||route.type==Route.RouteType.USE_WAIT) waitDelay else 0L)) && 
+                               ((getSkyBlockID(mc.thePlayer.heldItem) == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase().contains("aspect of the void")))
                         {
                             val player = mc.thePlayer as IEntityPlayerSPAccessor
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
@@ -184,24 +185,52 @@ class AutoRouteUtils : Module(
         }
     }
 
-    var sneaking = false
+   
 
    companion object
-    {
+   {
         var currentRoom: Room? = null
         var currentRoomName = "Unknown"
-        fun getDisplayName(stack: ItemStack?): String {
+        fun getDisplayName(stack: ItemStack?): String 
+       {
             return if (stack != null) if (stack.hasDisplayName()) stack.displayName else "" else ""
         }
 
-        fun getSkyBlockID(item: ItemStack?): String {
-            if (item != null) {
+        fun getSkyBlockID(item: ItemStack?): String 
+       {
+            if (item != null) 
+           {
                 val extraAttributes = item.getSubCompound("ExtraAttributes", false)
-                if (extraAttributes != null && extraAttributes.hasKey("id")) {
+                if (extraAttributes != null && extraAttributes.hasKey("id")) 
+               {
                     return extraAttributes.getString("id")
                 }
             }
             return ""   
+        }
+
+        fun searchFor(item: Item): Int 
+       {
+            for (i in 0 until 9) 
+           {
+                if (mc.thePlayer.inventory.getStackInSlot(i).item == item) {
+                    
+                    return i
+                }
+            }
+            return -1
+        }
+
+        fun searchForId(item: String): Int 
+       {
+            for (i in 0 until 9) 
+           {
+                if (getSkyBlockID(mc.thePlayer.inventory.getStackInSlot(i)) == item) 
+                {
+                    return i
+                }
+            }
+            return -1
         }
     }
 }
