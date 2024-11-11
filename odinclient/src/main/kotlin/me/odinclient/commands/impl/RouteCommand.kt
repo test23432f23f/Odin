@@ -35,8 +35,11 @@ val RouteCommand = commodore("route") {
     }
 
     literal("set").runs { id: Int, subId: Int ->
+        val updated = RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap())
+        val updatedList: MutableList<RoutesManager.Route> = updated.getOrDefault(id.toInt(), ArrayList())
+        
         val route = RoutesManager.Route(
-                    RoutesManager.Route.RouteType.valueOf(type),
+                    RoutesManager.Route.RouteType.valueOf(updatedList.get(subId.toInt()))),
                     AutoRouteUtils.currentRoomName,
                     subId.toInt(),
                     id.toInt(),
@@ -45,8 +48,7 @@ val RouteCommand = commodore("route") {
                     mc.thePlayer.rotationPitch
                 )
 
-                val updated = RoutesManager.instance.loadedRoutes.getOrDefault(route.roomId, HashMap())
-                val updatedList: MutableList<RoutesManager.Route> = updated.getOrDefault(route.id, ArrayList())
+                
                 updatedList.removeAt(subId.toInt())
                 updatedList.add(route)
 
