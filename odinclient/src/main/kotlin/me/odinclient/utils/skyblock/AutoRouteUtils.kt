@@ -54,6 +54,7 @@ class AutoRouteUtils : Module(
     private val lines by BooleanSetting("Lines", false, description = "Draw lines?")
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     private val renderDepthCheck by BooleanSetting("Render Depth Check", false, description = "Depth check")
+    private val editMode by BooleanSetting("Edit Mode", false, description = "Doesn't execute routes.")
    
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
@@ -131,10 +132,12 @@ class AutoRouteUtils : Module(
     var doneWaiting = false
 
     
+
+    
     @SubscribeEvent
     fun onMotion(event: MotionUpdateEvent) {
          
-        if (mc.thePlayer == null) {
+        if (mc.thePlayer == null || editMode) {
             return
         }
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
@@ -206,6 +209,7 @@ class AutoRouteUtils : Module(
    {
         var currentRoom: Room? = null
         var currentRoomName = "Unknown"
+        
         fun getDisplayName(stack: ItemStack?): String 
        {
             return if (stack != null) if (stack.hasDisplayName()) stack.displayName else "" else ""
