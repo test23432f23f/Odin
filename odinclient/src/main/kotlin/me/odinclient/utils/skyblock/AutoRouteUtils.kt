@@ -29,7 +29,6 @@ import me.odinmain.utils.skyblock.dungeon.tiles.Room
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRealCoords
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords
-import java.awt.Color
 import java.util.stream.Collectors
 import net.minecraft.util.ChatComponentText
 import me.odinmain.features.settings.impl.*
@@ -40,6 +39,8 @@ import kotlin.concurrent.thread
 import java.lang.Thread
 import me.odinmain.events.impl.MotionUpdateEvent
 import me.odinmain.utils.render.Renderer
+import java.awt.Color
+import me.odinmain.utils.render.Color
 
 
 
@@ -61,7 +62,6 @@ class AutoRouteUtils : Module(
         val name = event.room?.data?.name
         currentRoomName = name!!
     }
-    var color = Color(0xFF10FD)
     var tolerance = 0.7
     var rotationQueued = false
     var etherQueued = false
@@ -84,7 +84,7 @@ class AutoRouteUtils : Module(
                     {
                         Renderer.drawBlock(
                         pos = BlockPos(route.pos),
-                        color = if(route.subId == 0) route.type.color.darker()!! else route.type.color!!,
+                        color = if(route.subId == 0) me.odinmain.utils.render.Color.PURPLE else route.type.color!!,
                         fillAlpha = 0,
                         depth = renderDepthCheck)
                     }
@@ -99,7 +99,7 @@ class AutoRouteUtils : Module(
                     {
                          Renderer.drawBlock(
                          pos = BlockPos(route.pos),
-                         color = if(route.subId == 0) route.type.color.darker()!! else route.type.color!!,
+                         color = if(route.subId == 0) me.odinmain.utils.render.Color.PURPLE else route.type.color!!,
                          fillAlpha = 0,
                          depth = renderDepthCheck)
                     }
