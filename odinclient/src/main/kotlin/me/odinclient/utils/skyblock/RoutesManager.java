@@ -43,9 +43,9 @@ public class RoutesManager
 
             for(String roomId : loadedRoutes.keySet())
             {
-                JSONObject subRoutes = new JSONObject();
                 for(int id : loadedRoutes.get(roomId).keySet())
                 {
+                    JSONObject subRoutes = new JSONObject();
                     for(Route route : loadedRoutes.get(roomId).get(id))
                     {
                         JSONObject routeObject = new JSONObject();
