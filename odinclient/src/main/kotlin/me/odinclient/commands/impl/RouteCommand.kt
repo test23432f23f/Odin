@@ -34,7 +34,7 @@ val RouteCommand = commodore("route") {
         
     }
 
-    lieteral("set").runs { id: Int, subId: Int ->
+    literal("set").runs { id: Int, subId: Int ->
         val route = RoutesManager.Route(
                     RoutesManager.Route.RouteType.valueOf(type),
                     AutoRouteUtils.currentRoomName,
@@ -47,7 +47,7 @@ val RouteCommand = commodore("route") {
 
                 val updated = RoutesManager.instance.loadedRoutes.getOrDefault(route.roomId, HashMap())
                 val updatedList: MutableList<RoutesManager.Route> = updated.getOrDefault(route.id, ArrayList())
-                updatedList.remove(subId.toInt())
+                updatedList.removeAt(subId.toInt())
                 updatedList.add(route)
 
                 updated.put(route.id, updatedList) 
