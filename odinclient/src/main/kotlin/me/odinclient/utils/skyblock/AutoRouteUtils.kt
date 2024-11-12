@@ -167,7 +167,7 @@ class AutoRouteUtils : Module(
                             return
                         }
                         //val nextRoute = routes[i + 1]
-                        var yaw: Float = route.yaw
+                        var yaw: Float = route.yaw + 90.0f
                         var pitch: Float = route.pitch
 
                         if(silentRotations)
