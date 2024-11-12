@@ -57,6 +57,11 @@ class AutoRouteUtils : Module(
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     private val renderDepthCheck by BooleanSetting("Render Depth Check", false, description = "Depth check")
     private val editMode by BooleanSetting("Edit Mode", false, description = "Doesn't execute routes.")
+    private val rotNorth by NumberSetting("Rotation North", 0, -180, 180, unit = "ms", description = "")
+    private val rotWest by NumberSetting("Rotation West", 0, -180, 180, unit = "ms", description = "")
+    private val rotSouth by NumberSetting("Rotation South", 0, -180, 180, unit = "ms", description = "")
+    private val rotEast by NumberSetting("Rotation East", 0, -180, 180, unit = "ms", description = "")
+    privatte 
    
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
@@ -125,6 +130,7 @@ class AutoRouteUtils : Module(
     {
         if(event.packet is C08PacketPlayerBlockPlacement)
         {
+            mc.thePlayer.addToChat(ChatComponentText((currentRoom!!.rotation + "")))
             clickTimer.reset()
         }
     }
@@ -233,10 +239,10 @@ class AutoRouteUtils : Module(
 
        fun getRotation_(rotation: Rotations): Float {
             return when (rotation) {
-                Rotations.NORTH -> 0.0f
-                Rotations.WEST -> -90.0f
-                Rotations.SOUTH -> 180.0f
-                Rotations.EAST -> 90.0f
+                Rotations.NORTH -> rotNorth.toFloat()
+                Rotations.WEST -> rotWest.toFloat()
+                Rotations.SOUTH -> rotSouth.toFloat()
+                Rotations.EAST -> rotEast.toFloat()
                 else -> 0.0f
             }
         }
