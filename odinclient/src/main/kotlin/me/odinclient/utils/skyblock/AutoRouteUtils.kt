@@ -173,7 +173,7 @@ class AutoRouteUtils : Module(
                             return
                         }
                         //val nextRoute = routes[i + 1]
-                        val yaw: Float = route.yaw + if(currentRoom != null) getRotation_(currentRoom!!.rotation).toFloat() else 0.0f
+                        val yaw: Float = pleaseKillMe(route.yaw, route.pos)
                         val pitch: Float = route.pitch
                        
 
@@ -235,17 +235,26 @@ class AutoRouteUtils : Module(
             return ""   
         }
 
-        fun getRotation_(rotation: Rotations): Float {
-            return when (rotation) {
-                Rotations.NORTH -> Vec3(0.0, 0.0, 0.0).getDirectionToVec3(Vec3(15.0, 0.0, 15.0))[2]
-                Rotations.WEST -> Vec3(0.0, 0.0, 0.0).getDirectionToVec3(Vec3(15.0, 0.0, -15.0))[2]
-                Rotations.SOUTH -> Vec3(0.0, 0.0, 0.0).getDirectionToVec3(Vec3(-15.0, 0.0, -15.0))[2]
-                Rotations.EAST -> Vec3(0.0, 0.0, 0.0).getDirectionToVec3(Vec3(-15.0, 0.0, 15.0))[2]
-                else -> 0.0f
-            }
-        }
+       fun getYaw(vec: Vec3): Float {
+            return mc.thePlayer.rotationYaw + MathHelper.wrapAngleTo180_float(
+            (Math.atan2(vec.xCoord - mc.thePlayer.posX, vec.zCoord -
+            mc.thePlayer.posZ) * 180.0 / Math.PI - 90.0F) -
+            mc.thePlayer.rotationYaw
+        )
+    }
 
-       
+       fun pleaseKillMe(yaw: Float, vec3: Vec3): Float {
+    return when {
+        yaw.toInt() == getYaw(vec3).toInt() -> yaw
+        yaw.toInt() + 90 == getYaw(vec3).toInt() -> yaw + 90.0f
+        yaw.toInt() + 180 == getYaw(vec3).toInt() -> yaw + 180.0f
+        yaw.toInt() - 90 == getYaw(vec3).toInt() -> yaw - 90.0f
+        else -> yaw
+    }
+}
+
+
+
 
         /*fun searchFor(item: Item): Int 
        {
