@@ -174,7 +174,7 @@ class AutoRouteUtils : Module(
                         }
                         
                         val nextRoute = routes[i + 1]
-                        val dy: Int = Math.round((getYaw(currentRoom!!.getRealCoords(nextRoute.pos)) - 180.0f) - route.yaw)
+                        val dy: Int = Math.round((getYaw(route.yaw, currentRoom!!.getRealCoords(route.pos), currentRoom!!.getRealCoords(nextRoute.pos)) - 180.0f) - route.yaw)
                         val yaw: Float = route.yaw + dy.toFloat()
                         val pitch: Float = route.pitch
                        
@@ -184,7 +184,7 @@ class AutoRouteUtils : Module(
                             event.yaw = yaw
                             event.pitch = pitch
 
-                            mc.thePlayer.addChatMessage(ChatComponentText("dy: " + dy)))
+                            mc.thePlayer.addChatMessage(ChatComponentText("dy: " + dy))
                         }
                         else
                         {
@@ -239,11 +239,10 @@ class AutoRouteUtils : Module(
             return ""   
         }
 
-       fun getYaw(vec: Vec3): Float {
-            return Minecraft.getMinecraft().thePlayer.rotationYaw + net.minecraft.util.MathHelper.wrapAngleTo180_float(
-            (Math.atan2(vec.xCoord - Minecraft.getMinecraft().thePlayer.posX, vec.zCoord -
-            Minecraft.getMinecraft().thePlayer.posZ).toFloat() * 180.0f / Math.PI - 90.0F).toFloat() -
-            Minecraft.getMinecraft().thePlayer.rotationYaw
+       fun getYaw(yaw: Float, start: Vec3, end: Vec3): Float {
+            return yaw + net.minecraft.util.MathHelper.wrapAngleTo180_float(
+            (Math.atan2(end.xCoord - start.xCoord, end.zCoord -
+            start.zCoord).toFloat() * 180.0f / Math.PI - 90.0F).toFloat() - yaw
         )
     }
 
