@@ -183,7 +183,7 @@ class AutoRouteUtils : Module(
                             event.yaw = yaw
                             event.pitch = pitch
 
-                            mc.thePlayer.addChatMessage(ChatComponentText("" + yaw + " " + route.yaw))
+                            mc.thePlayer.addChatMessage(ChatComponentText("" + yaw + " " + route.yaw + (yaw - route.yaw))
                         }
                         else
                         {
