@@ -140,15 +140,13 @@ class AutoRouteUtils : Module(
 
     fun getRotation_(rotation: Rotations): Float {
             return when (rotation) {
-                Rotations.NORTH -> 0.0f
-                Rotations.WEST -> 90.0f
-                Rotations.SOUTH -> 180.0f
-                Rotations.EAST -> -90.0f
+                Rotations.NORTH -> getDirectionToVec3(Vec(15, 0, 15))[2]
+                Rotations.WEST -> getDirectionToVec3(Vec(15, 0, -15))[2]
+                Rotations.SOUTH -> getDirectionToVec3(Vec(-15, 0, -15))[2]
+                Rotations.EAST -> getDirectionToVec3(Vec(-15, 0, 15))[2]
                 else -> 0.0f
             }
         }
-    
-
     
     @SubscribeEvent
     fun onMotion(event: MotionUpdateEvent) {
