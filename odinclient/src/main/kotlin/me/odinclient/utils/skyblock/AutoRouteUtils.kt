@@ -57,10 +57,10 @@ class AutoRouteUtils : Module(
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     private val renderDepthCheck by BooleanSetting("Render Depth Check", false, description = "Depth check")
     private val editMode by BooleanSetting("Edit Mode", false, description = "Doesn't execute routes.")
-    private val rotNorth by NumberSetting("Rotation North", 0, -180, 180, unit = "ms", description = "")
-    private val rotWest by NumberSetting("Rotation West", 0, -180, 180, unit = "ms", description = "")
-    private val rotSouth by NumberSetting("Rotation South", 0, -180, 180, unit = "ms", description = "")
-    private val rotEast by NumberSetting("Rotation East", 0, -180, 180, unit = "ms", description = "")
+    private val rotNorth by NumberSetting("Rotation North", 0, -180, 180, unit = "deg", description = "")
+    private val rotWest by NumberSetting("Rotation West", 0, -180, 180, unit = "deg", description = "")
+    private val rotSouth by NumberSetting("Rotation South", 0, -180, 180, unit = "deg", description = "")
+    private val rotEast by NumberSetting("Rotation East", 0, -180, 180, unit = "deg", description = "")
     
    
     @SubscribeEvent
@@ -68,6 +68,8 @@ class AutoRouteUtils : Module(
         currentRoom = event.room
         val name = event.room?.data?.name
         currentRoomName = name!!
+
+        mc.thePlayer.addChatMessage(ChatComponentText(("Entered room: " + currentRoomName + " : " + currentRoom!!.rotation.name)))
     }
     var tolerance = 0.7
     var rotationQueued = false
@@ -130,7 +132,7 @@ class AutoRouteUtils : Module(
     {
         if(event.packet is C08PacketPlayerBlockPlacement)
         {
-            mc.thePlayer.addChatMessage(ChatComponentText((currentRoom!!.rotation.name)))
+            
             clickTimer.reset()
         }
     }
