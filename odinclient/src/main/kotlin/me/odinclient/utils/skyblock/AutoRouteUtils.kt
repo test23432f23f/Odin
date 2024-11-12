@@ -174,7 +174,7 @@ class AutoRouteUtils : Module(
                         }
                         
                         val nextRoute = routes[i + 1]
-                        val yaw: Float = getYaw(nextRoute.pos)
+                        val yaw: Float = getYaw(currentRoom!!.getRealCoords(nextRoute.pos))
                         val pitch: Float = route.pitch
                        
 
