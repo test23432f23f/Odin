@@ -141,9 +141,9 @@ class AutoRouteUtils : Module(
     fun getRotation_(rotation: Rotations): Float {
             return when (rotation) {
                 Rotations.NORTH -> 0.0f
-                Rotations.WEST -> 90f
-                Rotations.SOUTH -> 180f
-                Rotations.EAST -> -90
+                Rotations.WEST -> 90.0f
+                Rotations.SOUTH -> 180.0f
+                Rotations.EAST -> -90.0f
                 else -> 0.0f
             }
         }
