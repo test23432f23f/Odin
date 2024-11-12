@@ -10,6 +10,17 @@ import net.minecraft.util.MathHelper
 import net.minecraft.util.Vec3
 import net.minecraft.util.ChatComponentText
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords
+import me.odinmain.utils.skyblock.dungeon.tiles.Rotations
+
+fun getRotation_(rotation: Rotations): Float {
+            return when (rotation) {
+                Rotations.NORTH -> 0.0f
+                Rotations.WEST -> 90f
+                Rotations.SOUTH -> 180f
+                Rotations.EAST -> -90
+                else -> 0.0f
+            }
+        }
 
 val RouteCommand = commodore("route") {
     literal("add").runs { subId: Int, type: String ->
@@ -19,7 +30,7 @@ val RouteCommand = commodore("route") {
                     subId.toInt(),
                     RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
                     if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ)) else Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ),
-                    MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
+                    MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw) + getRotation_(AutoRouteUtil.currentRoom!!.rotations),
                     mc.thePlayer.rotationPitch
                 )
 
@@ -44,7 +55,7 @@ val RouteCommand = commodore("route") {
                     subId.toInt(),
                     id.toInt(),
                     if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ)) else Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ),
-                    MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
+                   MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw) + getRotation_(AutoRouteUtil.currentRoom!!.rotations),
                     mc.thePlayer.rotationPitch
                 )
 
