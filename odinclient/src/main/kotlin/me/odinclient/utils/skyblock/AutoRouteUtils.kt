@@ -168,8 +168,8 @@ class AutoRouteUtils : Module(
                             return
                         }
                         //val nextRoute = routes[i + 1]
-                        var yaw: Float = etherwarpRotateTo(BlockPos(route.pos)).getMiddle()
-                        var pitch: Float = etherwarpRotateTo(BlockPos(route.pos)).getRight()
+                        var yaw: Float = etherwarpRotateTo(BlockPos(route.pos)).yaw
+                        var pitch: Float = etherwarpRotateTo(BlockPos(route.pos)).pitch
 
                         if(silentRotations)
                         {
