@@ -30,7 +30,7 @@ val RouteCommand = commodore("route") {
                     subId.toInt(),
                     RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
                     if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ)) else Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ),
-                    MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw) + getRotation_(AutoRouteUtils.currentRoom!!.rotations),
+                    MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw) + getRotation_(AutoRouteUtils.currentRoom!!.rotation),
                     mc.thePlayer.rotationPitch
                 )
 
@@ -55,7 +55,7 @@ val RouteCommand = commodore("route") {
                     subId.toInt(),
                     id.toInt(),
                     if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ)) else Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ),
-                   MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw) + getRotation_(AutoRouteUtils.currentRoom!!.rotations),
+                   MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw) + getRotation_(AutoRouteUtils.currentRoom!!.rotation),
                     mc.thePlayer.rotationPitch
                 )
 
