@@ -138,15 +138,7 @@ class AutoRouteUtils : Module(
     val clickTimer: Timer = Timer()
     var doneWaiting = false
 
-    fun getRotation_(rotation: Rotations): Float {
-            return when (rotation) {
-                Rotations.NORTH -> getDirectionToVec3(Vec3(15, 0, 15))[2]
-                Rotations.WEST -> getDirectionToVec3(Vec3(15, 0, -15))[2]
-                Rotations.SOUTH -> getDirectionToVec3(Vec3(-15, 0, -15))[2]
-                Rotations.EAST -> getDirectionToVec3(Vec3(-15, 0, 15))[2]
-                else -> 0.0f
-            }
-        }
+   
     
     @SubscribeEvent
     fun onMotion(event: MotionUpdateEvent) {
@@ -241,6 +233,16 @@ class AutoRouteUtils : Module(
                 }
             }
             return ""   
+        }
+
+        fun getRotation_(rotation: Rotations): Float {
+            return when (rotation) {
+                Rotations.NORTH -> getDirectionToVec3(Vec3(15.0, 0.0, 15.0))[2]
+                Rotations.WEST -> getDirectionToVec3(Vec3(15.0, 0.0, -15.0))[2]
+                Rotations.SOUTH -> getDirectionToVec3(Vec3(-15.0, 0.0, -15.0))[2]
+                Rotations.EAST -> getDirectionToVec3(Vec3(-15.0, 0.0, 15.0))[2]
+                else -> 0.0f
+            }
         }
 
        
