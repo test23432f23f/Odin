@@ -40,7 +40,6 @@ import java.lang.Thread
 import me.odinmain.events.impl.MotionUpdateEvent
 import me.odinmain.utils.render.Renderer
 import me.odinmain.utils.render.Color
-import me.odinmain.utils.VecUtils.etherwarpRotateTo
 
 
 
@@ -168,8 +167,8 @@ class AutoRouteUtils : Module(
                             return
                         }
                         //val nextRoute = routes[i + 1]
-                        var yaw: Float = etherwarpRotateTo(BlockPos(route.pos)).middle
-                        var pitch: Float = etherwarpRotateTo(BlockPos(route.pos)).right
+                        var yaw: Float = VecUtils.etherwarpRotateTo(BlockPos(route.pos)).middle
+                        var pitch: Float = VecUtils.etherwarpRotateTo(BlockPos(route.pos)).right
 
                         if(silentRotations)
                         {
