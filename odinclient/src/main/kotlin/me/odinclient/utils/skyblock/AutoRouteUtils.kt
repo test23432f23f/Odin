@@ -130,7 +130,7 @@ class AutoRouteUtils : Module(
     {
         if(event.packet is C08PacketPlayerBlockPlacement)
         {
-            mc.thePlayer.addToChat(ChatComponentText((currentRoom!!.rotation + "")))
+            mc.thePlayer.addChatMessage(ChatComponentText((currentRoom!!.rotation + "")))
             clickTimer.reset()
         }
     }
@@ -139,6 +139,15 @@ class AutoRouteUtils : Module(
     val clickTimer: Timer = Timer()
     var doneWaiting = false
 
+    fun getRotation_(rotation: Rotations): Float {
+            return when (rotation) {
+                Rotations.NORTH -> rotNorth.toFloat()
+                Rotations.WEST -> rotWest.toFloat()
+                Rotations.SOUTH -> rotSouth.toFloat()
+                Rotations.EAST -> rotEast.toFloat()
+                else -> 0.0f
+            }
+        }
     
 
     
@@ -237,15 +246,7 @@ class AutoRouteUtils : Module(
             return ""   
         }
 
-       fun getRotation_(rotation: Rotations): Float {
-            return when (rotation) {
-                Rotations.NORTH -> rotNorth.toFloat()
-                Rotations.WEST -> rotWest.toFloat()
-                Rotations.SOUTH -> rotSouth.toFloat()
-                Rotations.EAST -> rotEast.toFloat()
-                else -> 0.0f
-            }
-        }
+       
 
         /*fun searchFor(item: Item): Int 
        {
