@@ -168,8 +168,8 @@ class AutoRouteUtils : Module(
                             return
                         }
                         //val nextRoute = routes[i + 1]
-                        val: Float = route.yaw
-                        val: Float = route.pitch
+                        val yaw: Float = route.yaw + if(currentRoom != null) getRotation_(currentRoom!!.rotation) else 0
+                        val yaw: Float = route.pitch
                        
 
                         if(silentRotations)
@@ -228,6 +228,16 @@ class AutoRouteUtils : Module(
                 }
             }
             return ""   
+        }
+
+       fun getRotation_(rotation: Rotations): Float {
+            return when (rotation) {
+                Rotations.NORTH -> 0.0f
+                Rotations.WEST -> -90.0f
+                Rotations.SOUTH -> 180.0f
+                Rotations.EAST -> 90.0f
+                else -> this
+            }
         }
 
         /*fun searchFor(item: Item): Int 
