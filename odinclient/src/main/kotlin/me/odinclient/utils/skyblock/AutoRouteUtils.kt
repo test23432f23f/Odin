@@ -237,10 +237,10 @@ class AutoRouteUtils : Module(
 
         fun getRotation_(rotation: Rotations): Float {
             return when (rotation) {
-                Rotations.NORTH -> getDirectionToVec3(Vec3(15.0, 0.0, 15.0))[2]
-                Rotations.WEST -> getDirectionToVec3(Vec3(15.0, 0.0, -15.0))[2]
-                Rotations.SOUTH -> getDirectionToVec3(Vec3(-15.0, 0.0, -15.0))[2]
-                Rotations.EAST -> getDirectionToVec3(Vec3(-15.0, 0.0, 15.0))[2]
+                Rotations.NORTH -> Vec3(0.0, 0.0, 0.0).getDirectionToVec3(Vec3(15.0, 0.0, 15.0))[2]
+                Rotations.WEST -> Vec3(0.0, 0.0, 0.0).getDirectionToVec3(Vec3(15.0, 0.0, -15.0))[2]
+                Rotations.SOUTH -> Vec3(0.0, 0.0, 0.0).getDirectionToVec3(Vec3(-15.0, 0.0, -15.0))[2]
+                Rotations.EAST -> Vec3(0.0, 0.0, 0.0).getDirectionToVec3(Vec3(-15.0, 0.0, 15.0))[2]
                 else -> 0.0f
             }
         }
