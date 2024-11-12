@@ -61,7 +61,7 @@ class AutoRouteUtils : Module(
     private val rotWest by NumberSetting("Rotation West", 0, -180, 180, unit = "ms", description = "")
     private val rotSouth by NumberSetting("Rotation South", 0, -180, 180, unit = "ms", description = "")
     private val rotEast by NumberSetting("Rotation East", 0, -180, 180, unit = "ms", description = "")
-    privatte 
+    
    
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
@@ -130,7 +130,7 @@ class AutoRouteUtils : Module(
     {
         if(event.packet is C08PacketPlayerBlockPlacement)
         {
-            mc.thePlayer.addChatMessage(ChatComponentText((currentRoom!!.rotation.name() + "")))
+            mc.thePlayer.addChatMessage(ChatComponentText((currentRoom!!.rotation.name)))
             clickTimer.reset()
         }
     }
