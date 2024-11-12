@@ -174,7 +174,7 @@ class AutoRouteUtils : Module(
                         }
                         
                         val nextRoute = routes[i + 1]
-                        val dy: Float = net.minecraft.util.MathHelper.wrapAngleTo180_float(Math.round((getYaw(route.yaw, currentRoom!!.getRealCoords(route.pos), currentRoom!!.getRealCoords(nextRoute.pos)) - 180.0f) - route.yaw))
+                        val dy: Float = net.minecraft.util.MathHelper.wrapAngleTo180_float(Math.round((getYaw(route.yaw, currentRoom!!.getRealCoords(route.pos), currentRoom!!.getRealCoords(nextRoute.pos)) - 180.0f) - route.yaw).toFloat()).toFloat()
                         val yaw: Float = route.yaw + dy.toFloat()
                         val pitch: Float = route.pitch
                        
