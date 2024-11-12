@@ -130,7 +130,7 @@ class AutoRouteUtils : Module(
     {
         if(event.packet is C08PacketPlayerBlockPlacement)
         {
-            mc.thePlayer.addChatMessage(ChatComponentText((currentRoom!!.rotation + "")))
+            mc.thePlayer.addChatMessage(ChatComponentText((currentRoom!!.rotation.name() + "")))
             clickTimer.reset()
         }
     }
