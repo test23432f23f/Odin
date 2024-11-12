@@ -238,7 +238,7 @@ class AutoRouteUtils : Module(
        fun getYaw(vec: Vec3): Float {
             return Minecraft.getMinecraft().thePlayer.rotationYaw + net.minecraft.util.MathHelper.wrapAngleTo180_float(
             (Math.atan2(vec.xCoord - Minecraft.getMinecraft().thePlayer.posX, vec.zCoord -
-            Minecraft.getMinecraft().thePlayer.posZ).toFloat() * 180.0f / Math.PI - 90.0F) -
+            Minecraft.getMinecraft().thePlayer.posZ).toFloat() * 180.0f / Math.PI - 90.0F).toFloat() -
             Minecraft.getMinecraft().thePlayer.rotationYaw
         )
     }
