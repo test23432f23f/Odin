@@ -237,7 +237,7 @@ class AutoRouteUtils : Module(
                 Rotations.WEST -> -90.0f
                 Rotations.SOUTH -> 180.0f
                 Rotations.EAST -> 90.0f
-                else -> this
+                else -> 0.0f
             }
         }
 
