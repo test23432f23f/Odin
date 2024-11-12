@@ -163,7 +163,7 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.posY,
                             mc.thePlayer.posZ
                         ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(route.pos))
-                                <= tolerance) && i < routes.size && /*i + 1 < routes.size &&*/ ((getSkyBlockID(mc.thePlayer.heldItem)
+                                <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void"))
                     ) {
@@ -172,8 +172,9 @@ class AutoRouteUtils : Module(
                         {
                             return
                         }
-                        //val nextRoute = routes[i + 1]
-                        val yaw: Float = pleaseKillMe(route.yaw, route.pos)
+                        
+                        val nextRoute = routes[i + 1]
+                        val yaw: Float = getYaw(nextRoute.pos)
                         val pitch: Float = route.pitch
                        
 
@@ -181,6 +182,8 @@ class AutoRouteUtils : Module(
                         {
                             event.yaw = yaw
                             event.pitch = pitch
+
+                            mc.thePlayer.addChatMessage(ChatComponentText("" + yaw + " " + route.yaw))
                         }
                         else
                         {
@@ -243,17 +246,15 @@ class AutoRouteUtils : Module(
         )
     }
 
-       fun pleaseKillMe(yaw: Float, vec3: Vec3): Float {
+       /*fun pleaseKillMe(yaw: Float, vec3: Vec3): Float {
     return when {
-        yaw.toInt() == getYaw(vec3).toInt() -> yaw
-        yaw.toInt() + 90 == getYaw(vec3).toInt() -> yaw + 90.0f
-        yaw.toInt() + 180 == getYaw(vec3).toInt() -> yaw + 180.0f
-        yaw.toInt() - 90 == getYaw(vec3).toInt() -> yaw - 90.0f
+        tolerates(yaw - getYaw(vec3), 85.0f, 95.0f) -> yaw
+        tolerates(yaw + 90.0f - getYaw(vec3), 85.0f, 95.0f)-> yaw + 90.0f
+        tolerates(yaw + 180.0f - getYaw(vec3), 85.0f, 95.0f) -> yaw + 180.0f
+        tolerates(yaw + 90.0f - getYaw(vec3), 85.0f, 95.0f) == getYaw(vec3) -> yaw - 90.0f
         else -> yaw
     }
-}
-
-
+}*/
 
 
         /*fun searchFor(item: Item): Int 
