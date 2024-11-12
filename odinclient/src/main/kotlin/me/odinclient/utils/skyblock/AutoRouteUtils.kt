@@ -168,7 +168,7 @@ class AutoRouteUtils : Module(
                             return
                         }
                         val nextRoute = routes[i + 1]
-                        val (_, yaw, pitch) = etherwarpRotateTo(nextRoute.pos.toBlockPos()) ?: return
+                        val (_, yaw, pitch) = etherwarpRotateTo(nextRoute.pos.toBlockPos())
                        
 
                         if(silentRotations)
