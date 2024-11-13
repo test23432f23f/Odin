@@ -92,7 +92,7 @@ class AutoRouteUtils : Module(
                 {
                     if (lastRoute != null && lines)
                     {
-                         Renderer.draw3DLine(points = listOf(getOffset(lastRoute.pos), getOffset(route.pos)),
+                         Renderer.draw3DLine(points = listOf(getOffset(lastRoute.pos), route.pos),
                                    color = me.odinmain.utils.render.Color.WHITE,
                                    lineWidth = 2f,
                                    depth = renderDepthCheck)
@@ -100,7 +100,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawBlock(
-                        pos = BlockPos(getOffset(route.pos)).add(-0.5, -0.5, -0.5),
+                        pos = BlockPos(route.pos).add(-0.5, -0.5, -0.5),
                         color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                         fillAlpha = 0,
                         depth = renderDepthCheck)
@@ -110,7 +110,7 @@ class AutoRouteUtils : Module(
                 {
                     if (lastRoute != null && lines)
                     {
-                        Renderer.draw3DLine(points = listOf(currentRoom!!.getRealCoords(getOffset(lastRoute.pos)), currentRoom!!.getRealCoords(getOffset(route.pos))),
+                        Renderer.draw3DLine(points = listOf(currentRoom!!.getRealCoords(getOffset(lastRoute.pos, currentRoom!!.rotation)), currentRoom!!.getRealCoords(getOffset(route.pos, currentRoom!!.rotation))),
                                    color = me.odinmain.utils.render.Color.WHITE,
                                    lineWidth = 2f,
                                    depth = renderDepthCheck)
@@ -118,7 +118,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                          Renderer.drawBlock(
-                         pos = BlockPos(currentRoom!!.getRealCoords(getOffset(route.pos))).add(-0.5, -0.5, -0.5),
+                         pos = BlockPos(currentRoom!!.getRealCoords(getOffset(route.pos, currentRoom!!.rotation))).add(-0.5, -0.5, -0.5),
                          color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                          fillAlpha = 0,
                          depth = renderDepthCheck)
@@ -170,7 +170,7 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.posX,
                             mc.thePlayer.posY,
                             mc.thePlayer.posZ
-                        ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(getOffset(route.pos)))
+                        ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(getOffset(route.pos, currentRoom!!.rotation)))
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void"))
@@ -183,7 +183,7 @@ class AutoRouteUtils : Module(
                         
                         val nextRoute = routes[i + 1]
                         
-                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos)))).toFloat()
+                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos, currentRoom!!.rotation)))).toFloat()
                         val pitch: Float = nextRoute.pitch
                        
 
@@ -266,10 +266,10 @@ class AutoRouteUtils : Module(
     
     fun getOffset(vec: Vec3, rotation: Rotations): Vec3 {
         return when (rotation) {
-            Rotations.NORTH -> vec.addVector(offsetNorthX, 0, offsetNorthZ)
-            Rotations.WEST -> vec.addVector(offsetWestX, 0, offsetWestZ)
-            Rotations.SOUTH -> vec.addVector(offsetSouthX, 0, offsetSouthZ)
-            Rotations.EAST -> vec.addVector(offsetEastX, 0, offsetEastZ)
+            Rotations.NORTH -> vec.addVector(offsetNorthX.toDouble(), 0, offsetNorthZ.toDouble())
+            Rotations.WEST -> vec.addVector(offsetWestX.toDouble(), 0, offsetWestZ.toDouble())
+            Rotations.SOUTH -> vec.addVector(offsetSouthX.toDouble(), 0, offsetSouthZ.toDouble())
+            Rotations.EAST -> vec.addVector(offsetEastX.toDouble(), 0, offsetEastZ.toDouble())
             else -> this
         }
     }
