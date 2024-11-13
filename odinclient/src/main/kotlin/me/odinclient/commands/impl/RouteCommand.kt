@@ -51,7 +51,7 @@ val RouteCommand = commodore("route") {
                     AutoRouteUtils.currentRoomName,
                     subId.toInt(),
                     RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
-                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(mop.hitVec.addVector(0, yOffset, 0)) else mop.hitVec.addVector(0, yOffset, 0),
+                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(mop.hitVec.addVector(0.0, yOffset, 0.0)) else mop.hitVec.addVector(0.0, yOffset, 0.0),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
                     mc.thePlayer.rotationPitch
                 )
