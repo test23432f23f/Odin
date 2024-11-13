@@ -156,5 +156,7 @@ public abstract class MixinEntityPlayerSP {
                 this.lastReportedPitch = preMotionUpdateEvent.getPitch();
             }
         }
+          MotionUpdateEventPost postMotionUpdateEvent = new MotionUpdateEventPost(preMotionUpdateEvent.getX(), preMotionUpdateEvent.getY(),  preMotionUpdateEvent.getZ(),
+                 preMotionUpdateEvent.getYaw(), preMotionUpdateEvent.getPitch(),  preMotionUpdateEvent.getOnGround(),  preMotionUpdateEvent.getSneaking());
     }
 }
