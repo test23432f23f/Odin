@@ -174,8 +174,8 @@ class AutoRouteUtils : Module(
                         }
                         
                         val nextRoute = routes[i + 1]
-                        val dy: Int = Math.round((getYaw(route.yaw, currentRoom!!.getRealCoords(nextRoute.pos)) - 180.0f - route.yaw).toFloat())
-                        val yaw: Float = route.yaw + dy.toFloat()
+                        
+                        val yaw: Float = (getYaw(route.yaw, currentRoom!!.getRealCoords(nextRoute.pos))).toFloat()
                         val pitch: Float = route.pitch
                        
 
@@ -184,7 +184,7 @@ class AutoRouteUtils : Module(
                             event.yaw = yaw
                             event.pitch = pitch
 
-                            mc.thePlayer.addChatMessage(ChatComponentText("dy: " + dy))
+                            //mc.thePlayer.addChatMessage(ChatComponentText("dy: " + dy))
                         }
                         else
                         {
