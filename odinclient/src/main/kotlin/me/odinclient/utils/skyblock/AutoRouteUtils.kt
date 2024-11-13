@@ -57,6 +57,14 @@ class AutoRouteUtils : Module(
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     private val renderDepthCheck by BooleanSetting("Render Depth Check", false, description = "Depth check")
     private val editMode by BooleanSetting("Edit Mode", false, description = "Doesn't execute routes.")
+    private val offsetNorthX by NumberSetting("Offset North X", 0, -1, 1, unit = " blocks", description = "")
+    private val offsetWestX by NumberSetting("Offset West X", 0, -1, 1, unit = " blocks", description = "")
+    private val offsetSouthX by NumberSetting("Offset South X", 0, -1, 1, unit = " blocks", description = "")
+    private val offsetEastX by NumberSetting("Offset East X", 0, -1, 1, unit = " blocks", description = "")
+    private val offsetNorthZ by NumberSetting("Offset North X", 0, -1, 1, unit = " blocks", description = "")
+    private val offsetWestZ by NumberSetting("Offset West X", 0, -1, 1, unit = " blocks", description = "")
+    private val offsetSouthZ by NumberSetting("Offset South X", 0, -1, 1, unit = " blocks", description = "")
+    private val offsetEastZ by NumberSetting("Offset East X", 0, -1, 1, unit = " blocks", description = "")
   
     
    
@@ -84,7 +92,7 @@ class AutoRouteUtils : Module(
                 {
                     if (lastRoute != null && lines)
                     {
-                         Renderer.draw3DLine(points = listOf(lastRoute.pos, route.pos),
+                         Renderer.draw3DLine(points = listOf(getOffset(lastRoute.pos), getOffset(route.pos)),
                                    color = me.odinmain.utils.render.Color.WHITE,
                                    lineWidth = 2f,
                                    depth = renderDepthCheck)
@@ -92,7 +100,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawBlock(
-                        pos = BlockPos(route.pos).add(-0.5, -0.5, -0.5),
+                        pos = BlockPos(getOffset(route.pos)).add(-0.5, -0.5, -0.5),
                         color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                         fillAlpha = 0,
                         depth = renderDepthCheck)
@@ -102,7 +110,7 @@ class AutoRouteUtils : Module(
                 {
                     if (lastRoute != null && lines)
                     {
-                        Renderer.draw3DLine(points = listOf(currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos)),
+                        Renderer.draw3DLine(points = listOf(currentRoom!!.getRealCoords(getOffset(lastRoute.pos)), currentRoom!!.getRealCoords(getOffset(route.pos))),
                                    color = me.odinmain.utils.render.Color.WHITE,
                                    lineWidth = 2f,
                                    depth = renderDepthCheck)
@@ -110,7 +118,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                          Renderer.drawBlock(
-                         pos = BlockPos(currentRoom!!.getRealCoords(route.pos)).add(-0.5, -0.5, -0.5),
+                         pos = BlockPos(currentRoom!!.getRealCoords(getOffset(route.pos))).add(-0.5, -0.5, -0.5),
                          color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                          fillAlpha = 0,
                          depth = renderDepthCheck)
@@ -162,7 +170,7 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.posX,
                             mc.thePlayer.posY,
                             mc.thePlayer.posZ
-                        ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(route.pos))
+                        ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(getOffset(route.pos)))
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void"))
@@ -175,7 +183,7 @@ class AutoRouteUtils : Module(
                         
                         val nextRoute = routes[i + 1]
                         
-                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(nextRoute.pos))).toFloat()
+                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos)))).toFloat()
                         val pitch: Float = nextRoute.pitch
                        
 
@@ -254,6 +262,16 @@ class AutoRouteUtils : Module(
         val dist = net.minecraft.util.MathHelper.sqrt_double(diffX * diffX + diffZ * diffZ)
         val pitch: Float = -(Math.atan2(diffY.toDouble(), dist.toDouble()) * 180.0 / Math.PI.toDouble()).toFloat()
         return _pitch + net.minecraft.util.MathHelper.wrapAngleTo180_float(pitch - _pitch)
+    }
+    
+    fun getOffset(vec: Vec3, rotation: Rotations): Vec3 {
+        return when (rotation) {
+            Rotations.NORTH -> vec.addVector(offsetNorthX, 0, offsetNorthZ)
+            Rotations.WEST -> vec.addVector(offsetWestX, 0, offsetWestZ)
+            Rotations.SOUTH -> vec.addVector(offsetSouthX, 0, offsetSouthZ)
+            Rotations.EAST -> vec.addVector(offsetEastX, 0, offsetEastZ)
+            else -> this
+        }
     }
 
 
