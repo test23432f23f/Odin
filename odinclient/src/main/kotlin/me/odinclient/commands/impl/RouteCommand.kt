@@ -30,13 +30,17 @@ fun tr(var0: Float, var1: Float): Vec3 {
     return Vec3(var3 * var4.toDouble(), var5.toDouble(), var2 * var4.toDouble())
 }
 
+fun multiply(a: Vec3, m: Double): Vec3 {
+    return Vec3(a.xCoord * m, a.yCoord * m, a.zCoord * m)
+}
+
 val RouteCommand = commodore("route") {
 
 
     
     literal("add").runs { subId: Int, type: String ->
 
-                val mop: MovingObjectPosition = method0(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, 61.0F)
+                val mop: MovingObjectPosition = method0(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, 64.0F)
                 if(mop.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK)
                 {
                     mc.thePlayer.addChatMessage(ChatComponentText("UNKNOWN POSITION"))
@@ -47,7 +51,7 @@ val RouteCommand = commodore("route") {
                     AutoRouteUtils.currentRoomName,
                     subId.toInt(),
                     RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
-                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(mop.hitVec) else mop.hitVec,
+                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(multiply(mop.hitVec, 0.333)) else multiply(mop.hitVec, 0.333),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
                     mc.thePlayer.rotationPitch
                 )
