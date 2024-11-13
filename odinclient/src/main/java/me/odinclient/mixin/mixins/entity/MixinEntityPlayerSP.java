@@ -159,5 +159,7 @@ public abstract class MixinEntityPlayerSP {
         }
           MotionUpdateEventPost postMotionUpdateEvent = new MotionUpdateEventPost(preMotionUpdateEvent.getX(), preMotionUpdateEvent.getY(),  preMotionUpdateEvent.getZ(),
                  preMotionUpdateEvent.getYaw(), preMotionUpdateEvent.getPitch(),  preMotionUpdateEvent.getOnGround(),  preMotionUpdateEvent.getSneaking());
+
+         MinecraftForge.EVENT_BUS.post(postMotionUpdateEvent)
     }
 }
