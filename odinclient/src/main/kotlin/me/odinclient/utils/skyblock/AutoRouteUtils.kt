@@ -154,7 +154,7 @@ class AutoRouteUtils : Module(
         if (mc.thePlayer == null || editMode) {
             return
         }
-        if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
+        if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null || !mc.thePlayer.isSneaking()) {
             return
         }
        
