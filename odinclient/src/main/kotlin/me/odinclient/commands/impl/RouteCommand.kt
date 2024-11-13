@@ -19,7 +19,7 @@ fun method0(var0: Float, var1: Float, var2: Float): MovingObjectPosition {
     val var3 = mc.thePlayer.getPositionEyes(1.0F)
     val var4 = tr(var0, var1)
     val var5 = var3.addVector(var4.xCoord * var2.toDouble(), var4.yCoord * var2.toDouble(), var4.zCoord * var2.toDouble())
-    return mc.theWorld.rayTraceBlocks(var3, var5, true, true, true)
+    return mc.theWorld.rayTraceBlocks(var3, var5, true, true, false)
 }
 
 fun tr(var0: Float, var1: Float): Vec3 {
@@ -48,6 +48,30 @@ val RouteCommand = commodore("route") {
                     subId.toInt(),
                     RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
                     if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(mop.hitVec) else mop.hitVec,
+                    MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
+                    mc.thePlayer.rotationPitch
+                )
+
+                val updated = RoutesManager.instance.loadedRoutes.getOrDefault(route.roomId, HashMap())
+                val updatedList: MutableList<RoutesManager.Route> = updated.getOrDefault(route.id, ArrayList())
+                updatedList.add(route)
+
+                updated.put(route.id, updatedList) 
+                RoutesManager.instance.loadedRoutes.put(AutoRouteUtils.currentRoomName, updated)
+                RoutesManager.instance.saveConfig("./config/routes.abc")
+                mc.thePlayer.addChatMessage(ChatComponentText("Added " + route.roomId + ", " + route.id + ", " + route.subId))
+
+                
+        
+    }
+
+    literal("addhere").runs { subId: Int, type: String ->
+                val route = RoutesManager.Route(
+                    RoutesManager.Route.RouteType.valueOf(type),
+                    AutoRouteUtils.currentRoomName,
+                    subId.toInt(),
+                    RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
+                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(Vec(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ)) else Vec(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
                     mc.thePlayer.rotationPitch
                 )
