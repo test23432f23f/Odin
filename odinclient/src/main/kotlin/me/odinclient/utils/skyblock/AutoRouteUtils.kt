@@ -175,8 +175,8 @@ class AutoRouteUtils : Module(
                         
                         val nextRoute = routes[i + 1]
                         
-                        val yaw: Float = (getYaw(currentRoom!!.getRealCoords(nextRoute.pos))).toFloat()
-                        val pitch: Float = route.pitch
+                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(nextRoute.pos))).toFloat()
+                        val pitch: Float = (getPitch(event.pitch, currentRoom!!.getRealCoords(nextRoute.pos))).toFloat()
                        
 
                         if(silentRotations)
@@ -239,12 +239,22 @@ class AutoRouteUtils : Module(
             return ""   
         }
 
-       fun getYaw(end: Vec3): Float {
-            return net.minecraft.util.MathHelper.wrapAngleTo180_float(
-            (Math.atan2(end.xCoord - Minecraft.getMinecraft().thePlayer.posX, end.zCoord -
-            Minecraft.getMinecraft().thePlayer.posZ).toFloat() * 180.0f / Math.PI - 90.0F).toFloat()
-        )
+      fun getYaw(_yaw: Float, vec: Vec3): Float {
+        val diffX = vec.xCoord - Main.mc.thePlayer.posX
+        val diffZ = vec.zCoord - Main.mc.thePlayer.posZ
+        val yaw = (Math.atan2(diffZ.toDouble(), diffX.toDouble()) * 180.0 / Math.PI).toFloat() - 90.0F
+        return _yaw + MathHelper.wrapAngleTo180_float(yaw - _yaw)
     }
+
+    fun getPitch(_pitch: Float, vec: Vec3): Float {
+        val diffX = vec.xCoord - Minecraft.getMinecraft().thePlayer.posX
+        val diffY = vec.yCoord - Minecraft.getMinecraft().thePlayer.posY
+        val diffZ = vec.zCoord - Minecraft.getMinecraft().thePlayer.posZ
+        val dist = MathHelper.sqrt_double(diffX * diffX + diffZ * diffZ)
+        val pitch = -(Math.atan2(diffY.toDouble(), dist) * 180.0 / Math.PI).toFloat()
+        return _pitch + MathHelper.wrapAngleTo180_float(pitch - _pitch)
+    }
+
 
        /*fun pleaseKillMe(yaw: Float, vec3: Vec3): Float {
     return when {
