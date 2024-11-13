@@ -242,7 +242,7 @@ class AutoRouteUtils : Module(
       fun getYaw(_yaw: Float, vec: Vec3): Float {
         val diffX = vec.xCoord - Minecraft.getMinecraft().thePlayer.posX
         val diffZ = vec.zCoord - Minecraft.getMinecraft().thePlayer.posZ
-        val yaw = (Math.atan2(diffZ.toDouble(), diffX.toDouble()) * 180.0 / Math.PI).toFloat() - 90.0F
+        val yaw: Float = (Math.atan2(diffZ.toDouble(), diffX.toDouble()) * 180.0 / Math.PI).toFloat() - 90.0F
         return _yaw + net.minecraft.util.MathHelper.wrapAngleTo180_float(yaw - _yaw)
     }
 
@@ -251,7 +251,7 @@ class AutoRouteUtils : Module(
         val diffY = vec.yCoord - Minecraft.getMinecraft().thePlayer.posY
         val diffZ = vec.zCoord - Minecraft.getMinecraft().thePlayer.posZ
         val dist = net.minecraft.util.MathHelper.sqrt_double(diffX * diffX + diffZ * diffZ)
-        val pitch = -(Math.atan2(diffY.toDouble(), dist) * 180.0 / Math.PI).toFloat()
+        val pitch: Float = -(Math.atan2(diffY.toDouble(), dist) * 180.0 / Math.PI).toFloat()
         return _pitch + net.minecraft.util.MathHelper.wrapAngleTo180_float(pitch - _pitch)
     }
 
