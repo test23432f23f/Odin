@@ -251,7 +251,7 @@ class AutoRouteUtils : Module(
         val diffY = vec.yCoord - Minecraft.getMinecraft().thePlayer.posY
         val diffZ = vec.zCoord - Minecraft.getMinecraft().thePlayer.posZ
         val dist = net.minecraft.util.MathHelper.sqrt_double(diffX * diffX + diffZ * diffZ)
-        val pitch: Float = -(Math.atan2(diffY.toDouble(), dist) * 180.0 / Math.PI).toFloat()
+        val pitch: Float = -(Math.atan2(diffY.toDouble(), dist.toDouble()) * 180.0d / Math.PI.toDouble()).toFloat()
         return _pitch + net.minecraft.util.MathHelper.wrapAngleTo180_float(pitch - _pitch)
     }
 
