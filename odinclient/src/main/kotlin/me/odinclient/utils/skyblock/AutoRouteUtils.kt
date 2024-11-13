@@ -38,6 +38,7 @@ import net.minecraft.util.EnumFacing;
 import kotlin.concurrent.thread
 import java.lang.Thread
 import me.odinmain.events.impl.MotionUpdateEvent
+import me.odinmain.events.impl.MotionUpdateEventPost
 import me.odinmain.utils.render.Renderer
 import me.odinmain.utils.render.Color
 import me.odinmain.utils.*
@@ -185,13 +186,7 @@ class AutoRouteUtils : Module(
                         val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos, currentRoom!!.rotation)))).toFloat()
                         val pitch: Float = nextRoute.pitch
 
-                          if(clickTimer.hasPassed(clickDelay + (if(route.type==Route.RouteType.WAIT||route.type==Route.RouteType.USE_WAIT) waitDelay else 0L)) && 
-                               ((getSkyBlockID(mc.thePlayer.heldItem) == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase().contains("aspect of the void")) && event.yaw == yaw && event.pitch == pitch)
-                        {
-                            val player = mc.thePlayer as IEntityPlayerSPAccessor
-                            mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-                            clickTimer.reset()
-                        }
+                          
                        
 
                         if(silentRotations)
@@ -216,12 +211,25 @@ class AutoRouteUtils : Module(
                         {
                             event.sneaking = false
                         }
-                        
-                     
+
+                        if(clickTimer.hasPassed(clickDelay + (if(route.type==Route.RouteType.WAIT||route.type==Route.RouteType.USE_WAIT) waitDelay else 0L)) && 
+                               ((getSkyBlockID(mc.thePlayer.heldItem) == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase().contains("aspect of the void")) && event.yaw == yaw && event.pitch == pitch)
+                        {
+                             click_ = true   
+                        }
                     }
                 }
             }
         }
+    }
+
+    var click_: Boolean = false
+    @SubscribeEvent
+    fun onMotion(event: MotionUpdateEventPost) 
+    {
+          mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
+          clickTimer.reset()
+          click_ = false
     }
 
     fun getOffset(vec: Vec3, rotation: Rotations): Vec3 {
