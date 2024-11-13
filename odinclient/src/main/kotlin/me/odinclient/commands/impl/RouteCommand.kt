@@ -38,7 +38,7 @@ val RouteCommand = commodore("route") {
 
 
     
-    literal("add").runs { subId: Int, type: String ->
+    literal("add").runs { subId: Int, type: String, yOffset: Double ->
 
                 val mop: MovingObjectPosition = method0(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, 64.0F)
                 if(mop.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK)
@@ -51,7 +51,7 @@ val RouteCommand = commodore("route") {
                     AutoRouteUtils.currentRoomName,
                     subId.toInt(),
                     RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
-                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(mop.hitVec) else mop.hitVec,
+                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(mop.hitVec.addVector(0, yOffset, 0)) else mop.hitVec.addVector(0, yOffset, 0),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
                     mc.thePlayer.rotationPitch
                 )
