@@ -6,7 +6,6 @@ import me.odinmain.utils.skyblock.modMessage
 import me.odinmain.utils.smoothRotateTo
 import me.odinclient.utils.skyblock.AutoRouteUtils
 import me.odinclient.utils.skyblock.RoutesManager
-import net.minecraft.util.MathHelper
 import net.minecraft.util.Vec3
 import net.minecraft.util.ChatComponentText
 import me.odinmain.utils.skyblock.dungeon.DungeonUtils.getRelativeCoords
@@ -38,11 +37,9 @@ val RouteCommand = commodore("route") {
     literal("add").runs { subId: Int, type: String ->
 
                 val mop: MovingObjectPosition = method0(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, 61.0F)
-                if(mop.typeOfHit !=  MovingObjectPosition.BLOCK)
+                if(mop.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK)
                 {
                     mc.thePlayer.addChatMessage(ChatComponentText("UNKNOWN POSITION"))
-
-                    return
                 }
         
                 val route = RoutesManager.Route(
@@ -64,7 +61,7 @@ val RouteCommand = commodore("route") {
                 RoutesManager.instance.saveConfig("./config/routes.abc")
                 mc.thePlayer.addChatMessage(ChatComponentText("Added " + route.roomId + ", " + route.id + ", " + route.subId))
 
-                EtherWarpHelper
+                
         
     }
 
@@ -73,11 +70,11 @@ val RouteCommand = commodore("route") {
         val updatedList: MutableList<RoutesManager.Route> = updated.getOrDefault(id.toInt(), ArrayList())
 
          val mop: MovingObjectPosition = method0(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, 61.0F)
-                if(mop.typeOfHit !=  MovingObjectPosition.BLOCK)
+                if(mop.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK)
                 {
                     mc.thePlayer.addChatMessage(ChatComponentText("UNKNOWN POSITION"))
 
-                    return
+                    
                 }
         
         val route = RoutesManager.Route(
