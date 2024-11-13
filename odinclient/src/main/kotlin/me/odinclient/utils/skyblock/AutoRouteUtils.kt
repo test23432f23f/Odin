@@ -227,6 +227,11 @@ class AutoRouteUtils : Module(
     @SubscribeEvent
     fun onMotionPost(event: MotionUpdateEventPost) 
     {
+          if(!click_)
+        {
+            return
+        }
+        
           mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
           clickTimer.reset()
           click_ = false
