@@ -185,7 +185,7 @@ class AutoRouteUtils : Module(
                             event.pitch = pitch
 
                             mc.thePlayer.addChatMessage(ChatComponentText("dy: " + currentRoom!!.getRealCoords(nextRoute.pos)))
-                            mc.thePlayer.addChatMessage(ChatComponentText(yaw + "" + pitch))
+                            mc.thePlayer.addChatMessage(ChatComponentText("yaw: " + yaw + ", pitch: " + pitch))
                         }
                         else
                         {
