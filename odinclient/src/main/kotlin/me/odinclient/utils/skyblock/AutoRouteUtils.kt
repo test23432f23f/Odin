@@ -92,7 +92,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawBlock(
-                        pos = BlockPos(route.pos),
+                        pos = BlockPos(route.pos).add(-0.5, -0.5, -0.5);,
                         color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                         fillAlpha = 0,
                         depth = renderDepthCheck)
@@ -110,7 +110,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                          Renderer.drawBlock(
-                         pos = BlockPos(currentRoom!!.getRealCoords(route.pos)),
+                         pos = BlockPos(currentRoom!!.getRealCoords(route.pos)).add(-0.5, -0.5, -0.5);,
                          color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                          fillAlpha = 0,
                          depth = renderDepthCheck)
