@@ -211,7 +211,7 @@ class AutoRouteUtils : Module(
                         }
                         
                        if(clickTimer.hasPassed(clickDelay + (if(route.type==Route.RouteType.WAIT||route.type==Route.RouteType.USE_WAIT) waitDelay else 0L)) && 
-                               ((getSkyBlockID(mc.thePlayer.heldItem) == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase().contains("aspect of the void")))
+                               ((getSkyBlockID(mc.thePlayer.heldItem) == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase().contains("aspect of the void")) && event.yaw == yaw && event.pitch == pitch)
                         {
                             val player = mc.thePlayer as IEntityPlayerSPAccessor
                             mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
