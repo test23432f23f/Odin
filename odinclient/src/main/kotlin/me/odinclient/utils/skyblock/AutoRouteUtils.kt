@@ -225,11 +225,11 @@ class AutoRouteUtils : Module(
 
     fun getOffset(vec: Vec3, rotation: Rotations): Vec3 {
         return when (rotation) {
-            Rotations.NORTH -> vec.addVector(offsetNorthX.toDouble(), 0, offsetNorthZ.toDouble())
-            Rotations.WEST -> vec.addVector(offsetWestX.toDouble(), 0, offsetWestZ.toDouble())
-            Rotations.SOUTH -> vec.addVector(offsetSouthX.toDouble(), 0, offsetSouthZ.toDouble())
-            Rotations.EAST -> vec.addVector(offsetEastX.toDouble(), 0, offsetEastZ.toDouble())
-            else -> this
+            Rotations.NORTH -> vec.addVector(offsetNorthX.toDouble(), 0.0, offsetNorthZ.toDouble())
+            Rotations.WEST -> vec.addVector(offsetWestX.toDouble(), 0.0, offsetWestZ.toDouble())
+            Rotations.SOUTH -> vec.addVector(offsetSouthX.toDouble(), 0.0, offsetSouthZ.toDouble())
+            Rotations.EAST -> vec.addVector(offsetEastX.toDouble(), 0.0, offsetEastZ.toDouble())
+            else -> vec
         }
     }
 
