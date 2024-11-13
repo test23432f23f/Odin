@@ -92,7 +92,7 @@ class AutoRouteUtils : Module(
                 {
                     if (lastRoute != null && lines)
                     {
-                         Renderer.draw3DLine(points = listOf(getOffset(lastRoute.pos), route.pos),
+                         Renderer.draw3DLine(points = listOf(lastRoute.pos, route.pos),
                                    color = me.odinmain.utils.render.Color.WHITE,
                                    lineWidth = 2f,
                                    depth = renderDepthCheck)
@@ -223,6 +223,16 @@ class AutoRouteUtils : Module(
         }
     }
 
+    fun getOffset(vec: Vec3, rotation: Rotations): Vec3 {
+        return when (rotation) {
+            Rotations.NORTH -> vec.addVector(offsetNorthX.toDouble(), 0, offsetNorthZ.toDouble())
+            Rotations.WEST -> vec.addVector(offsetWestX.toDouble(), 0, offsetWestZ.toDouble())
+            Rotations.SOUTH -> vec.addVector(offsetSouthX.toDouble(), 0, offsetSouthZ.toDouble())
+            Rotations.EAST -> vec.addVector(offsetEastX.toDouble(), 0, offsetEastZ.toDouble())
+            else -> this
+        }
+    }
+
    
 
    companion object
@@ -264,15 +274,7 @@ class AutoRouteUtils : Module(
         return _pitch + net.minecraft.util.MathHelper.wrapAngleTo180_float(pitch - _pitch)
     }
     
-    fun getOffset(vec: Vec3, rotation: Rotations): Vec3 {
-        return when (rotation) {
-            Rotations.NORTH -> vec.addVector(offsetNorthX.toDouble(), 0, offsetNorthZ.toDouble())
-            Rotations.WEST -> vec.addVector(offsetWestX.toDouble(), 0, offsetWestZ.toDouble())
-            Rotations.SOUTH -> vec.addVector(offsetSouthX.toDouble(), 0, offsetSouthZ.toDouble())
-            Rotations.EAST -> vec.addVector(offsetEastX.toDouble(), 0, offsetEastZ.toDouble())
-            else -> this
-        }
-    }
+    
 
 
        /*fun pleaseKillMe(yaw: Float, vec3: Vec3): Float {
