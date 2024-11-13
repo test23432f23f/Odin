@@ -68,7 +68,7 @@ class AutoRouteUtils : Module(
 
         mc.thePlayer.addChatMessage(ChatComponentText(("Entered room: " + currentRoomName + " : " + currentRoom!!.rotation.name)))
     }
-    var tolerance = 0.7
+    var tolerance = 0.85
     var rotationQueued = false
     var etherQueued = false
     @SubscribeEvent
@@ -242,7 +242,7 @@ class AutoRouteUtils : Module(
        fun getYaw(end: Vec3): Float {
             return net.minecraft.util.MathHelper.wrapAngleTo180_float(
             (Math.atan2(end.xCoord - Minecraft.getMinecraft().thePlayer.posX, end.zCoord -
-            Minecraft.getMinecraft().thePlayer.posZ).toFloat() * 180.0f / Math.PI).toFloat()
+            Minecraft.getMinecraft().thePlayer.posZ).toFloat() * 180.0f / Math.PI - 90.0F).toFloat()
         )
     }
 
