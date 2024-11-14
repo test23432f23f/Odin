@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 
 import static me.odinmain.utils.Utils.postAndCatch;
 
