@@ -58,14 +58,9 @@ class AutoRouteUtils : Module(
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     private val renderDepthCheck by BooleanSetting("Render Depth Check", false, description = "Depth check")
     private val editMode by BooleanSetting("Edit Mode", false, description = "Doesn't execute routes.")
-    private val offsetNorthX by NumberSetting("Offset North X", 0, -1, 1, unit = " blocks", description = "")
-    private val offsetWestX by NumberSetting("Offset West X", 0, -1, 1, unit = " blocks", description = "")
-    private val offsetSouthX by NumberSetting("Offset South X", 0, -1, 1, unit = " blocks", description = "")
-    private val offsetEastX by NumberSetting("Offset East X", 0, -1, 1, unit = " blocks", description = "")
-    private val offsetNorthZ by NumberSetting("Offset North X", 0, -1, 1, unit = " blocks", description = "")
-    private val offsetWestZ by NumberSetting("Offset West X", 0, -1, 1, unit = " blocks", description = "")
-    private val offsetSouthZ by NumberSetting("Offset South X", 0, -1, 1, unit = " blocks", description = "")
-    private val offsetEastZ by NumberSetting("Offset East X", 0, -1, 1, unit = " blocks", description = "")
+    private val offsetX by NumberSetting("Offset X", 0, -1, 1, unit = " blocks", description = "")
+    private val offsetZ by NumberSetting("Offset Z", 0, -1, 1, unit = " blocks", description = "")
+ 
   
     
    
@@ -243,10 +238,10 @@ class AutoRouteUtils : Module(
 
     fun getOffset(vec: Vec3, rotation: Rotations): Vec3 {
         return when (rotation) {
-            Rotations.NORTH -> vec.addVector(offsetNorthX.toDouble(), 0.0, offsetNorthZ.toDouble())
-            Rotations.WEST -> vec.addVector(offsetWestX.toDouble(), 0.0, offsetWestZ.toDouble())
-            Rotations.SOUTH -> vec.addVector(offsetSouthX.toDouble(), 0.0, offsetSouthZ.toDouble())
-            Rotations.EAST -> vec.addVector(offsetEastX.toDouble(), 0.0, offsetEastZ.toDouble())
+            Rotations.NORTH -> vec.addVector(offsetX.toDouble(), 0.0, offsetZ.toDouble())
+            Rotations.WEST -> vec.addVector(offsetX.toDouble(), 0.0, offsetZ.toDouble())
+            Rotations.SOUTH -> vec.addVector(offsetX.toDouble(), 0.0, offsetZ.toDouble())
+            Rotations.EAST -> vec.addVector(offsetX.toDouble(), 0.0, offsetZ.toDouble())
             else -> vec
         }
     }
