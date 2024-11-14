@@ -143,7 +143,7 @@ public abstract class MixinEntityPlayerSP {
 
             if(preMotionUpdateEvent.getClicked())
             {
-               this.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem));
+               this.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
             }
 
             ++this.positionUpdateTicks;
