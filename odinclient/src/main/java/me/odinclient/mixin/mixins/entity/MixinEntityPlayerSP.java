@@ -62,7 +62,7 @@ public abstract class MixinEntityPlayerSP {
         boolean flag = mc.thePlayer.isSprinting();
 
         MotionUpdateEvent preMotionUpdateEvent = new MotionUpdateEvent(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ,
-                mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, mc.thePlayer.onGround, mc.thePlayer.isSneaking());
+                mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, mc.thePlayer.onGround, mc.thePlayer.isSneaking(), false);
         
         if (MinecraftForge.EVENT_BUS.post(preMotionUpdateEvent)) 
         {
@@ -139,6 +139,11 @@ public abstract class MixinEntityPlayerSP {
                 this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(mc.thePlayer.motionX, -999.0D,mc.thePlayer.motionZ, preMotionUpdateEvent.getYaw(),
                         preMotionUpdateEvent.getPitch(), preMotionUpdateEvent.getOnGround()));
                 flag2 = false;
+            }
+
+            if(preMotionUpdateEvent.getClicked())
+            {
+               this.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
             }
 
             ++this.positionUpdateTicks;
