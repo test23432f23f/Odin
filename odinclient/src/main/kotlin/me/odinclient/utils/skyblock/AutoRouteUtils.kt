@@ -215,7 +215,10 @@ class AutoRouteUtils : Module(
                         if(clickTimer.hasPassed(clickDelay + (if(route.type==Route.RouteType.WAIT||route.type==Route.RouteType.USE_WAIT) waitDelay else 0L)) && 
                                ((getSkyBlockID(mc.thePlayer.heldItem) == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase().contains("aspect of the void")))
                         {
-                             click_ = true   
+                               
+                              event.clicked = true
+                              mc.thePlayer.addChatMessage(ChatComponentText("clicked"))
+                              clickTimer.reset()
                         }
                     }
                 }
@@ -223,8 +226,8 @@ class AutoRouteUtils : Module(
         }
     }
 
-    var click_: Boolean = false
-    @SubscribeEvent
+    /*var click_: Boolean = false*/
+    /*@SubscribeEvent
     fun onMotionPost(event: MotionUpdateEventPost) 
     {
           if(!click_)
@@ -236,7 +239,7 @@ class AutoRouteUtils : Module(
           clickTimer.reset()
           click_ = false
           mc.thePlayer.addChatMessage(ChatComponentText("clicked"))
-    }
+    }*/
 
     fun getOffset(vec: Vec3, rotation: Rotations): Vec3 {
         return when (rotation) {
