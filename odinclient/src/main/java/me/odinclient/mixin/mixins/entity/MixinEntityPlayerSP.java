@@ -142,10 +142,7 @@ public abstract class MixinEntityPlayerSP {
                 flag2 = false;
             }
 
-            if(preMotionUpdateEvent.getClicked())
-            {
-               this.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
-            }
+           
 
             ++this.positionUpdateTicks;
 
@@ -163,6 +160,11 @@ public abstract class MixinEntityPlayerSP {
                 this.lastReportedPitch = preMotionUpdateEvent.getPitch();
             }
         }
+
+          if(preMotionUpdateEvent.getClicked())
+            {
+               this.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
+            }
           MotionUpdateEventPost postMotionUpdateEvent = new MotionUpdateEventPost(preMotionUpdateEvent.getX(), preMotionUpdateEvent.getY(),  preMotionUpdateEvent.getZ(),
                  preMotionUpdateEvent.getYaw(), preMotionUpdateEvent.getPitch(),  preMotionUpdateEvent.getOnGround(),  preMotionUpdateEvent.getSneaking());
 
