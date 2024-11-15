@@ -83,7 +83,7 @@ class AutoRouteUtils : Module(
         var lastRoute: RoutesManager.Route?
         for (id in RoutesManager.instance.loadedRoutes.get(currentRoomName)!!.keys) {
             lastRoute = null
-            for (route in RoutesManager.instance.loadedRoutes.get(currentRoomName)!![id]!!) {
+            for (route in RoutesManager.instance.loadedRoutes[currentRoomName]?.get(id)?.sortedBy { it.subId }?.toList()) {
                 if(currentRoom == null)
                 {
                     if (lastRoute != null && lines)
@@ -146,16 +146,16 @@ class AutoRouteUtils : Module(
     @SubscribeEvent
     fun onMotion(event: MotionUpdateEvent) {
          
-        if (mc.thePlayer == null || editMode) {
+        if (mc.thePlayer == null || editMode || currentRoomName!! == null) {
             return
         }
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null || !mc.thePlayer.isSneaking()) {
             return
         }
        
-        for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
-            for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
-                val routes = RoutesManager.instance.loadedRoutes[roomId]!![id]!!
+       
+            for (id in RoutesManager.instance.loadedRoutes[currentRoomName!!]!!.keys) {
+                val routes = RoutesManager.instance.loadedRoutes[currentRoomName!!]!![id]!!
                     .stream().sorted(Comparator.comparingInt { r: RoutesManager.Route -> r.subId })
                     .collect(Collectors.toList())
                 for (i in routes.indices) {
@@ -218,7 +218,6 @@ class AutoRouteUtils : Module(
                     }
                 }
             }
-        }
     }
 
     /*var click_: Boolean = false*/
