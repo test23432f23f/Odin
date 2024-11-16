@@ -149,7 +149,7 @@ class AutoRouteUtils : Module(
     @SubscribeEvent
     fun onMotion(event: MotionUpdateEvent) {
          
-        if (mc.thePlayer == null || editMode || currentRoomName!! == null) {
+        if (mc.thePlayer == null || editMode || currentRoomName!! == "Unknown") {
             return
         }
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null || !mc.thePlayer.isSneaking()) {
