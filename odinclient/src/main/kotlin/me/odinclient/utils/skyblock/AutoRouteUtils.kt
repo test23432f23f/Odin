@@ -82,10 +82,9 @@ class AutoRouteUtils : Module(
         }
         var lastRoute: RoutesManager.Route?
 
-          for (roomId in RoutesManager.instance.loadedRoutes.keys!!) {
-            for (id in RoutesManager.instance.loadedRoutes[roomId]!!.keys) {
+         for (id in RoutesManager.instance.loadedRoutes.get(currentRoomName)!!.keys) {
             lastRoute = null
-            for (route in RoutesManager.instance.loadedRoutes[roomId]!!.get(id)) {
+          for (route in RoutesManager.instance.loadedRoutes.get(currentRoomName)!![id]!!) {
                 if(currentRoom == null)
                 {
                     if (lastRoute != null && lines)
@@ -126,7 +125,6 @@ class AutoRouteUtils : Module(
                 lastRoute = route
             }
         }
-          }
     }
 
   
