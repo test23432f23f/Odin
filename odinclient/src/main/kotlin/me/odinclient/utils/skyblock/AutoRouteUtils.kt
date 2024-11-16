@@ -99,7 +99,7 @@ class AutoRouteUtils : Module(
                         pos = BlockPos(route.pos),
                         color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                         fillAlpha = 0,
-                        depth = renderDepthCheck)
+                        depth = (renderDepthCheck || route.subId == 0))
                     }
                 }
                 else
@@ -117,7 +117,7 @@ class AutoRouteUtils : Module(
                          pos = BlockPos(currentRoom!!.getRealCoords(getOffset(route.pos, currentRoom!!.rotation))),
                          color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                          fillAlpha = 0,
-                         depth = renderDepthCheck)
+                         depth = (renderDepthCheck || route.subId == 0))
                     }
                 }
                 
