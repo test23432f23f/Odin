@@ -43,6 +43,7 @@ import me.odinmain.utils.render.Renderer
 import me.odinmain.utils.render.Color
 import me.odinmain.utils.*
 import me.odinmain.utils.skyblock.dungeon.tiles.Rotations
+import net.minecraft.util.EnumFacing
 
 
 
@@ -179,11 +180,9 @@ class AutoRouteUtils : Module(
                         
                         val nextRoute = routes[i + 1]
                         
-                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos, currentRoom!!.rotation)))).toFloat()
+                        //val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos, currentRoom!!.rotation)))).toFloat()
+                        val yaw: Float = getRotationYaw(route.yaw, currentRoom!!.rotation)
                         val pitch: Float = nextRoute.pitch
-
-                          
-                       
 
                         if(silentRotations)
                         {
@@ -243,6 +242,16 @@ class AutoRouteUtils : Module(
             Rotations.SOUTH -> vec.addVector(offsetX.toDouble(), 0.0, offsetZ.toDouble())
             Rotations.EAST -> vec.addVector(offsetX.toDouble(), 0.0, offsetZ.toDouble())
             else -> vec
+        }
+    }
+
+    fun getRotationYaw(yaw: Float, rotation: Rotations): Float {
+        return when (rotation) {
+            Rotations.NORTH -> yaw + EnumFacing.NORTH.getHorizontalIndex() * 90.0f
+            Rotations.WEST -> yaw + EnumFacing.WEST.getHorizontalIndex() * 90.0f
+            Rotations.SOUTH -> yaw + EnumFacing.SOUTH.getHorizontalIndex() * 90.0f
+            Rotations.EAST -> yaw + EnumFacing.EAST.getHorizontalIndex() * 90.0f
+            else -> yaw
         }
     }
 
