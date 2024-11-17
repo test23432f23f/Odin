@@ -118,7 +118,7 @@ public class RoutesManager
                                     Integer.parseInt(idKey),
                                     Integer.parseInt(subIdKey),
                                     new Vec3(r.getDouble("x"), r.getDouble("y"), r.getDouble("z")),
-                                    r.getFloat("yaw"), r.getFloat("pitch"), Rotations.valueOf(r.get("rotation"))));
+                                    r.getFloat("yaw"), r.getFloat("pitch"), Rotations.valueOf(r.getString("rotation"))));
 
                             if(Minecraft.getMinecraft().thePlayer != null)
                                  Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(roomKey + " : " + idKey + " : " + subIdKey));
