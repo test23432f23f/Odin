@@ -74,7 +74,7 @@ class AutoRouteUtils : Module(
 
         mc.thePlayer.addChatMessage(ChatComponentText(("Entered room: " + currentRoomName + " : " + currentRoom!!.rotation.name)))
     }
-    var tolerance = 1.2
+    var tolerance = 1.45
     var rotationQueued = false
     var etherQueued = false
     @SubscribeEvent
@@ -99,7 +99,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawCylinder(
-                                route.pos, 1.45f, 1.45f, .6f, 35,
+                                 currentRoom!!.getRealCoords(route.pos), 1.45f, 1.45f, .6f, 35,
                                 1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
                         )
                         
@@ -122,7 +122,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawCylinder(
-                                route.pos, 1.45f, 1.45f, .6f, 35,
+                                 currentRoom!!.getRealCoords(route.pos), 1.45f, 1.45f, .6f, 35,
                                 1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
                         )
                         
