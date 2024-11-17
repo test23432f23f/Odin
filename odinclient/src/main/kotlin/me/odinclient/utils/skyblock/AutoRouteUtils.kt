@@ -34,7 +34,6 @@ import net.minecraft.util.ChatComponentText
 import me.odinmain.features.settings.impl.*
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 import net.minecraft.network.play.server.S18PacketEntityTeleport
-import net.minecraft.util.EnumFacing;
 import kotlin.concurrent.thread
 import java.lang.Thread
 import me.odinmain.events.impl.MotionUpdateEvent
