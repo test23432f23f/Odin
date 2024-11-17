@@ -98,11 +98,10 @@ class AutoRouteUtils : Module(
                     }
                     if(boxes)
                     {
-                        RenderUtils.drawCylinder(
-                            pos = route.pos, baseRadius = tolerance, topRadius = tolerance, height = 0.2,
-                            slices = 1, stacks = 1, rot = 1, rot2 = 1, rot3 = 1,
-                            color =  if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!, depth: = (renderDepthCheck && route.subId != 0)
-                            )
+                        Renderer.drawCylinder(
+                                route.pos, 1.45f, 1.45f, .6f, 35,
+                                1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
+                        )
                         
                        /* Renderer.drawBlock(
                         pos = BlockPos(route.pos),
@@ -122,11 +121,10 @@ class AutoRouteUtils : Module(
                     }
                     if(boxes)
                     {
-                        RenderUtils.drawCylinder(
-                            pos = route.pos, baseRadius = tolerance, topRadius = tolerance, height = 0.2,
-                            slices = 1, stacks = 1, rot = 1, rot2 = 1, rot3 = 1,
-                            color =  if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!, depth: = (renderDepthCheck && route.subId != 0)
-                            )
+                        Renderer.drawCylinder(
+                                route.pos, 1.45f, 1.45f, .6f, 35,
+                                1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
+                        )
                         
                          /*Renderer.drawBlock(
                          pos = BlockPos(currentRoom!!.getRealCoords(route.pos)),
