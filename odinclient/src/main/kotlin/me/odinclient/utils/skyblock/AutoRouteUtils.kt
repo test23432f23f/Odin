@@ -43,6 +43,7 @@ import me.odinmain.utils.render.Color
 import me.odinmain.utils.*
 import me.odinmain.utils.skyblock.dungeon.tiles.Rotations
 import net.minecraft.util.EnumFacing
+import me.odinmain.utils.render.RenderUtils
 
 
 
@@ -61,7 +62,8 @@ class AutoRouteUtils : Module(
     private val offsetX by NumberSetting("Offset X", 0, -1, 1, unit = " blocks", description = "")
     private val offsetZ by NumberSetting("Offset Z", 0, -1, 1, unit = " blocks", description = "")
  
-  
+
+ 
     
    
     @SubscribeEvent
@@ -72,7 +74,7 @@ class AutoRouteUtils : Module(
 
         mc.thePlayer.addChatMessage(ChatComponentText(("Entered room: " + currentRoomName + " : " + currentRoom!!.rotation.name)))
     }
-    var tolerance = 0.85
+    var tolerance = 1.2
     var rotationQueued = false
     var etherQueued = false
     @SubscribeEvent
@@ -96,29 +98,41 @@ class AutoRouteUtils : Module(
                     }
                     if(boxes)
                     {
-                        Renderer.drawBlock(
+                        drawCylinder(
+                            pos = route.pos, baseRadius = tolerance, topRadius = tolerance, height = 0.2,
+                            slices = 1, stacks = 1, rot =: 1, rot2 = 1, rot3 = 1,
+                            color =  if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!, depth: = (renderDepthCheck && route.subId != 0)
+                            )
+                        
+                       /* Renderer.drawBlock(
                         pos = BlockPos(route.pos),
                         color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                         fillAlpha = 0,
-                        depth = (renderDepthCheck || route.subId != 0))
+                        depth = (renderDepthCheck && route.subId != 0))*/
                     }
                 }
                 else
                 {
                     if (lastRoute != null && lines)
                     {
-                        Renderer.draw3DLine(points = listOf(currentRoom!!.getRealCoords(getOffset(lastRoute.pos, currentRoom!!.rotation)), currentRoom!!.getRealCoords(getOffset(route.pos, currentRoom!!.rotation))),
+                        Renderer.draw3DLine(points = listOf(currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos)),
                                    color = me.odinmain.utils.render.Color.WHITE,
                                    lineWidth = 2f,
                                    depth = renderDepthCheck)
                     }
                     if(boxes)
                     {
-                         Renderer.drawBlock(
-                         pos = BlockPos(currentRoom!!.getRealCoords(getOffset(route.pos, currentRoom!!.rotation))),
+                        drawCylinder(
+                            pos = route.pos, baseRadius = tolerance, topRadius = tolerance, height = 0.2,
+                            slices = 1, stacks = 1, rot =: 1, rot2 = 1, rot3 = 1,
+                            color =  if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!, depth: = (renderDepthCheck && route.subId != 0)
+                            )
+                        
+                         /*Renderer.drawBlock(
+                         pos = BlockPos(currentRoom!!.getRealCoords(route.pos)),
                          color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                          fillAlpha = 0,
-                         depth = (renderDepthCheck || route.subId != 0))
+                         depth = (renderDepthCheck && route.subId != 0))*/
                     }
                 }
                 
@@ -166,7 +180,7 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.posX,
                             mc.thePlayer.posY,
                             mc.thePlayer.posZ
-                        ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(getOffset(route.pos, currentRoom!!.rotation)))
+                        ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(route.pos))
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void"))
@@ -179,7 +193,7 @@ class AutoRouteUtils : Module(
                         
                         val nextRoute = routes[i + 1]
                         
-                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos, currentRoom!!.rotation)))).toFloat()
+                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(nextRoute.pos))).toFloat()
                         val pitch: Float = nextRoute.pitch
 
                         if(silentRotations)
@@ -233,15 +247,6 @@ class AutoRouteUtils : Module(
           mc.thePlayer.addChatMessage(ChatComponentText("clicked"))
     }*/
 
-    fun getOffset(vec: Vec3, rotation: Rotations): Vec3 {
-        return when (rotation) {
-            Rotations.NORTH -> vec.addVector(offsetX.toDouble(), 0.0, offsetZ.toDouble())
-            Rotations.WEST -> vec.addVector(offsetX.toDouble(), 0.0, offsetZ.toDouble())
-            Rotations.SOUTH -> vec.addVector(offsetX.toDouble(), 0.0, offsetZ.toDouble())
-            Rotations.EAST -> vec.addVector(offsetX.toDouble(), 0.0, offsetZ.toDouble())
-            else -> vec
-        }
-    }
     
    companion object
    {
