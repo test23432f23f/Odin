@@ -179,8 +179,7 @@ class AutoRouteUtils : Module(
                         
                         val nextRoute = routes[i + 1]
                         
-                        //val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos, currentRoom!!.rotation)))).toFloat()
-                        val yaw: Float = getRotationYaw(route.yaw, currentRoom!!.rotation)
+                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos, currentRoom!!.rotation)))).toFloat()
                         val pitch: Float = nextRoute.pitch
 
                         if(silentRotations)
@@ -243,19 +242,7 @@ class AutoRouteUtils : Module(
             else -> vec
         }
     }
-
-    fun getRotationYaw(yaw: Float, rotation: Rotations): Float {
-        return when (rotation) {
-            Rotations.NORTH -> yaw + EnumFacing.NORTH.getHorizontalIndex() * 90.0f
-            Rotations.WEST -> yaw + EnumFacing.WEST.getHorizontalIndex() * 90.0f
-            Rotations.SOUTH -> yaw + EnumFacing.SOUTH.getHorizontalIndex() * 90.0f
-            Rotations.EAST -> yaw + EnumFacing.EAST.getHorizontalIndex() * 90.0f
-            else -> yaw
-        }
-    }
-
-   
-
+    
    companion object
    {
         var currentRoom: Room? = null
