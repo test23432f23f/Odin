@@ -59,6 +59,7 @@ class AutoRouteUtils : Module(
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     private val renderDepthCheck by BooleanSetting("Render Depth Check", false, description = "Depth check")
     private val editMode by BooleanSetting("Edit Mode", false, description = "Doesn't execute routes.")
+    private val tolerance by NumberSetting("Tolerance", 1.45, 0.0, 2.0, unit = " blocks", description = "")
     private val offsetX by NumberSetting("Offset X", 0, -1, 1, unit = " blocks", description = "")
     private val offsetZ by NumberSetting("Offset Z", 0, -1, 1, unit = " blocks", description = "")
  
@@ -74,7 +75,7 @@ class AutoRouteUtils : Module(
 
         mc.thePlayer.addChatMessage(ChatComponentText(("Entered room: " + currentRoomName + " : " + currentRoom!!.rotation.name)))
     }
-    var tolerance = 1.45
+   
     var rotationQueued = false
     var etherQueued = false
     @SubscribeEvent
@@ -99,7 +100,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawCylinder(
-                                 currentRoom!!.getRealCoords(route.pos), 1.45f, 1.45f, .6f, 35,
+                                 currentRoom!!.getRealCoords(route.pos), tolerance, tolerance, .1f, 35,
                                 1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
                         )
                         
@@ -122,7 +123,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawCylinder(
-                                 currentRoom!!.getRealCoords(route.pos), 1.45f, 1.45f, .6f, 35,
+                                 currentRoom!!.getRealCoords(route.pos), 1.45f, 1.45f, .1f, 35,
                                 1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
                         )
                         
