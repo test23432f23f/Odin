@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraft.util.ChatComponentText;
 import java.awt.*;
 import me.odinmain.utils.render.Color;
+import me.odinmain.utils.skyblock.dungeon.tiles.Rotations;
 
 public class RoutesManager
 {
@@ -57,6 +58,7 @@ public class RoutesManager
                         routeObject.put("z", route.pos.zCoord);
                         routeObject.put("yaw", route.yaw);
                         routeObject.put("pitch", route.pitch);
+                        routeObject.put("rotation", route.rotation);
                         subRoutes.put("" + route.subId, routeObject);
                     }
                     roomObject.put("" + id, subRoutes);
@@ -116,7 +118,7 @@ public class RoutesManager
                                     Integer.parseInt(idKey),
                                     Integer.parseInt(subIdKey),
                                     new Vec3(r.getDouble("x"), r.getDouble("y"), r.getDouble("z")),
-                                    r.getFloat("yaw"), r.getFloat("pitch")));
+                                    r.getFloat("yaw"), r.getFloat("pitch")), (Rotations) r.get("rotation"));
 
                             if(Minecraft.getMinecraft().thePlayer != null)
                                  Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(roomKey + " : " + idKey + " : " + subIdKey));
@@ -165,8 +167,9 @@ public class RoutesManager
         public int subId;
         public Vec3 pos;
         public float yaw, pitch;
+        public Rotations rotation;
 
-        public Route(RouteType type, String roomId, int id, int subId, Vec3 pos, float yaw, float pitch)
+        public Route(RouteType type, String roomId, int id, int subId, Vec3 pos, float yaw, float pitch, Rotations rotation)
         {
             this.type = type;
             this.id = id;
@@ -175,6 +178,7 @@ public class RoutesManager
             this.roomId = roomId;
             this.yaw = yaw;
             this.pitch = pitch;
+            this.rotation = rotation;
         }
 
         public enum RouteType
