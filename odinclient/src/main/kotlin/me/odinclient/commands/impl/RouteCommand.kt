@@ -53,7 +53,8 @@ val RouteCommand = commodore("route") {
                     RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
                     if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(multiply(mop.hitVec, 1.00).addVector(0.0, yOffset, 0.0)) else multiply(mop.hitVec, 1.00).addVector(0.0, yOffset, 0.0),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
-                    mc.thePlayer.rotationPitch
+                    mc.thePlayer.rotationPitch,
+                    AutoRouteUtils.currentRoom!!.rotation
                 )
 
                 val updated = RoutesManager.instance.loadedRoutes.getOrDefault(route.roomId, HashMap())
@@ -63,7 +64,7 @@ val RouteCommand = commodore("route") {
                 updated.put(route.id, updatedList) 
                 RoutesManager.instance.loadedRoutes.put(AutoRouteUtils.currentRoomName, updated)
                 RoutesManager.instance.saveConfig("./config/routes.abc")
-                mc.thePlayer.addChatMessage(ChatComponentText("Added " + route.roomId + ", " + route.id + ", " + route.subId))
+                mc.thePlayer.addChatMessage(ChatComponentText("Added " + route.roomId + ", " + route.id + ", " + route.subId + ", " + route.rotation))
 
                 
         
@@ -77,7 +78,8 @@ val RouteCommand = commodore("route") {
                     RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
                     if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ)) else Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
-                    mc.thePlayer.rotationPitch
+                    mc.thePlayer.rotationPitch,
+                    AutoRouteUtils.currentRoom!!.rotation
                 )
 
                 val updated = RoutesManager.instance.loadedRoutes.getOrDefault(route.roomId, HashMap())
