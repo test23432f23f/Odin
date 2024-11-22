@@ -13,6 +13,7 @@ import me.odinmain.utils.skyblock.dungeon.tiles.Rotations
 import me.odinmain.utils.skyblock.EtherWarpHelper
 import net.minecraft.util.MathHelper
 import net.minecraft.util.MovingObjectPosition
+import java.lang.Math
 
 
 fun method0(var0: Float, var1: Float, var2: Float): MovingObjectPosition {
@@ -51,7 +52,7 @@ val RouteCommand = commodore("route") {
                     AutoRouteUtils.currentRoomName,
                     subId.toInt(),
                     RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
-                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(multiply(mop.hitVec, 1.00).addVector(0.0, yOffset, 0.0)) else multiply(mop.hitVec, 1.00).addVector(0.0, yOffset, 0.0),
+                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(multiply(mop.hitVec, 1.00).addVector((Math.ceil(mop.hitVec.xCoord).toDouble() - mop.hitVec.xCoord) / 2.0, Math.ceil(mop.hitVec.yCoord).toDouble() - mop.hitVec.yCoord, (Math.ceil(mop.hitVec.zCoord).toDouble() - mop.hitVec.zCoord) / 2.0)) else multiply(mop.hitVec, 1.00).addVector(0.0, Math.ceil(mop.hitVec.yCoord) - mop.hitVec.yCoord, 0.0),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
                     mc.thePlayer.rotationPitch,
                     AutoRouteUtils.currentRoom!!.rotation
