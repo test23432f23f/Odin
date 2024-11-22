@@ -59,7 +59,7 @@ class AutoRouteUtils : Module(
     private val boxes by BooleanSetting("Boxes", false, description = "Draw boxes?")
     private val renderDepthCheck by BooleanSetting("Render Depth Check", false, description = "Depth check")
     private val editMode by BooleanSetting("Edit Mode", false, description = "Doesn't execute routes.")
-    private val tolerance by NumberSetting("Tolerance", 1.45, 0.0, 2.0, unit = " blocks", description = "")
+    private val tolerance by NumberSetting("Tolerance", default = 1.45, increment = 0.1, min = 0.5, max = 2.0, unit = " blocks", description = "")
     private val offsetX by NumberSetting("Offset X", 0, -1, 1, unit = " blocks", description = "")
     private val offsetZ by NumberSetting("Offset Z", 0, -1, 1, unit = " blocks", description = "")
  
@@ -160,7 +160,7 @@ class AutoRouteUtils : Module(
     @SubscribeEvent
     fun onMotion(event: MotionUpdateEvent) {
          
-        if (mc.thePlayer == null || editMode || currentRoomName!! == "Unknown") {
+        if (mc.thePlayer == null || editMode) {
             return
         }
         if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null || !mc.thePlayer.isSneaking()) {
@@ -231,22 +231,6 @@ class AutoRouteUtils : Module(
             }
     }
 
-    /*var click_: Boolean = false*/
-    /*@SubscribeEvent
-    fun onMotionPost(event: MotionUpdateEventPost) 
-    {
-          if(!click_)
-        {
-            return
-        }
-        
-          mc.thePlayer.sendQueue.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.heldItem))
-          clickTimer.reset()
-          click_ = false
-          mc.thePlayer.addChatMessage(ChatComponentText("clicked"))
-    }*/
-
-    
    companion object
    {
         var currentRoom: Room? = null
