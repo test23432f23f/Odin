@@ -123,7 +123,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawCylinder(
-                                 currentRoom!!.getRealCoords(route.pos), 1.45f, 1.45f, .1f, 35,
+                                 currentRoom!!.getRealCoords(route.pos), tolerance, tolerance, .1f, 35,
                                 1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
                         )
                         
@@ -172,6 +172,8 @@ class AutoRouteUtils : Module(
                 val routes = RoutesManager.instance.loadedRoutes[currentRoomName!!]!![id]!!
                     .stream().sorted(Comparator.comparingInt { r: RoutesManager.Route -> r.subId })
                     .collect(Collectors.toList())
+
+                     mc.thePlayer.addChatMessage(ChatComponentText("hi"))
                 for (i in routes.indices) {
                     if (routes.size < 2) continue
                     val route = routes[i]
