@@ -47,14 +47,14 @@ val RouteCommand = commodore("route") {
                     mc.thePlayer.addChatMessage(ChatComponentText("UNKNOWN POSITION"))
                 }
         
-                val route = RoutesManager.Route(
+                 val route = RoutesManager.Route(
                     RoutesManager.Route.RouteType.valueOf(type),
                     AutoRouteUtils.currentRoomName,
                     subId.toInt(),
                     RoutesManager.instance.loadedRoutes.getOrDefault(AutoRouteUtils.currentRoomName, HashMap()).getOrDefault(subId.toInt(), ArrayList()).size,
-                    if(AutoRouteUtils.currentRoom != null) multiply(mop.hitVec, 1.00).addVector((mop.hitVec.xCoord - Math.ceil(mop.hitVec.xCoord).toDouble()) / 2.0,
+                    if(AutoRouteUtils.currentRoom != null) AutoRouteUtils.currentRoom!!.getRelativeCoords(multiply(mop.hitVec, 1.00).addVector(0.0,
                                                                                                                                                Math.ceil(mop.hitVec.yCoord).toDouble() - mop.hitVec.yCoord,
-                                                                                                                                               (mop.hitVec.zCoord - Math.ceil(mop.hitVec.zCoord).toDouble()) / 2.0) else multiply(mop.hitVec, 1.00).addVector(0.0, Math.ceil(mop.hitVec.yCoord) - mop.hitVec.yCoord, 0.0),
+                                                                                                                                               0.0) else multiply(mop.hitVec, 1.00).addVector(0.0, Math.ceil(mop.hitVec.yCoord) - mop.hitVec.yCoord, 0.0),
                     MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw),
                     mc.thePlayer.rotationPitch,
                     AutoRouteUtils.currentRoom!!.rotation
