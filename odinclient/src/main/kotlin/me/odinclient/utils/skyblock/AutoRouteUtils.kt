@@ -100,7 +100,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawCylinder(
-                                 currentRoom!!.getRealCoords(route.pos), tolerance, tolerance, .1f, 35,
+                                route.pos, tolerance, tolerance, .1f, 35,
                                 1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
                         )
                         
@@ -115,7 +115,7 @@ class AutoRouteUtils : Module(
                 {
                     if (lastRoute != null && lines)
                     {
-                        Renderer.draw3DLine(points = listOf(currentRoom!!.getRealCoords(lastRoute.pos), currentRoom!!.getRealCoords(route.pos)),
+                        Renderer.draw3DLine(points = listOf(currentRoom!!.getRealCoords(getOffset(lastRoute.pos, lastRoute.rotation, currentRoom!!.rotation)), currentRoom!!.getRealCoords(getOffset(route.pos, route.rotation, currentRoom!!.rotation))),
                                    color = me.odinmain.utils.render.Color.WHITE,
                                    lineWidth = 2f,
                                    depth = renderDepthCheck)
@@ -123,7 +123,7 @@ class AutoRouteUtils : Module(
                     if(boxes)
                     {
                         Renderer.drawCylinder(
-                                 currentRoom!!.getRealCoords(route.pos), tolerance, tolerance, .1f, 35,
+                                 currentRoom!!.getRealCoords(getOffset(route.pos, route.rotation, currentRoom!!.rotation)), tolerance, tolerance, .1f, 35,
                                 1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
                         )
                         
@@ -173,7 +173,7 @@ class AutoRouteUtils : Module(
                     .stream().sorted(Comparator.comparingInt { r: RoutesManager.Route -> r.subId })
                     .collect(Collectors.toList())
 
-                     mc.thePlayer.addChatMessage(ChatComponentText("hi"))
+                    
                 for (i in routes.indices) {
                     if (routes.size < 2) continue
                     val route = routes[i]
@@ -181,7 +181,7 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.posX,
                             mc.thePlayer.posY,
                             mc.thePlayer.posZ
-                        ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(route.pos))
+                        ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(getOffset(route.pos, route.rotation, currentRoom!!.rotation)))
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void"))
@@ -194,7 +194,7 @@ class AutoRouteUtils : Module(
                         
                         val nextRoute = routes[i + 1]
                         
-                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(nextRoute.pos))).toFloat()
+                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos, nextRoute.rotation, currentRoom!!.rotation)))).toFloat()
                         val pitch: Float = nextRoute.pitch
 
                         if(silentRotations)
@@ -202,8 +202,8 @@ class AutoRouteUtils : Module(
                             event.yaw = yaw
                             event.pitch = pitch
 
-                            mc.thePlayer.addChatMessage(ChatComponentText("dy: " + currentRoom!!.getRealCoords(nextRoute.pos)))
-                            mc.thePlayer.addChatMessage(ChatComponentText("yaw: " + yaw + ", pitch: " + pitch))
+                           /* mc.thePlayer.addChatMessage(ChatComponentText("dy: " + currentRoom!!.getRealCoords(nextRoute.pos)))
+                            mc.thePlayer.addChatMessage(ChatComponentText("yaw: " + yaw + ", pitch: " + pitch))*/
                         }
                         else
                         {
@@ -225,7 +225,7 @@ class AutoRouteUtils : Module(
                         {
                                
                               event.clicked = true
-                              mc.thePlayer.addChatMessage(ChatComponentText("clicked"))
+                              //mc.thePlayer.addChatMessage(ChatComponentText("clicked"))
                               clickTimer.reset()
                         }
                     }
@@ -271,6 +271,32 @@ class AutoRouteUtils : Module(
         val pitch: Float = -(Math.atan2(diffY.toDouble(), dist.toDouble()) * 180.0 / Math.PI.toDouble()).toFloat()
         return _pitch + net.minecraft.util.MathHelper.wrapAngleTo180_float(pitch - _pitch)
     }
+
+    fun getOffset(vec: Vec3, initial: Rotations, current: Rotations): Vec3 {
+        _vec: Vec3 = Vec3(vec.xCoord, vec.yCoord, vec.zCoord)
+    return when (initial) {
+        Rotations.NORTH -> vec
+        Rotations.WEST -> when (current) {
+            Rotations.NORTH -> vec
+            Rotations.WEST -> vec
+            Rotations.SOUTH -> _vec.addVector(0.0, 0.0, -1.0)
+            Rotations.EAST -> vec
+            else -> vec
+        }
+        Rotations.SOUTH -> when (current) {
+            Rotations.NORTH -> vec
+            Rotations.WEST ->  _vec.addVector(0.0, 0.0, 1.0)
+            Rotations.SOUTH -> vec
+            Rotations.EAST -> vec
+            else -> vec
+        }
+        Rotations.EAST -> vec
+        else -> vec
+    }
+}
+
+
+    
     
     
 
