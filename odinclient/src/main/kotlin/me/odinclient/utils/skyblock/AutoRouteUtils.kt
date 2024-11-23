@@ -273,7 +273,7 @@ class AutoRouteUtils : Module(
     }
 
     fun getOffset(vec: Vec3, initial: Rotations, current: Rotations): Vec3 {
-        _vec: Vec3 = Vec3(vec.xCoord, vec.yCoord, vec.zCoord)
+        var _vec: Vec3 = Vec3(vec.xCoord, vec.yCoord, vec.zCoord)
     return when (initial) {
         Rotations.NORTH -> vec
         Rotations.WEST -> when (current) {
