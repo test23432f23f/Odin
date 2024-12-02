@@ -63,10 +63,6 @@ class AutoRouteUtils : Module(
     private val offsetX by NumberSetting("Offset X", 0, -1, 1, unit = " blocks", description = "")
     private val offsetZ by NumberSetting("Offset Z", 0, -1, 1, unit = " blocks", description = "")
  
-
- 
-    
-   
     @SubscribeEvent
     fun onRoom(event: RoomEnterEvent) {
         currentRoom = event.room
@@ -99,55 +95,44 @@ class AutoRouteUtils : Module(
                     }
                     if(boxes)
                     {
-                        Renderer.drawCylinder(
+                        /*Renderer.drawCylinder(
                                 route.pos, tolerance, tolerance, .1f, 35,
                                 1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
-                        )
+                        )*/
                         
-                       /* Renderer.drawBlock(
+                       Renderer.drawBlock(
                         pos = BlockPos(route.pos),
                         color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                         fillAlpha = 0,
-                        depth = (renderDepthCheck && route.subId != 0))*/
+                        depth = (renderDepthCheck && route.subId != 0))
                     }
                 }
                 else
                 {
                     if (lastRoute != null && lines)
                     {
-                        Renderer.draw3DLine(points = listOf(currentRoom!!.getRealCoords(getOffset(lastRoute.pos, lastRoute.rotation, currentRoom!!.rotation)), currentRoom!!.getRealCoords(getOffset(route.pos, route.rotation, currentRoom!!.rotation))),
+                        Renderer.draw3DLine(points = listOf(currentRoom.getRealCoords(lastRoute.pos), currentRoom.getRealCoords(route.pos)),
                                    color = me.odinmain.utils.render.Color.WHITE,
                                    lineWidth = 2f,
                                    depth = renderDepthCheck)
                     }
                     if(boxes)
                     {
-                        Renderer.drawCylinder(
+                        /*Renderer.drawCylinder(
                                  currentRoom!!.getRealCoords(getOffset(route.pos, route.rotation, currentRoom!!.rotation)), tolerance, tolerance, .1f, 35,
                                 1, 0f, 90f, 90f, if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!
-                        )
+                        )*/
                         
-                         /*Renderer.drawBlock(
+                         Renderer.drawBlock(
                          pos = BlockPos(currentRoom!!.getRealCoords(route.pos)),
                          color = if(route.subId == 0) me.odinmain.utils.render.Color.GREEN else route.type.color!!,
                          fillAlpha = 0,
-                         depth = (renderDepthCheck && route.subId != 0))*/
+                         depth = (renderDepthCheck && route.subId != 0))
                     }
                 }
                 
                 lastRoute = route
             }
-        }
-    }
-
-  
-
-    @SubscribeEvent
-    fun onPacketC08(event: PacketSentEvent)
-    {
-        if(event.packet is C08PacketPlayerBlockPlacement)
-        {
-            
         }
     }
 
@@ -163,7 +148,7 @@ class AutoRouteUtils : Module(
         if (mc.thePlayer == null || editMode) {
             return
         }
-        if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null || !mc.thePlayer.isSneaking()) {
+        if (RoutesManager.instance.loadedRoutes.isEmpty() || RoutesManager.instance.loadedRoutes.get(currentRoomName!!) == null) {
             return
         }
        
@@ -181,7 +166,7 @@ class AutoRouteUtils : Module(
                             mc.thePlayer.posX,
                             mc.thePlayer.posY,
                             mc.thePlayer.posZ
-                        ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(getOffset(route.pos, route.rotation, currentRoom!!.rotation)))
+                        ).distanceTo(if(currentRoom == null) route.pos else currentRoom!!.getRealCoords(route.pos)
                                 <= tolerance) && i < routes.size && i + 1 < routes.size && ((getSkyBlockID(mc.thePlayer.heldItem)
                                 == "ASPECT_OF_THE_VOID") || getDisplayName(mc.thePlayer.heldItem).lowercase()
                             .contains("aspect of the void"))
@@ -194,7 +179,7 @@ class AutoRouteUtils : Module(
                         
                         val nextRoute = routes[i + 1]
                         
-                        val yaw: Float = (getYaw(event.yaw, currentRoom!!.getRealCoords(getOffset(nextRoute.pos, nextRoute.rotation, currentRoom!!.rotation)))).toFloat()
+                        val yaw: Float = getYaw(event.yaw, currentRoom!!.getRealCoords(nextRoute.pos)).toFloat()
                         val pitch: Float = nextRoute.pitch
 
                         if(silentRotations)
